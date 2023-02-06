@@ -34,7 +34,6 @@ const App = () => {
         />
         <TouchableOpacity
           onPress={() => {
-            console.log((backgroundColorIndex + 1) % colors.length);
             setBackgroundColorIndex((backgroundColorIndex + 1) % colors.length);
           }}
           style={{
