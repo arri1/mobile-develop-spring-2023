@@ -1,11 +1,11 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Lab1} from './src/views/lab1/lab1';
+import Lab1 from './src/views/lab1/Lab1';
 
 const Stack = createNativeStackNavigator();
 
-function App(): JSX.Element {
+function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="FirstLab">
