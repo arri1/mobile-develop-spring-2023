@@ -11,12 +11,14 @@ import {
   Alert,
 } from 'react-native';
 
-const Separator = () => <View style={styles.separator} />;
-const STYLES = ['default', 'dark-content', 'light-content'];
-const TRANSITIONS = ['fade', 'slide', 'none'];
+const Separator = () => <View style={styles.separator} />
 
 const App = () => (
+  
+
   <SafeAreaView style={styles.container}>
+
+
     <View>
       <Text style={styles.welcome}>
         Это кошка?
@@ -44,6 +46,8 @@ const App = () => (
 
 
 const styles = StyleSheet.create({
+
+
   container: {
       flex: 1,
       justifyContent: 'center',
@@ -73,6 +77,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   
-});
+})
+
+
 
 export default App;
