@@ -1,8 +1,10 @@
-import React from 'react';
+import * as React from 'react';
+
 import { 
   StyleSheet, 
   Button,
   Text, 
+  StatusBar,
   SafeAreaView,
   View, 
   Image,
@@ -10,6 +12,8 @@ import {
 } from 'react-native';
 
 const Separator = () => <View style={styles.separator} />;
+const STYLES = ['default', 'dark-content', 'light-content'];
+const TRANSITIONS = ['fade', 'slide', 'none'];
 
 const App = () => (
   <SafeAreaView style={styles.container}>
@@ -33,6 +37,7 @@ const App = () => (
       onPress={() => Alert.alert('неправильно, лох)')}
     />
     </View>
+    
     </SafeAreaView>
     
 );
