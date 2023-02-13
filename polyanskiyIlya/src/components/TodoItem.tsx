@@ -11,7 +11,7 @@ type Props = TodoItemModel & {
   deleteHandler: (id: number) => void;
 };
 
-function TodoItem({title, id, deleteHandler}: Props) {
+const TodoItem = ({title, id, deleteHandler}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.border}>
@@ -22,7 +22,7 @@ function TodoItem({title, id, deleteHandler}: Props) {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
