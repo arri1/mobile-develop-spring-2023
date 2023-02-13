@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 const getCats = () => {
-  let cats = [];
+  const cats = [];
   for (let i = 400; i < 419; i++) {
     cats.push(i);
   }
@@ -38,7 +38,7 @@ const App = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          let randomIndex = Math.floor(Math.random() * cats.length);
+          const randomIndex = Math.floor(Math.random() * cats.length);
           setCatIndex(randomIndex);
         }}
       >
