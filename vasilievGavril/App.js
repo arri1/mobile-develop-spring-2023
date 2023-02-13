@@ -1,5 +1,6 @@
-import * as React from 'react';
-
+import React, {useState} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { 
   Modal,
   StyleSheet, 
@@ -12,155 +13,38 @@ import {
   Alert,
 } from 'react-native';
 
-const Separator = () => <View style={styles.separator} />
+import Home from './indexs/home';
+import Navi2 from './indexs/navi2';
+const Tab = createBottomTabNavigator();
 
 const App = () => {
+  const [count, setCount] = useState(0)
 
-  const [count, setCount] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
-
-
-  const onClick = () => {
-    setCount(count + 1);
+  const addBarBadge = () => {
+      setCount(count+1)
   }
-  return(
-    <SafeAreaView style={styles.container}>
-
-      <Text style={styles.welcome}>
-        Это кошка?
-        </Text>
-      <Image style={styles.image_cat} source={require('./assets/cat.png')} 
-      />
+  const removeBarBadge = () => {
+      if(count != 0) setCount(count-1)
+  }
 
 
+  return (
+      <SafeAreaView style={{ flex: 1 }}>
+          <NavigationContainer>
+              <Tab.Navigator
+                  screenOptions={{
+                      tabBarStyle: { height: '8%' },
+                      tabBarItemStyle: { flexDirection: 'column', justifyContent: 'center' },
 
-    <Separator />
-
-    <View style={styles.fixToText}>
-    <Button
-      title="да"
-      onPress={() => Alert.alert('правильно, это кошка)')}
-
-    />
-    <Button
-      title="нет"
-      onPress={() => Alert.alert('неправильно, лох)')}
-    />
-    </View>
-
-    <Separator />
-
-    <Text style={styles.welcome}>
-      Вы кликнули {count} раз
-    </Text>
-    <Button
-      title="Кликать"
-      onPress={onClick}
-
-    />
-
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={open}
-        onRequestClose={() => {
-          Alert.alert('Гифка была закрыта');
-          setOpen(!open);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Image style={styles.modalText} source={require('./assets/hungry.gif')}
-            />
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setOpen(!open)}>
-              <Text style={styles.textStyle}>Закрыть гифку</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setOpen(true)}>
-        <Text style={styles.textStyle}>Показать гифку</Text>
-      </Pressable>
-    </View>
-    
-  </SafeAreaView>
-  
+                      tabBarLabelStyle: { margin: 0, fontSize: 20, width: '50%' },
+                  }}
+              >
+                  <Tab.Screen name="Home" children={() => <Home addBarBadge={addBarBadge}/>} options={count != 0 ? { tabBarBadge: count } : ''}/>
+                  <Tab.Screen name="Navi2" children={() => <Navi2 removeBarBadge={removeBarBadge}/>} />
+              </Tab.Navigator>
+          </NavigationContainer>
+      </SafeAreaView>
   );
-}
+};
 
-
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-      
-  },
-  image_cat:{
-
-    alignItems: 'center',
-    width: 160,
-    height: 100,
-  },
-  fixToText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  centeredView: {
-
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    margin:25,
-    textAlign: 'center',
-  }
-});
 export default App
