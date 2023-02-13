@@ -9,18 +9,21 @@ export default function App() {
 
   const [showSquare, setshowSquare]= useState(false);
   const [showCircle, setshowCircle]= useState(false);
+  const [showTriangle, setshowTriangle]= useState(false);
 
   const changeShape = (shape) => {
     setshowSquare(shape =='Square')
     setshowCircle(shape =='Circle')
+    setshowTriangle(shape =='Triangle')
   }
-  
+
   return (
     <SafeAreaView>
       <View style={styles.main}> 
         <View style={
         showSquare ? styles2.Square :
-        showCircle ? styles2.Circle : ''
+        showCircle ? styles2.Circle :
+        showTriangle ? styles2.Triangle : ''
         }
         />
           <Text style={{top: 200, fontSize: 40}}>{count}</Text>
@@ -87,10 +90,9 @@ export default function App() {
         </TouchableOpacity>
         <View style={styles.container}>
         <TouchableOpacity style={styles.buttonPurple}
-           onPress={() => {
-           }}
-          >
-            <Text style={styles.buttonText}>purple</Text>
+           onPress={() => changeShape('Triangle')}
+           >
+             <Text style={styles.buttonText}>Triangle</Text>
         </TouchableOpacity>
         </View>
       </View>
@@ -113,15 +115,16 @@ const styles2 = StyleSheet.create({
     backgroundColor: 'blue'
   },
   Triangle:{
+    top: 430,
     width: 0,
     height: 0,
-    borderLeftWidth:60,
-    borderRightWidth:60,
-    borderBottomWidth:120,
-    borderStyle:'solib',
+    borderLeftWidth:40,
+    borderRightWidth:40,
+    borderBottomWidth:80,
+    borderStyle:'solid',
     backgroundColor: 'transparent',
     borderLeftColor: 'transparent',
-    borderRighColor: 'transparent',
+    borderRightColor: 'transparent',
     borderBottomColor: 'orange'
   }
 }) 
