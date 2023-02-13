@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { TouchableOpacity, View, Dimensions } from "react-native";
 
-export default function App() {
+const App = () => {
+  const [size, setSize] = useState(100);
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+
   return (
-    <View style={styles.container}>
-      <Text>SOBYANIN SERGEY FIIT19</Text>
-      <StatusBar style="auto" />
-    </View>
+    <View style={{     
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "black" 
+    }}>
+    <TouchableOpacity
+      onPress={() => {
+        if (size > windowWidth || size > windowHeight) {
+          setSize(100)
+        }
+        else setSize(size + 50)
+      }}
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        backgroundColor: '#004524',
+      }}
+    />
+  </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
