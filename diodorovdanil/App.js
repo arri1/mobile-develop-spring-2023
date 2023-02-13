@@ -2,7 +2,8 @@ import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet } from 'react-na
 import {useState} from 'react'
 
 const colours = ['black', 'red', 'green', 'blue', 'yellow', 'orange', 'purple']
-export default function App() {
+
+const App = () => {
   const [count, setCount] = useState(0)
   const [currentColourIndex, setCurrentColourIndex] = useState(0)
 
@@ -85,3 +86,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   }
 })
+
+export default App
