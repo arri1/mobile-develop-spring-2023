@@ -4,10 +4,10 @@
  *
  * @format
  */
-import { useState } from "react";
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {useState} from 'react';
+import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 
-const signMassive = ["+", "-", "*","/"];
+const signMassive = ['+', '-', '*', '/'];
 
 const App = () => {
   const [fisrstCount, setFisrstCount] = useState(0);
@@ -19,24 +19,23 @@ const App = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        justifyContent: "center",
-      }}
-    >
-      <View style={{ margin: 15 }}>
-        <View style={{ alignItems: "center"}}>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800"}}>
+        justifyContent: 'center',
+      }}>
+      <View style={{margin: 15}}>
+        <View style={{alignItems: 'center'}}>
+          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
             {fisrstCount}
           </Text>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800"}}>
+          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
             {signMassive[sign]}
           </Text>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800" }}>
+          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
             {secondCount}
           </Text>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800" }}>
+          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
             =
           </Text>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800" }}>
+          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
             {result}
           </Text>
         </View>
@@ -44,14 +43,20 @@ const App = () => {
         <TouchableOpacity
           onPress={() => {
             setFisrstCount(fisrstCount + 1);
-          }}       
+          }}
           style={{
             marginTop: 10,
             borderRadius: 10,
             height: 40,
-            backgroundColor: "red"
+            backgroundColor: 'red',
           }}>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800", textAlign: "center"}}>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 20,
+              fontWeight: '800',
+              textAlign: 'center',
+            }}>
             1 Число
           </Text>
         </TouchableOpacity>
@@ -64,9 +69,15 @@ const App = () => {
             marginTop: 10,
             borderRadius: 10,
             height: 40,
-            backgroundColor: "red"
+            backgroundColor: 'red',
           }}>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800", textAlign: "center"}}>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 20,
+              fontWeight: '800',
+              textAlign: 'center',
+            }}>
             Знак
           </Text>
         </TouchableOpacity>
@@ -79,34 +90,42 @@ const App = () => {
             marginTop: 10,
             borderRadius: 10,
             height: 40,
-            backgroundColor: "red"
+            backgroundColor: 'red',
           }}>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800", textAlign: "center"}}>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 20,
+              fontWeight: '800',
+              textAlign: 'center',
+            }}>
             2 Число
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {
-            if(signMassive[sign]=='+')
-              setResult(fisrstCount + secondCount);
-            if(signMassive[sign]=='*')
-              setResult(fisrstCount * secondCount)
-            if(signMassive[sign]=='-')
-              setResult(fisrstCount - secondCount)
-            if(signMassive[sign]=='/')
-              setResult(fisrstCount / secondCount)
+            if (signMassive[sign] == '+') setResult(fisrstCount + secondCount);
+            if (signMassive[sign] == '*') setResult(fisrstCount * secondCount);
+            if (signMassive[sign] == '-') setResult(fisrstCount - secondCount);
+            if (signMassive[sign] == '/') setResult(fisrstCount / secondCount);
           }}
           style={{
             marginTop: 10,
             borderRadius: 10,
             height: 40,
-            backgroundColor: "red"
+            backgroundColor: 'red',
           }}>
-          <Text style={{color: "black", fontSize: 20, fontWeight: "800", textAlign: "center"}}>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 20,
+              fontWeight: '800',
+              textAlign: 'center',
+            }}>
             Результат
           </Text>
-        </TouchableOpacity>      
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
