@@ -1,50 +1,73 @@
-import { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useState } from "react";
+import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 
-const colors = ['red', 'white', 'blue', 'black'];
+const colors = ["red", "green", "blue"];
+const moreColors = ["pink", "cyan", "violet"];
+
 const App = () => {
-  const [count,setCount] = useState(0);
-  const [backgroundColor, setBackgroundColor] = useState(0);
+  const [count, setCount] = useState(0);
+  const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
+  const [moreColorsIndex, setmoreColorsIndex] = useState(0);
 
   return (
     <SafeAreaView
       style={{
-        backgroundColor,
+        backgroundColor: colors[backgroundColorIndex],
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: "center",
       }}
     >
-      <View style={{ margin: 15}}>
-        <View style={{alignItems: "center"}}>
-          <Text style={{color: "white", fontSize: "20", fontWeight: "800"}}>
-            {count}
+      <View style={{ margin: 30 }}>
+        <View style={{ alignItems: "baseline" }}>
+          <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
+            Counter: {count}
           </Text>
         </View>
         <TouchableOpacity
           onPress={() => {
             setCount(count + 1);
           }}
-          style={{ 
+          style={{
+            
             marginTop: 10,
-            borderRadius: 10, 
-            height: 40, 
-            backgroundColor: "blue" 
+            borderRadius: 10,
+            height: 50,
+            backgroundColor: colors[(backgroundColorIndex + 1) % colors.length],
           }}
         />
+        <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
+          Change color
+        </Text>
         <TouchableOpacity
           onPress={() => {
-            console.log((backgroundColorIndex + 1) % ())
+            setBackgroundColorIndex((backgroundColorIndex + 1) % colors.length);
           }}
-          style={{ 
+          style={{
             marginTop: 10,
-            borderRadius: 10, 
-            height: 40, 
-            backgroundColor: "blue" 
+            borderRadius: 10,
+            height: 50,
+            backgroundColor: colors[(backgroundColorIndex + 1) % colors.length],
+          }}
+        />
+        <View style={{ alignItems: "center" }}>
+          <Text style={{ color: moreColors[(moreColorsIndex + 1)], fontSize: 20, fontWeight: "800" }}>
+            Very useful button
+          </Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => {
+            setmoreColorsIndex((moreColorsIndex + 1) % moreColors.length);
+          }}
+          style={{
+            marginTop: 10,
+            borderRadius: 10,
+            height: 50,
+            backgroundColor: "black",
           }}
         />
       </View>
     </SafeAreaView>
   );
-}
+};
 
-export default App
+export default App;
