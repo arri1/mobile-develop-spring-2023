@@ -40,7 +40,7 @@ const Lab1 = () => {
             }
 
             setTodoList(prev => {
-              let newTodoId = Math.max(...prev.map(todo => todo.id), -1) + 1;
+              const newTodoId = Math.max(...prev.map(todo => todo.id), -1) + 1;
 
               return [
                 ...prev,

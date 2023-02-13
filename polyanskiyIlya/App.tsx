@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 const Tab = createBottomTabNavigator();
 
-function App() {
+const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
@@ -23,6 +23,6 @@ function App() {
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default App;
