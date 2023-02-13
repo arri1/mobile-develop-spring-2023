@@ -1,33 +1,35 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { TouchableOpacity, View, Dimensions } from "react-native";
 
 const App = () => {
   const [size, setSize] = useState(100);
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
 
   return (
-    <View style={{     
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "black" 
-    }}>
-    <TouchableOpacity
-      onPress={() => {
-        if (size > windowWidth || size > windowHeight) {
-          return setSize(100)
-        }
-        return setSize(size + 50)
-      }}
+    <View
       style={{
-        width: size,
-        height: size,
-        borderRadius: size / 2,
-        backgroundColor: '#004524',
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "black",
       }}
-    />
-  </View>
+    >
+      <TouchableOpacity
+        onPress={() => {
+          if (size > windowWidth || size > windowHeight) {
+            return setSize(100);
+          }
+          return setSize(size + 50);
+        }}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: size / 2,
+          backgroundColor: "#004524",
+        }}
+      />
+    </View>
   );
 };
 
