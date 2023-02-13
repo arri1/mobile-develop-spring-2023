@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export interface TodoItemModel {
   title: string;
@@ -16,7 +17,7 @@ function TodoItem({title, id, deleteHandler}: Props) {
       <View style={styles.border}>
         <Text style={styles.todoTitle}>{title}</Text>
         <TouchableOpacity onPress={() => deleteHandler(id)}>
-          <Image style={styles.trashIcon} source={require('./trash.png')} />
+          <Icon name="trash-can-outline" color={'red'} size={24} />
         </TouchableOpacity>
       </View>
     </View>
