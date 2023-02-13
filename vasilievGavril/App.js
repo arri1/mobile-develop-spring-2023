@@ -14,7 +14,7 @@ import {
 
 const Separator = () => <View style={styles.separator} />
 
-export default function App(){
+const App = () => {
 
   const [count, setCount] = React.useState(0);
   const [open, setOpen] = React.useState(false);
@@ -25,16 +25,17 @@ export default function App(){
   }
   return(
     <SafeAreaView style={styles.container}>
-    <View>
+
       <Text style={styles.welcome}>
         Это кошка?
         </Text>
       <Image style={styles.image_cat} source={require('./assets/cat.png')} 
       />
 
-    </View>
+
 
     <Separator />
+
     <View style={styles.fixToText}>
     <Button
       title="да"
@@ -46,7 +47,9 @@ export default function App(){
       onPress={() => Alert.alert('неправильно, лох)')}
     />
     </View>
+
     <Separator />
+
     <Text style={styles.welcome}>
       Вы кликнули {count} раз
     </Text>
@@ -160,3 +163,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   }
 });
+export default App
