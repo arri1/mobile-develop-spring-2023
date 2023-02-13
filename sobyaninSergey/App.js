@@ -16,9 +16,9 @@ const App = () => {
     <TouchableOpacity
       onPress={() => {
         if (size > windowWidth || size > windowHeight) {
-          setSize(100)
+          return setSize(100)
         }
-        else setSize(size + 50)
+        return setSize(size + 50)
       }}
       style={{
         width: size,
