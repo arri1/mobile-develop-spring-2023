@@ -1,67 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView, View, StyleSheet, Text, TouchableOpacity,
+} from 'react-native';
+import Constants from 'expo-constants';
+import { useEffect, useState } from 'react';
 
-import Constants from "expo-constants";
-import {useState} from 'react'
-
-
-
-export default function App() {
-
-  let win = "Вы победили!"
-  let lose = "Вы проиграли!"
-  let draw = "Ничья!"
+const Lab1 = () => {
+  const win = 'Вы победили!';
+  const lose = 'Вы проиграли!';
+  const draw = 'Ничья!';
 
   const [playerChoice, setPlayerChoice] = useState(null);
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState(null);
 
-  function checkResult(){
-    let res = "";
+  useEffect(() => {
+    setResult(checkResult(playerChoice, computerChoice));
+  }, [playerChoice, computerChoice]);
 
+  const checkResult = () => {
+    if (playerChoice === computerChoice){
+      return draw;
+    }
     if (playerChoice === 1) {
-      res = computerChoice === 2 ? win : lose;
-    } else if (playerChoice === 2) {
-      res = computerChoice === 3 ? win : lose;
-    } else {
-      res = computerChoice === 1 ? win : lose;
+      return computerChoice === 2 ? win : lose;
     }
-
-    if (playerChoice === computerChoice) {
-      res = draw;
+    if (playerChoice === 2) {
+      return computerChoice === 3 ? win : lose;
     }
+    if (playerChoice === 3) {
+      return computerChoice === 1 ? win : lose;
+    }
+  };
 
-    return res
-  }
+  const play = (player) => {
+    setPlayerChoice(player);
+    setComputerChoice(Math.floor(Math.random() * 3) + 1); // 1, 2, 3 : камень, ножницы, бумага
+  };
 
-  function play(player) {
-    setPlayerChoice(player)
-    setComputerChoice(Math.floor(Math.random() * 3) + 1) // 1, 2, 3 : камень, ножницы, бумага
-    
-    setTimeout(() => {
-      setResult(checkResult(playerChoice, computerChoice));
-    }, 1000);
-
-    console.log(playerChoice, computerChoice, result)
-  }
-
-  function choiceWord(choice) {
+  const choiceWord = (choice) => {
     switch (choice) {
       case 1:
-        return "Камень"
+        return 'Камень';
       case 2:
-        return "Ножницы"
+        return 'Ножницы';
       case 3:
-        return "Бумага"
+        return 'Бумага';
       default:
-        break;
+        return '';
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <View style={styles.mainContainer}>
-
 
         <View style={styles.gameResult}>
           <Text style={styles.gameResultText}>{result}</Text>
@@ -104,15 +95,15 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     flex: 1,
     backgroundColor: '#787878',
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
     // alignItems: 'center',
     // justifyContent: 'center',
   },
   whiteText: {
-    color: '#fff'
+    color: '#fff',
   },
   blackText: {
-    color: '#000'
+    color: '#000',
   },
   playerName: {
     fontSize: 20,
@@ -120,25 +111,25 @@ const styles = StyleSheet.create({
 
   gameResult: {
     height: 120,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
 
-    alignItems: "center",
+    alignItems: 'center',
   },
   gameResultText: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 
   gameField: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: "space-around",
+    justifyContent: 'space-around',
   },
   col: {
     flex: 1,
-    justifyContent: "",
-    alignItems: "center",
+    justifyContent: '',
+    alignItems: 'center',
   },
 
   gameButtons: {
@@ -156,3 +147,5 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 });
+
+export default Lab1;
