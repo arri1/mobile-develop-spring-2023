@@ -10,14 +10,26 @@
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.4",
-    "expo": "^1.0.0",
+    "expo": "^47.0.13",
+    "expo-constants": "^14.0.2",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
     "react-native": "0.70.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "prettier": "2.8.4"
+    "eslint": "^8.34.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-native": "^4.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4"
   },
   "private": true
 }
