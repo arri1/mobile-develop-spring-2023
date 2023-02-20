@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 
+
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   return (
