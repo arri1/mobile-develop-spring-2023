@@ -1,15 +1,20 @@
 import { StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-export default function DeleteButton({setTodos}) {
-    return (
-        <TouchableOpacity 
-        style={styles.deleteButton}
-        onPress = {() => {setTodos([]);}}
-        >
-          <Text style={{fontSize:20, color:'white'}}>Удалить</Text>
-        </TouchableOpacity>
+
+
+const DeleteButton = ({setTodos})=>
+{
+  return (
+    <TouchableOpacity 
+    style={styles.deleteButton}
+    onPress = {() => {setTodos([]);}}
+    >
+      <Text style={{fontSize:20, color:'white'}}>Удалить</Text>
+    </TouchableOpacity>
     );
 }
+
+export default DeleteButton;
 
 const styles = StyleSheet.create({
     deleteButton:
