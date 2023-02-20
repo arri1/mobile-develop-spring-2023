@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Lab1 from './components/screens/lab1.js'
-import Lab2 from './components/screens/lab2.js'
+import Lab1 from "./components/screens/lab1.js";
+import Lab2 from "./components/screens/lab2.js";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,6 +16,6 @@ const App = () => {
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default App;
