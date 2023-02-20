@@ -1,33 +1,20 @@
-import { useState } from 'react';
-import { TouchableOpacity, View, Dimensions } from "react-native";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import Lab1 from "./components/screens/lab1.js";
+import Lab2 from "./components/screens/lab2.js";
+
+const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const [size, setSize] = useState(100);
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
-
   return (
-    <View style={{     
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "black" 
-    }}>
-    <TouchableOpacity
-      onPress={() => {
-        if (size > windowWidth || size > windowHeight) {
-          setSize(100)
-        }
-        else setSize(size + 50)
-      }}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: size / 2,
-        backgroundColor: '#004524',
-      }}
-    />
-  </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="LAB 1" component={Lab1} />
+        <Tab.Screen name="LAB 2" component={Lab2} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
