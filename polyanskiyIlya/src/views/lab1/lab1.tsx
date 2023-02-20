@@ -4,12 +4,6 @@ import {Button, StyleSheet, TextInput, View} from 'react-native';
 import TodoItem, {TodoItemModel} from '../../components/TodoItem';
 
 const Lab1 = () => {
-  const removeTodoItem = (id: number) => {
-    setTodoList(() => {
-      return [...todoList.filter((todo: TodoItemModel) => todo.id !== id)];
-    });
-  };
-
   const [todoList, setTodoList] = useState<TodoItemModel[]>([
     {
       id: 0,
@@ -17,6 +11,12 @@ const Lab1 = () => {
     },
   ]);
   const [todoTextInput, setTodoInputText] = useState('');
+
+  const removeTodoItem = (id: number) => {
+    setTodoList(() => {
+      return [...todoList.filter((todo: TodoItemModel) => todo.id !== id)];
+    });
+  };
 
   return (
     <SafeAreaView>
