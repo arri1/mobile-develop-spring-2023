@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Text, View, Button } from "react-native";
 
 const Lab2 = () => {
-  const [recourceType, setRecourceType] = useState("");
+  const [recourceType, setRecourceType] = useState("photos");
   const [index, setIndex] = useState("1");
   const [items, setItems] = useState("");
 
@@ -29,6 +29,7 @@ const Lab2 = () => {
         }}
         title="photos"
       />
+      <Text></Text>
       <Button
         onPress={() => {
           setRecourceType("albums");
