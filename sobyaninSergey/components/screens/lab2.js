@@ -19,7 +19,6 @@ const Lab2 = () => {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "gray",
-        
       }}
     >
       <Button
@@ -38,7 +37,9 @@ const Lab2 = () => {
         title="albums"
       />
       <Text></Text>
-      <Text>{recourceType} title: {JSON.stringify(items["title"])}</Text>
+      <Text>
+        {recourceType} title: {JSON.stringify(items["title"])}
+      </Text>
     </View>
   );
 };
