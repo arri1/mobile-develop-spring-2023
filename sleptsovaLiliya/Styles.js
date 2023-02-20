@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     buttonOrange: {
       height: 60,
       width: '40%',
-      backgroundColor: 'orange',
+      backgroundColor: 'blue',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -26,11 +26,11 @@ export const styles = StyleSheet.create({
     buttonYellow: {
       height: 60,
       width: '40%',
-      backgroundColor: 'yellow',
+      backgroundColor: 'green',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: 30
+      marginTop: 40
     },
     buttonGreen: {
         height: 60,
@@ -39,30 +39,30 @@ export const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30
+        marginTop: 40
       },
       buttonSkyblue: {
         height: 60,
         width: '40%',
-        backgroundColor: '#7FFFD4',
+        backgroundColor: 'purple',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30
+        marginTop: 0
       },
       buttonBlue: {
         height: 60,
         width: '40%',
-        backgroundColor: 'blue',
+        backgroundColor: 'purple',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30
+        marginTop: 0
       },
       buttonPurple: {
         height: 60,
         width: '90%',
-        backgroundColor: 'purple',
+        backgroundColor: 'green',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
       width: '80%',
       display: 'flex',
       alignItems: 'center',
-      marginTop: 70,
+      marginTop: 50,
       flexDirection: 'row',
       justifyContent: 'space-around',
       color:'black'
