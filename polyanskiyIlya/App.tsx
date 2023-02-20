@@ -5,7 +5,7 @@ import Lab1 from './src/views/lab1/Lab1';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/AntDesign';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
-import Lab2 from './src/views/lab1/Lab2';
+import Lab2 from './src/views/lab2/Lab2';
 
 const Tab = createBottomTabNavigator();
 
