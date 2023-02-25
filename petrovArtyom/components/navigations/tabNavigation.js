@@ -3,7 +3,6 @@ import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 import Test from "../screens/test";
 
-
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
