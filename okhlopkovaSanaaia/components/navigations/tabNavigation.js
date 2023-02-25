@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
+import Lab3 from "../screens/lab3";
 
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
@@ -18,6 +19,7 @@ const TabNavigation = () => {
     >
       <Tab.Screen name="Lab 1" component={Lab1} />
       <Tab.Screen name="Lab 2" component={Lab2} />
+      <Tab.Screen name="Lab 3" component={Lab3} />
     </Tab.Navigator>
   );
 };
