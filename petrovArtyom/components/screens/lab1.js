@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Lab2 from "../screens/lab2";
 import {
   SafeAreaView,
@@ -20,11 +20,21 @@ const Lab1 = () => {
   ]);
 
   const [text, setvalue] = useState("");
-  const [asd, setasd] = useState(0);
+  const [index, setvalueChek] = useState("");
+  const [sum, setsum] = useState(0);
+  const [a, seta] = useState(5);
 
   const onChange = (text) => {
     setvalue(text);
   };
+
+  const onChangeChek = (index) => {
+    setvalueChek(index);
+  };
+
+  useEffect(() => {
+    seta(a + 1);
+  }, [listOfItems]);
 
   const addHandler = (text, index) => {
     setListOfItems((list) => {
@@ -32,7 +42,7 @@ const Lab1 = () => {
         {
           text: text,
           index: index,
-          key: Math.random().toString(36).substring(7),
+          key: String(a),
         },
         ...list,
       ];
@@ -51,14 +61,24 @@ const Lab1 = () => {
         <Text style={styles.text}>Список товаров</Text>
       </View>
       <View>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChange}
-          placeholder="Название товара"
-        />
+        <View style={{ flexDirection: "row" }}>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChange}
+            placeholder="Товар"
+          />
+          <TextInput
+            style={styles.input2}
+            onChangeText={onChangeChek}
+            placeholder="Цена"
+          />
+        </View>
 
         <View style={{ marginHorizontal: "20%" }}>
-          <Button title="Добавить товар" onPress={() => addHandler(text, 10)} />
+          <Button
+            title="Добавить товар"
+            onPress={() => addHandler(text, Number(index))}
+          />
         </View>
       </View>
       <View style={{ height: 350 }}>
@@ -68,7 +88,7 @@ const Lab1 = () => {
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
                 style={{ width: "70%" }}
-                onPress={() => setasd(asd+item.index)}
+                onPress={() => setsum(sum + item.index)}
               >
                 <Text style={styles.listtext}>{item.text}</Text>
               </TouchableOpacity>
@@ -79,7 +99,16 @@ const Lab1 = () => {
           )}
         />
       </View>
-      <View style={styles.head}><Text style={{textAlign: "center"}}>{asd}</Text></View>
+
+      <View style={styles.head}>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ width: 300 }}>
+            <Text style={{ textAlign: "center", fontSize: 18 }}>{sum}</Text>
+          </View>
+
+          <Button title="Купить" onPress={() => setsum(0)} />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -108,13 +137,23 @@ const styles = StyleSheet.create({
   },
   input: {
     borderColor: "gray",
-    width: "100%",
+
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
     marginVertical: 10,
-    marginHorizontal: "10%",
-    width: "80%",
+    marginHorizontal: "5%",
+    width: "50%",
+  },
+  input2: {
+    borderColor: "gray",
+
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 10,
+    marginHorizontal: "5%",
+    width: "30%",
   },
 });
 
