@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Lab2 from "../screens/lab2";
 import {
   SafeAreaView,
   Text,
@@ -12,19 +13,27 @@ import {
 
 const Lab1 = () => {
   const [listOfItems, setListOfItems] = useState([
-    { text: "молоко", key: "1" },
+    { text: "молоко", index: 10, key: "1" },
+    { text: "сыр", index: 20, key: "2" },
+    { text: "чай", index: 30, key: "3" },
+    { text: "хлеб", index: 40, key: "4" },
   ]);
 
   const [text, setvalue] = useState("");
+  const [asd, setasd] = useState(0);
 
   const onChange = (text) => {
     setvalue(text);
   };
 
-  const addHandler = (text) => {
+  const addHandler = (text, index) => {
     setListOfItems((list) => {
       return [
-        { text: text, key: Math.random().toString(36).substring(7) },
+        {
+          text: text,
+          index: index,
+          key: Math.random().toString(36).substring(7),
+        },
         ...list,
       ];
     });
@@ -35,7 +44,7 @@ const Lab1 = () => {
       return list.filter((listOfItems) => listOfItems.key != key);
     });
   };
-  
+
   return (
     <SafeAreaView>
       <View style={styles.head}>
@@ -45,11 +54,11 @@ const Lab1 = () => {
         <TextInput
           style={styles.input}
           onChangeText={onChange}
-          placeholder="Добавление и Поиск"
+          placeholder="Название товара"
         />
 
         <View style={{ marginHorizontal: "20%" }}>
-          <Button title="Добавить товар" onPress={() => addHandler(text)} />
+          <Button title="Добавить товар" onPress={() => addHandler(text, 10)} />
         </View>
       </View>
       <View style={{ height: 350 }}>
@@ -57,7 +66,10 @@ const Lab1 = () => {
           data={listOfItems}
           renderItem={({ item }) => (
             <View style={{ flexDirection: "row" }}>
-              <TouchableOpacity style={{ width: "70%" }}>
+              <TouchableOpacity
+                style={{ width: "70%" }}
+                onPress={() => setasd(asd+item.index)}
+              >
                 <Text style={styles.listtext}>{item.text}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => deleteHandler(item.key)}>
@@ -67,12 +79,9 @@ const Lab1 = () => {
           )}
         />
       </View>
-      <View style={styles.head}>
-        <View></View>
-      </View>
+      <View style={styles.head}><Text style={{textAlign: "center"}}>{asd}</Text></View>
     </SafeAreaView>
   );
-  
 };
 
 const styles = StyleSheet.create({
