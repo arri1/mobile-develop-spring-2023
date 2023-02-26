@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 
-const Details = (props) => {
+const Notification = (props) => {
 
     return ( 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -16,7 +16,7 @@ const Details = (props) => {
     );
 };
 
-export default Details;
+export default Notification;
 
 const styles = StyleSheet.create({
     btn: {

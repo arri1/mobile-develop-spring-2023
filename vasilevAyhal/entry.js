@@ -1,13 +1,8 @@
 import "expo/build/Expo.fx";
 import { Platform } from "react-native";
 import { registerRootComponent } from "expo";
-import { activateKeepAwake } from "expo-keep-awake";
 import { createRoot } from "react-dom/client";
-import App from "./App"; /* CHANGE THE PATH BASED ON WHERE YOURS IS LOCATED */
-
-if (__DEV__) {
-  activateKeepAwake();
-}
+import App from "./App";
 
 if (Platform.OS === "web") {
   const root = createRoot(
