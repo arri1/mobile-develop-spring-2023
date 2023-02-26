@@ -27,7 +27,12 @@ const App = () => {
           component={Lab2}
           options={{
             tabBarIcon: ({color}) => (
-              <EvilIcon name="sc-github" color={color} size={42} />
+              <EvilIcon
+                name="sc-github"
+                color={color}
+                size={42}
+                style={{marginLeft: -9}} // без отступа текст наезжает на иконку
+              />
             ),
           }}
         />
