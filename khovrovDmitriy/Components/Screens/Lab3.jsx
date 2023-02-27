@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -27,6 +27,14 @@ const TodoUseState = () => {
     SetChoosedTodo(todo);
   };
 
+  const compareSortByText = (a, b) => {
+    return a.text.charCodeAt() - b.text.charCodeAt();
+  };
+
+  const sortedTodosByText = useMemo(() => {
+    return todos.sort(compareSortByText);
+  }, [todos]);
+
   return (
     <View style={styles.container}>
       <TodoModal
@@ -38,7 +46,7 @@ const TodoUseState = () => {
       />
       <View style={styles.todos}>
         <ScrollView contentContainerStyle={styles.scrollView}>
-          {todos.map((todo) => (
+          {sortedTodosByText.map((todo) => (
             <Todo key={todo.id} todo={todo} TouchTodo={TouchTodo} />
           ))}
         </ScrollView>
