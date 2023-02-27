@@ -8,7 +8,6 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { SvgLab1 } from "../svg/SvgLab1";
 
 type CarProps = {
   upgrade: string,
@@ -27,6 +26,24 @@ const Car = (props: CarProps) => {
         disabled={count >= 10}
         title={count < 10 ? "Click to upgrade" : "Max Level"}
       />
+    </View>
+  );
+};
+
+const Lab1 = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Image
+        source={{
+          uri: "https://static.tvtropes.org/pmwiki/pub/images/pimp_my_ride.png",
+        }}
+        style={styles.image}
+      />
+      <Text style={styles.title}>Крутая тачка</Text>
+      <Car upgrade="Engine" />
+      <Car upgrade="Suspention" />
+      <Car upgrade="Wheels" />
+      <Car upgrade="Bodywork" />
     </View>
   );
 };
@@ -56,23 +73,5 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 });
-
-const Lab1 = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Image
-        source={{
-          uri: "https://static.tvtropes.org/pmwiki/pub/images/pimp_my_ride.png",
-        }}
-        style={styles.image}
-      />
-      <Text style={styles.title}>Крутая тачка</Text>
-      <Car upgrade="Engine" />
-      <Car upgrade="Suspention" />
-      <Car upgrade="Wheels" />
-      <Car upgrade="Bodywork" />
-    </View>
-  );
-};
 
 export { Lab1 };
