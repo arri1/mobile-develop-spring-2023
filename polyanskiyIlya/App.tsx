@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/AntDesign';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import Lab2 from './src/views/lab2/Lab2';
+import Lab3 from './src/views/lab3/Lab3';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,6 +34,15 @@ const App = () => {
                 size={42}
                 style={{marginLeft: -9}} // без отступа текст наезжает на иконку
               />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="ThirdLab"
+          component={Lab3}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <Icon name="profile" color={color} size={size} />
             ),
           }}
         />
