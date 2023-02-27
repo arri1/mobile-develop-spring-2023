@@ -11,5 +11,7 @@ module.exports = {
     ],
     'prefer-const': 'error',
     'prefer-arrow/prefer-arrow-functions': 'error',
+    'react-hooks/exhaustive-deps': 'off',
+    radix: 'off',
   },
 };
