@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Lab2 from "../screens/lab2";
 import {
   SafeAreaView,
@@ -23,6 +23,10 @@ const Lab1 = () => {
   const [index, setvalueChek] = useState("");
   const [sum, setsum] = useState(0);
   const [a, seta] = useState(5);
+
+  const sumindex = (index) => {
+    setsum(sum + index);
+  };
 
   const onChange = (text) => {
     setvalue(text);
@@ -88,7 +92,7 @@ const Lab1 = () => {
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
                 style={{ width: "70%" }}
-                onPress={() => setsum(sum + item.index)}
+                onPress={() => sumindex(item.index)}
               >
                 <Text style={styles.listtext}>{item.text}</Text>
               </TouchableOpacity>
