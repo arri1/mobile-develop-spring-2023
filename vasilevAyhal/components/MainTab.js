@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AnimateHeight from 'react-animate-height';
 import { ImageBackground, View, SafeAreaView, Text, StyleSheet, Alert } from 'react-native';
 
 import NavigationTheme from './style/navigation';
@@ -19,7 +18,8 @@ const App = () => {
     const [likeCount, setCount] = useState(0)
     const iconWidth = "100%"
     const iconHeight = "100%"
-    const tintColor = '#fff'
+    const tintColor = '#5f5f5f'
+    const fill = '#ffffff'
 
     const addBarBadge = () => { setCount(likeCount + 1) }
     const removeBarBadge = () => { if(likeCount != 0) setCount(likeCount - 1) }
@@ -38,11 +38,9 @@ const App = () => {
                     tabBarIconStyle: { flex: 0.5 },
                     tabBarIcon: ({focused, color}) => {
                         if (route.name == 'Home')
-                            return <IconHome width={iconWidth} height={iconHeight} color={color} focused={focused ? true : false}/>
+                            return <IconHome width={iconWidth} height={iconHeight} color={color} fill={fill} focused={focused ? true : false}/>
                         else if (route.name == 'Notification')
-                            return <IconInbox width={iconWidth} height={iconHeight} color={color} focused={focused ? true : false}/>
-                        else if (route.name == 'Setting')
-                            return <IconWrench width={iconWidth} height={iconHeight} color={color} focused={focused ? true : false}/>
+                            return <IconInbox width={iconWidth} height={iconHeight} color={color} fill={fill} focused={focused ? true : false}/>
                         return null
                     },
                 })}

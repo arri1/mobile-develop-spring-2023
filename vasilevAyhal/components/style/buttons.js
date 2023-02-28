@@ -3,11 +3,21 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     default: {
+        justifyContent: 'center',
         alignItems: 'center',
-        width: 200,
-        padding: 20,
-        margin: 10,
+        width: 150,
+        height: 50,
+        margin: 5,
         backgroundColor: '#ffffff',
-        borderRadius: 50,
+        borderRadius: 10,
     },
+    mini: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 50,
+        height: 50,
+        margin: 5,
+        backgroundColor: '#ffffff',
+        borderRadius: 10,
+    }
 });

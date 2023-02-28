@@ -2,9 +2,9 @@ import Svg, { Path } from "react-native-svg";
 
 const Like = (props) => {
     return (
-        <Svg width={props.width} height={props.height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <Path d="M20 14H15C15 15.6569 13.6569 17 12 17C10.3431 17 9 15.6569 9 14H4M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z"
-            stroke={props.color} strokeWidth="2" strokeLinejoin="round"/>
+        <Svg width={props.width} height={props.height} viewBox="0 0 24 24" fill={props.focused ? props.fill : "none"} xmlns="http://www.w3.org/2000/svg">
+            <Path d="M3 8L10.8906 13.2604C11.5624 13.7083 12.4376 13.7083 13.1094 13.2604L21 8M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z"
+            stroke={props.color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
         </Svg>
     )
 }

@@ -1,14 +1,30 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, Button } from 'react-native';
+
+import StylesContainers from '../style/containers'
+import StylesTexts from '../style/texts'
 
 const TodoAdd = () => {
 
     return(
-        <>
-            <Text>
-                TodoAdd
-            </Text>
-        </>
+        <View style={StylesContainers.screen}>
+            <TextInput
+                style={[StylesTexts.default, StylesTexts.lightColor, StylesTexts.input]}
+                // onChangeText={onChangeNumber}
+                // value={number}
+                placeholder="Title"
+                placeholderTextColor={StylesTexts.placeholder.color}
+                inputMode="text"
+            />
+            <TextInput
+                style={[StylesTexts.default, StylesTexts.lightColor, StylesTexts.input]}
+                // onChangeText={onChangeNumber}
+                // value={number}
+                placeholder="Title"
+                placeholderTextColor={StylesTexts.placeholder.color}
+                inputMode="text"
+            />
+        </View>
     );
 };
 
