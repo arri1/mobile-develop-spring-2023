@@ -16,28 +16,23 @@ const windowHeight = windowDimensions.height
 const HomeRoute = ({ navigation }) => {
 
     return (
-        <View style={StylesContainers.default}>
-            <ImageBackground source={Psycho} style={styles.background}>
-                <Text> asd </Text> 
-            </ImageBackground>
+        <ScrollView>
 
-            <View style={styles.content}>
-                <TouchableOpacity activeOpacity={ 0.5 } style={StylesButtons.default}
-                    onPress={() => navigation.navigate("Todo")}
-                >
-                    <Text style={StylesTexts.default}> Todo </Text>
-                </TouchableOpacity>
+            <View style={StylesContainers.default}>
+                <ImageBackground source={Psycho} style={styles.background}>
+                </ImageBackground>
 
-                <TouchableOpacity activeOpacity={ 0.5 } style={StylesButtons.mini}
-                    onPress={() => navigation.navigate("TodoAdd")}
-                >
-                    <IconPlus width={'80%'} height={'80%'} color={'#000000'}/>
-                </TouchableOpacity>
-                
-
-                
+                <View style={[styles.content]}>
+                    <View style={StylesButtons.buttonsRow}>
+                        <TouchableOpacity activeOpacity={ 0.5 } style={[StylesButtons.default, StylesButtons.buttonFill]}
+                            onPress={() => navigation.navigate("Todo")}
+                        >
+                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Todo </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -52,12 +47,12 @@ const styles = StyleSheet.create({
         height: windowHeight / 100 * 15,
     },
     content: {
-        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
         flex: 1,
         width: '100%',
+        paddingTop: 30,
         marginTop: windowHeight / 100 * 12,
+        gap: 40,
         backgroundColor: NavigationTheme.colors.background,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,

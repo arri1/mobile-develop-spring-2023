@@ -2,9 +2,10 @@ import React from 'react';
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import { Easing } from 'react-native';
 
+import NavigationTheme from './style/navigation';
+
 import HomeScreen from './HomeScreen';
 import Todo from './Todo/Todo';
-import TodoAdd from './Todo/TodoAdd';
 
 const Stack = createStackNavigator();
 
@@ -27,11 +28,12 @@ const HomeStack = () => {
                 open: transitionSpecConfig,
                 close: transitionSpecConfig,
             },
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+
+            headerStyle: { backgroundColor: NavigationTheme.colors.headerBackground },
         }}>
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Home'}} />
             <Stack.Screen name="Todo" component={Todo} options={{title: 'Todo'}}  />
-            <Stack.Screen name="TodoAdd" component={TodoAdd} options={{title: 'Todo Add'}}  />
         </Stack.Navigator>
     );
 };

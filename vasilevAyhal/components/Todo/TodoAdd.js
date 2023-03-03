@@ -22,7 +22,7 @@ const TodoAdd = () => {
                 // value={number}
                 placeholder="Title"
                 placeholderTextColor={StylesTexts.placeholder.color}
-                inputMode="text"
+                inputMode="numeric"
             />
         </View>
     );

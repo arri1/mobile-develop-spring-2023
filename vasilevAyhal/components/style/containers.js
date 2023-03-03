@@ -8,7 +8,10 @@ export default StyleSheet.create({
         flex: 1,
     },
     screen: {
-        paddingVertical: 30,
-        marginHorizontal: 20,
-    }
+        padding: 30
+    },
+    fill: {
+        width: '100%',
+        height: '100%'
+    },
 });

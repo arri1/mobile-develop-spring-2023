@@ -15,7 +15,7 @@ export default StyleSheet.create({
     input: {
         paddingHorizontal: 10,
         borderStyle: 'solid',
-        borderColor: '#ffffff',
+        borderColor: '#000000',
         borderBottomWidth: 2,
     }
 });

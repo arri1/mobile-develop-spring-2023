@@ -7,10 +7,10 @@ import NavigationTheme from './components/style/navigation'
 const App = () => {
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: NavigationTheme.colors.card }}>
             <StatusBar
                 backgroundColor={NavigationTheme.colors.card}
-                barStyle={'light-content'}
+                barStyle={NavigationTheme.dark ? 'light-content' : 'dark-content'}
             />
             <MainTab/>
         </SafeAreaView>

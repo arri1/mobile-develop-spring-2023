@@ -1,13 +1,21 @@
 import React from 'react';
 
 export default ({
-    dark: true,
+    dark: false,
     colors: {
         primary: 'rgb(255, 45, 85)',
-        background: '#121212',
-        card: '#0c0c0c',  // header
-        text: '#fff',
-        border: 'transparent',
         notification: 'rgb(255, 69, 58)',
+        border: 'transparent',
+        background: '#FAFAFA',
+        headerBackground: '#ffffff',
+        card: '#ffffff',
+        text: '#000',
+        inactiveColor: '#B3B3B3',
+        activeColor: '#ffffff'
+    },
+    tabBarIconBackground: {
+        position: 'absolute',
+        backgroundColor: '#D4D4D4',
+        borderRadius: 10,
     },
 });

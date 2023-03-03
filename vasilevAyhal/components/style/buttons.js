@@ -5,19 +5,25 @@ export default StyleSheet.create({
     default: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: 150,
-        height: 50,
-        margin: 5,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#000000',
         borderRadius: 10,
     },
-    mini: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 50,
+    buttonFill: {
+        width: '100%',
+        height: '100%',
+    },
+    buttonBig: {
+        width: '72%',
+        height: '100%',
+    },
+    buttonMini: {
+        width: '25%',
+        height: '100%',
+    },
+    buttonsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 200,
         height: 50,
-        margin: 5,
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
     }
 });
