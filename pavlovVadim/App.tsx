@@ -1,134 +1,18 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-import {useState} from 'react';
-import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-const signMassive = ['+', '-', '*', '/'];
+import task1 from "./screens/task1.js";
+import task2 from "./screens/task2.js"
 
-const App = () => {
-  const [fisrstCount, setFisrstCount] = useState(0);
-  const [secondCount, setSecondCount] = useState(0);
-  const [sign, setSign] = useState(0);
-  const [result, setResult] = useState(0);
-
+function App() {
+  const Tab = createBottomTabNavigator();
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-      }}>
-      <View style={{margin: 15}}>
-        <View style={{alignItems: 'center'}}>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            {fisrstCount}
-          </Text>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            {signMassive[sign]}
-          </Text>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            {secondCount}
-          </Text>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            =
-          </Text>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            {result}
-          </Text>
-        </View>
-
-        <TouchableOpacity
-          onPress={() => {
-            setFisrstCount(fisrstCount + 1);
-          }}
-          style={{
-            marginTop: 10,
-            borderRadius: 10,
-            height: 40,
-            backgroundColor: 'red',
-          }}>
-          <Text
-            style={{
-              color: 'black',
-              fontSize: 20,
-              fontWeight: '800',
-              textAlign: 'center',
-            }}>
-            1 Число
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setSign((sign + 1) % signMassive.length);
-          }}
-          style={{
-            marginTop: 10,
-            borderRadius: 10,
-            height: 40,
-            backgroundColor: 'red',
-          }}>
-          <Text
-            style={{
-              color: 'black',
-              fontSize: 20,
-              fontWeight: '800',
-              textAlign: 'center',
-            }}>
-            Знак
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setSecondCount(secondCount + 1);
-          }}
-          style={{
-            marginTop: 10,
-            borderRadius: 10,
-            height: 40,
-            backgroundColor: 'red',
-          }}>
-          <Text
-            style={{
-              color: 'black',
-              fontSize: 20,
-              fontWeight: '800',
-              textAlign: 'center',
-            }}>
-            2 Число
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            if (signMassive[sign] == '+') setResult(fisrstCount + secondCount);
-            if (signMassive[sign] == '*') setResult(fisrstCount * secondCount);
-            if (signMassive[sign] == '-') setResult(fisrstCount - secondCount);
-            if (signMassive[sign] == '/') setResult(fisrstCount / secondCount);
-          }}
-          style={{
-            marginTop: 10,
-            borderRadius: 10,
-            height: 40,
-            backgroundColor: 'red',
-          }}>
-          <Text
-            style={{
-              color: 'black',
-              fontSize: 20,
-              fontWeight: '800',
-              textAlign: 'center',
-            }}>
-            Результат
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+    <Tab.Navigator>
+      <Tab.Screen name="Lab1" component={task1} />
+      <Tab.Screen name="Lab2" component={task2} />
+    </Tab.Navigator>
+    </NavigationContainer>
   );
-};
-
+}
 export default App;
