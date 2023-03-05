@@ -4,7 +4,8 @@
 
 0. Установить [проект React Native](https://reactnative.dev/docs/environment-setup)
 1. Показать использование хука [useState](https://beta.reactjs.org/reference/react/useState)
-2. Добавить [Tab Navigation](https://reactnavigation.org/docs/tab-based-navigation/), показать использование хука [useEffect](https://beta.reactjs.org/reference/react/useEffect). Поэкспериментировать с библиотекой [Axios](https://axios-http.com/docs/intro) (будет плюсом)
+2. Установить [React Navigation](https://reactnavigation.org/docs/getting-started/), добавить [Tab Navigation](https://reactnavigation.org/docs/tab-based-navigation/), показать использование хука [useEffect](https://beta.reactjs.org/reference/react/useEffect). Поэкспериментировать с библиотекой [Axios](https://axios-http.com/docs/intro) (будет плюсом)
+3. Показать использование хука [useMemo](https://beta.reactjs.org/reference/react/useMemo) или хука [useCallback](https://beta.reactjs.org/reference/react/useCallback)
 
 ## Памятка
 
