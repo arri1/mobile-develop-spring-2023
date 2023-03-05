@@ -14,4 +14,15 @@ export default StyleSheet.create({
         width: '100%',
         height: '100%'
     },
+    modalContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#00000070',
+    },
+    modal: {
+        width: '80%',
+        padding: 30,
+        backgroundColor: '#ffffff',
+        borderRadius: 10,
+    }
 });

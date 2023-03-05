@@ -8,7 +8,6 @@ import StylesButtons from './style/buttons'
 import StylesTexts from './style/texts'
 
 import Psycho from '../assets/img/psycho.png'
-import IconPlus from '../assets/svg/plus'
 
 const windowDimensions = Dimensions.get('window');
 const windowHeight = windowDimensions.height
@@ -24,7 +23,7 @@ const HomeRoute = ({ navigation }) => {
 
                 <View style={[styles.content]}>
                     <View style={StylesButtons.buttonsRow}>
-                        <TouchableOpacity activeOpacity={ 0.5 } style={[StylesButtons.default, StylesButtons.buttonFill]}
+                        <TouchableOpacity activeOpacity={ 0.5 } style={[StylesButtons.default, StylesButtons.buttonRowFill]}
                             onPress={() => navigation.navigate("Todo")}
                         >
                             <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Todo </Text>

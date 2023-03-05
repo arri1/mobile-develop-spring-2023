@@ -3,9 +3,17 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     Todo: { flex: 1, gap: 20, },
+    TodoListHeader: {
+        alignItems: 'center',
+        width: '50%',
+        padding: 10,
+        borderRadius: 10,
+        shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 6,
+        elevation: 6, // shadow for android
+        backgroundColor: '#fff',
+    },
     TodoItemContainer: {
         width: '100%',
-        height: 50,
         borderRadius: 10,
         shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 6,
         elevation: 6, // shadow for android
@@ -13,10 +21,9 @@ export default StyleSheet.create({
     },
     TodoItem: {
         width: '100%',
-        height: '100%',
-        backgroundColor: '#FAF9CA',
+        padding: 10,
+        gap: 10,
+        backgroundColor: '#D5E9F7',
     },
-    TodoItemSwipe: { justifyContent: 'center', width: '100%', },
-    TodoItemSwipeLeft: { alignItems: 'flex-start', backgroundColor: '#CCFFC9' },
-    TodoItemSwipeRight: { alignItems: 'flex-end', backgroundColor: '#FFA9A1' },
+    TodoItemSwipe: { justifyContent: 'center', width: '100%', paddingHorizontal: 10 },
 });

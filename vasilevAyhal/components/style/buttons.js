@@ -8,22 +8,27 @@ export default StyleSheet.create({
         backgroundColor: '#000000',
         borderRadius: 10,
     },
-    buttonFill: {
-        width: '100%',
-        height: '100%',
+    buttonSquare: {
+        width: 50,
+        height: 50,
     },
-    buttonBig: {
-        width: '72%',
-        height: '100%',
-    },
-    buttonMini: {
-        width: '25%',
-        height: '100%',
-    },
+    
     buttonsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: 200,
         height: 50,
-    }
+    },
+    buttonRowFill: {
+        width: '100%',
+        height: '100%',
+    },
+    buttonRowBig: {
+        width: '72%',
+        height: '100%',
+    },
+    buttonRowMini: {
+        width: '25%',
+        height: '100%',
+    },
 });

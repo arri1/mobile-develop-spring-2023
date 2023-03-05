@@ -3,6 +3,7 @@ import { Animated, View, Text, Easing } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import StylesContainers from '../style/containers'
+import StylesTexts from '../style/texts'
 import StylesTodo from './styles/todo'
 
 import IconDelete from '../../assets/svg/delete';
@@ -17,6 +18,7 @@ const TodoItem = (props) => {
     //     [ { nativeEvent: { translationX: translateX } }, ],
     //     { useNativeDriver: true }
     // );
+    const iconSize = 30
 
     const animValue = new Animated.Value(1)
 
@@ -33,11 +35,23 @@ const TodoItem = (props) => {
     
     const swipeLeft = () => {
         return (
-            <View style={[StylesTodo.TodoItemSwipe, StylesTodo.TodoItemSwipeLeft]}>
+            <View
+                style={[
+                    StylesTodo.TodoItemSwipe,
+                    {alignItems: 'flex-start'},
+                    props.isComplete ? {backgroundColor: '#F7F19E'} : {backgroundColor: '#B2F7C1'}
+                ]}>
                 {
                     props.isComplete ?
-                        <IconUndone width={'40'} height={'40%'}/> :
-                        <IconDone width={'40'} height={'40%'}/>
+                        <View style={{ alignItems: 'center' }}>
+                            <IconUndone size={iconSize}/>
+                            <Text style={StylesTexts.small}> Undone </Text>
+                        </View>
+                        :
+                        <View style={{ alignItems: 'center' }}>
+                            <IconDone size={iconSize}/>
+                            <Text style={StylesTexts.small}> Done </Text>
+                        </View>
                 }
             </View>
         );
@@ -45,8 +59,15 @@ const TodoItem = (props) => {
 
     const swipeRight = () => {
         return (
-            <View style={[StylesTodo.TodoItemSwipe, StylesTodo.TodoItemSwipeRight]}>
-                <IconDelete width={'40'} height={'40%'}/>
+            <View
+                style={[
+                    StylesTodo.TodoItemSwipe,
+                    {alignItems: 'flex-end', backgroundColor: '#FFA9A1'}
+                ]}>
+                <View style={{ alignItems: 'center' }}>
+                    <IconDelete size={iconSize}/>
+                    <Text style={StylesTexts.small}> Delete </Text>
+                </View>
             </View>
         );
     };
@@ -63,8 +84,8 @@ const TodoItem = (props) => {
                             animStart()
                         }
                         else {
-                            props.setComplete()
                             refSwipeable.current.close()
+                            props.setComplete()
                         }
                     }
                 }
@@ -72,7 +93,18 @@ const TodoItem = (props) => {
                 childrenContainerStyle={{flex: 1}}
             >
                 <View style={StylesTodo.TodoItem}>
-                    <Text> {props.id + " " + props.title + " " + props.isComplete} </Text>
+                    <Text
+                        style={[StylesTexts.default, {borderBottomWidth: 1}, props.isComplete ? {textDecorationLine: 'line-through'} : '']}
+                    > 
+                        {props.title}
+                    </Text>
+
+                    <Text
+                        style={[StylesTexts.small, props.isComplete ? {textDecorationLine: 'line-through'} : '']}
+                        numberOfLines={5}
+                    >
+                        {props.description}
+                    </Text>
                 </View>
             </Swipeable>
         </Animated.View>
