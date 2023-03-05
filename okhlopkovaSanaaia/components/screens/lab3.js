@@ -20,7 +20,8 @@ const Lab3 = () => {
       const difference = parsedDate - Date.now();
       if (difference > 0) {
         setTime(difference);
-      } else {
+      }
+      if (difference <= 0) {
         setOver(true);
       }
     }, 1000);
@@ -53,7 +54,7 @@ const Lab3 = () => {
       <View style={styles.container}>
         {Object.entries(timeData).map(([label, value]) => (
           <View key={label} style={styles.box}>
-            <Text style={styles.time}>{`${Math.floor(value)}`}</Text>
+            <Text style={styles.time}>{value}</Text>
             <Text style={styles.time}>{label}</Text>
           </View>
         ))}
