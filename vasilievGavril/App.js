@@ -1,50 +1,58 @@
-import React, {useState} from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { 
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
   Modal,
-  StyleSheet, 
+  StyleSheet,
   Button,
-  Text, 
+  Text,
   Pressable,
   SafeAreaView,
-  View, 
+  View,
   Image,
   Alert,
-} from 'react-native';
-
-import Home from './indexs/home';
-import Navi2 from './indexs/navi2';
-const Tab = createBottomTabNavigator();
+} from "react-native";
+import Ionic from "react-native-vector-icons/Ionicons";
+import HomeScreen from "./screens/HomeScreen";
+import GiftScreen from "./screens/GiftScreen";
+import ClickerScreen from "./screens/ClickerScreen";
 
 const App = () => {
-  const [count, setCount] = useState(0)
-
-  const addBarBadge = () => {
-      setCount(count+1)
-  }
-  const removeBarBadge = () => {
-      if(count != 0) setCount(count-1)
-  }
-
-
+  const Tab = createBottomTabNavigator();
   return (
-      <SafeAreaView style={{ flex: 1 }}>
-          <NavigationContainer>
-              <Tab.Navigator
-                  screenOptions={{
-                      tabBarStyle: { height: '8%' },
-                      tabBarItemStyle: { flexDirection: 'column', justifyContent: 'center' },
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, size, colour }) => {
+            let iconName;
+            if (route.name === "Home") {
+              iconName = focused ? "ios-home" : "ios-home-outline";
+              size = focused ? size + 8 : size + 5;
+            } else if (route.name === "Gifts") {
+              iconName = focused ? "aperture-sharp" : "aperture-outline";
+              size = focused ? size + 8 : size + 5;
+            } else if (route.name === "Clicker") {
+              iconName = focused
+                ? "ios-paper-plane-sharp"
+                : "ios-paper-plane-outline";
+              size = focused ? size + 8 : size + 5;
+            }
+            return <Ionic name={iconName} size={size} colour={colour} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: "black",
+          inactiveTintColor: "black",
+          showLabel: true,
 
-                      tabBarLabelStyle: { margin: 0, fontSize: 20, width: '50%' },
-                  }}
-              >
-                  <Tab.Screen name="Home" children={() => <Home addBarBadge={addBarBadge}/>} options={count != 0 ? { tabBarBadge: count } : ''}/>
-                  <Tab.Screen name="Navi2" children={() => <Navi2 removeBarBadge={removeBarBadge}/>} />
-              </Tab.Navigator>
-          </NavigationContainer>
-      </SafeAreaView>
+        }}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Gifts" component={GiftScreen} />
+        <Tab.Screen name="Clicker" component={ClickerScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
-export default App
+export default App;
