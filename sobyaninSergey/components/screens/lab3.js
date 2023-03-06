@@ -3,38 +3,27 @@ import { Button, Text, View } from "react-native";
 import axios from "axios";
 
 const Lab3 = () => {
+  const colors = ["red", "white", "blue", "orange", "darkgreen"];
   const [advice, setAdvice] = useState("click that button!");
+  const [backgroundColor, setBackgroundColor] = useState(0);
 
-  //   const getRandomId = useMemo(
-  //     (min, max) => {
-  //       min = Math.ceil(min);
-  //       max = Math.floor(max);
-  //       return Math.floor(Math.random() * (max - min + 1)) + min;
-  //     }
-  //     //  [advice]
-  //   );
+  const getRandomId = useMemo(() => {
+    return Math.floor(Math.random() * 200) + 1;
+  }, [advice]);
 
-  //   const getAdvice = () => {
-  //     axios
-  //       .get("http://api.adviceslip.com/advice/" + getRandomId(1, 200).toString())
-  //       .then((response) => {
-  //         setAdvice(response.data.slip.advice);
-  //       });
-  //   };
-
-  const getAdvice = useMemo(() => {
+  const getAdvice = () => {
     axios
-      .get("http://api.adviceslip.com/advice/" + getRandomId(1, 200).toString())
+      .get("http://api.adviceslip.com/advice/" + getRandomId.toString())
       .then((response) => {
         setAdvice(response.data.slip.advice);
       });
-  });
+  };
 
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: colors[backgroundColor],
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -51,6 +40,22 @@ const Lab3 = () => {
         advice:
         {advice}
       </Text>
+      <View
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginHorizontal: 20,
+          marginTop: 10,
+        }}
+      >
+        <Button
+          title="Change Color"
+          onPress={() => {
+            setBackgroundColor((backgroundColor + 1) % colors.length);
+          }}
+          color="green"
+        />
+      </View>
     </View>
   );
 };
