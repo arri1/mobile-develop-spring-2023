@@ -18,26 +18,43 @@ const Lab2 = () => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "gray",
+        backgroundColor: "black",
       }}
     >
-      <Button
-        onPress={() => {
-          setRecourceType("photos");
-          setIndex(Math.floor(Math.random() * 100) + 1);
+      <View
+        style={{
+          marginTop: 10,
         }}
-        title="photos"
-      />
-      <Text></Text>
-      <Button
-        onPress={() => {
-          setRecourceType("albums");
-          setIndex(Math.floor(Math.random() * 100) + 1);
+      >
+        <Button
+          onPress={() => {
+            setIndex(Math.floor(Math.random() * 100) + 1);
+            setRecourceType("photos");
+          }}
+          title="photos"
+        />
+      </View>
+      <View
+        style={{
+          marginTop: 10,
         }}
-        title="albums"
-      />
-      <Text></Text>
-      <Text>
+      >
+        <Button
+          onPress={() => {
+            setIndex(Math.floor(Math.random() * 100) + 1);
+            setRecourceType("albums");
+          }}
+          title="albums"
+        />
+      </View>
+      <Text
+        style={{
+          marginTop: 10,
+          fontWeight: "bold",
+          fontStyle: "italic",
+          color: "white",
+        }}
+      >
         {recourceType} title: {JSON.stringify(items["title"])}
       </Text>
     </View>
