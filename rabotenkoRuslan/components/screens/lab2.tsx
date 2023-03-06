@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {StyleSheet, Button, View, SafeAreaView, Text, Alert, BackHandler} from 'react-native';
+import {StyleSheet, View, SafeAreaView, Text} from 'react-native';
 
 interface IUser {
   name: string;
