@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.multi"
+    namespace "com.buzinaevavksentiy"
     defaultConfig {
-        applicationId "com.multi"
+        applicationId "com.buzinaevavksentiy"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

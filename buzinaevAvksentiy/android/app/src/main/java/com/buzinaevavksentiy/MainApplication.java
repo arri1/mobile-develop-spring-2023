@@ -1,4 +1,4 @@
-package com.multi;
+package com.buzinaevavksentiy;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
