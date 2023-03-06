@@ -10,6 +10,12 @@ const Lab3 = () => {
   const [_, setDummy] = useState(0);
 
   const getData: () => Promise<AxiosResponse<Post> | undefined> = async () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
     let result: AxiosResponse<Post> | undefined;
 
     try {
