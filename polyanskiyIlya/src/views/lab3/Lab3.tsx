@@ -4,7 +4,7 @@ import {Button, Text, TextInput, View} from 'react-native';
 import {Post} from './post.model';
 
 const Lab3 = () => {
-  const [postId, setPostId] = useState('1');
+  const [postId, setPostId] = useState<string>('1');
   const [postData, setPostData] = useState<Partial<Post>>({});
 
   const [_, setDummy] = useState(0);
