@@ -54,7 +54,7 @@ const TabNavigation = () => {
         name="LAB 3"
         component={Lab3}
         options={{
-          tabBarLabel: "LAB 2",
+          tabBarLabel: "LAB 3",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="memory" color={color} size={26} />
           ),
