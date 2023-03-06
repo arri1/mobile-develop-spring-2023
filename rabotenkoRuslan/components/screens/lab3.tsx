@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-type CalculatorProps = {};
+type operatorType = '+' | '-' | '*' |'/';
+type ButtonType = OperatorType | 'AC' | '.' | '=' | number;
 
 const Lab3: React.FC<CalculatorProps> = () => {
   const [result, setResult] = useState<string>('0');
@@ -9,39 +10,50 @@ const Lab3: React.FC<CalculatorProps> = () => {
 
   const operators = ['+', '-', '*', '/'];
 
-  const handleNumberClick = (value: string) => {
-    if (result === '0') {
-      setResult(value);
+  const handleNumberClick = (num: number) => {
+    if (result === '0'|| result === 'Error') {
+      setResult(num.toString());
     } else {
-      setResult(result + value);
+      setResult(prevResult => prevResult + num.toString());
     }
   };
 
-  const handleOperatorClick = (operator: string) => {
-    if (operators.includes(result[result.length - 1])) {
-      setResult(result.slice(0, -1) + operator);
-    } else {
-      setResult(result + operator);
+  const handleOperatorClick = (operator: OperatorType | '.') => {
+    if (result !== 'Error') {
+      setResult(prevResult => prevResult + operator);
     }
   };
 
   const handleEqualClick = () => {
-    setHistory(result + '=' + eval(result));
-    setResult(eval(result).toString());
+    try {
+      const evalResult = eval(result);
+      const newHistoryItem = `${result}=${evalResult}`;
+      setHistory(prevHistory =>
+        prevHistory === '' ? newHistoryItem : `${prevHistory}\n${newHistoryItem}`
+      );
+      setResult(evalResult.toString());
+    } catch (err) {
+      setResult('Error');
+    }
   };
 
   const handleClearClick = () => {
     setResult('0');
+  };
+
+  const handleHistoryClearClick = () => {
+    setResult('0');
     setHistory('');
   };
 
-  const memoizedHistory = useMemo(() => {
-    return history.split('=').map((item, index) => (
+  const memorizedHistory = useMemo(() => 
+    history.split('\n').map((item, index) => (
       <View style={styles.historyItem} key={index}>
         <Text style={styles.historyText}>{item}</Text>
       </View>
-    ));
-  }, [history]);
+      )), 
+    [history]
+  );
 
   return (
     <View style={styles.container}>
@@ -143,9 +155,14 @@ const Lab3: React.FC<CalculatorProps> = () => {
             onPress={() => handleClearClick()}>
             <Text style={styles.buttonText}>C</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.clearHistoryButton}
+            onPress={() => handleHistoryClearClick()}>
+            <Text style={styles.buttonText}>HC</Text>
+          </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.historyContainer}>{memoizedHistory}</View>
+      <View style={styles.historyContainer}>{memorizedHistory}</View>
     </View>
   );
 };
@@ -196,6 +213,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  clearHistoryButton: {
+    width: 140,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: '#21c6df',
+    marginHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   buttonText: {
     fontSize: 30,
     fontWeight: 'bold',
