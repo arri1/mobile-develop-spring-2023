@@ -12,23 +12,15 @@ export default StyleSheet.create({
         width: 50,
         height: 50,
     },
-    
-    buttonsRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+    buttonsDefault: {
         width: 200,
         height: 50,
     },
-    buttonRowFill: {
+    buttonFooter: {
+        position: 'absolute',
+        alignItems: 'center',
+        bottom: 20,
         width: '100%',
-        height: '100%',
-    },
-    buttonRowBig: {
-        width: '72%',
-        height: '100%',
-    },
-    buttonRowMini: {
-        width: '25%',
-        height: '100%',
-    },
+        zIndex: 10,
+    }
 });

@@ -22,8 +22,10 @@ const HomeRoute = ({ navigation }) => {
                 </ImageBackground>
 
                 <View style={[styles.content]}>
-                    <View style={StylesButtons.buttonsRow}>
-                        <TouchableOpacity activeOpacity={ 0.5 } style={[StylesButtons.default, StylesButtons.buttonRowFill]}
+                    <View>
+                        <TouchableOpacity
+                            activeOpacity={ 0.5 }
+                            style={[StylesButtons.default, StylesButtons.buttonsDefault]}
                             onPress={() => navigation.navigate("Todo")}
                         >
                             <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Todo </Text>

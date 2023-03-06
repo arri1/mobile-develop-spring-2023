@@ -9,6 +9,7 @@ import StylesContainers from './style/containers';
 
 import HomeStack from './HomeStack';
 import Notification from './Notification';
+import Setting from './Setting';
 
 import IconInbox from '../assets/svg/inbox';
 import IconHome from '../assets/svg/home';
@@ -69,9 +70,11 @@ const App = () => {
                                 <View style={[StylesContainers.default, StylesContainers.fill]}>
                                     {
                                         route.name == 'Home' ?
-                                        <IconHome size={size} color={color} focused={focused ? true : false}/>
+                                        <IconHome size={size} color={color}/>
                                         : (route.name == 'Notification') ?
-                                        <IconInbox size={size} color={color} focused={focused ? true : false}/>
+                                        <IconInbox size={size} color={color}/>
+                                        : (route.name == 'Setting') ?
+                                        <IconWrench size={size} color={color}/>
                                         : "null"
                                     }
                                 </View>
@@ -82,12 +85,15 @@ const App = () => {
             >
 
                 <Tab.Screen name='Home'
-                    children={() => <HomeStack addBarBadge={addBarBadge}/>}
+                    children={() => <HomeStack />}
                 />
 
                 <Tab.Screen name='Notification'
                     children={() => <Notification removeBarBadge={removeBarBadge}/>}
                     options={{ tabBarBadge: likeCount > 0 ? likeCount : null, }}
+                />
+                <Tab.Screen name='Setting'
+                    children={() => <Setting />}
                 />
 
             </Tab.Navigator> 

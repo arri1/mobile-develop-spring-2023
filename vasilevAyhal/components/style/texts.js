@@ -28,7 +28,7 @@ export default StyleSheet.create({
     inputMulti: {
         maxHeight: 150,
         paddingVertical: 5,
-        verticalAlign: 'top',
+        textAlignVertical: 'top',
         borderRightWidth: 2,
     }
 });

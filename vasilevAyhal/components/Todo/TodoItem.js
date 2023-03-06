@@ -18,8 +18,8 @@ const TodoItem = (props) => {
     //     [ { nativeEvent: { translationX: translateX } }, ],
     //     { useNativeDriver: true }
     // );
+    const refSwipeable = useRef(null)
     const iconSize = 30
-
     const animValue = new Animated.Value(1)
 
     const animStart = () => {
@@ -31,7 +31,6 @@ const TodoItem = (props) => {
         }).start(() => props.setDelete())
     };
 
-    const refSwipeable = useRef(null)
     
     const swipeLeft = () => {
         return (

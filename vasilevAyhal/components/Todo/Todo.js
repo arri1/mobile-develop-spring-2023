@@ -1,5 +1,7 @@
-import React, { useState, useRef } from "react";
-import { Alert, Modal, View, FlatList, TextInput, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useRef, useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert, Modal, View, FlatList, TextInput, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { FlashList } from "@shopify/flash-list";
 import uuid from 'react-native-uuid';
 
 import StylesContainers from '../style/containers'
@@ -12,86 +14,121 @@ import TodoItem from './TodoItem'
 import IconPlus from '../../assets/svg/plus'
 import IconClose from "../../assets/svg/close";
 
+
 const Todo = () => {
+    const [todoItems, setTodoItems] = useState([])
+    const windowDimensions = Dimensions.get('window');
+    const windowWidth = windowDimensions.width
     const screenPadding = StylesContainers.screen.padding
-    const [todoItems, setTodoItems] = useState(() => [
-        { id: uuid.v4(), title: '1', description: "description", isComplete: true },
-        { id: uuid.v4(), title: '2', description: "sad asd as", isComplete: false },
-        { id: uuid.v4(), title: '3', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '4', description: "description", isComplete: true },
-        { id: uuid.v4(), title: '5', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '6', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '7', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '9', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '10', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '11', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '12', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '13', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '14', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '15', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '16', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '17', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '18', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '19', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '20', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '21', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '22', description: "description", isComplete: false },
-        { id: uuid.v4(), title: '23', description: "description", isComplete: false },
-    ])
+    const [modalVisible, setModalVisible] = useState(false)
+    const inputSecond = useRef(null)
     const [inputTitle, setInputTitle] = useState('')
     const [inputDescription, setInputDescription] = useState("")
-    const inputSecond = useRef(null)
 
-    const addTodoItem = () => {
-        if(inputTitle.length > 0) {
-            setTodoItems([
-                { id: uuid.v4(), title: inputTitle, description: inputDescription, isComplete: false },
-                ...todoItems
-            ])
-            setInputTitle('')
-            setInputDescription("")
-            setModalVisible(false)
-        } else {
-            Alert.alert("Error", "Title empty!")
+    useEffect(() => {
+        // clearStorage()
+        getAllTodoItems()
+    }, [])
+
+    const getAllTodoItems = async () => {
+        try {
+            let keys = []
+            keys = await AsyncStorage.getAllKeys()
+            if (keys !== null) {
+                keys.map(
+                    (key) => {
+                        var promise = getTodoItem(key)
+                        promise.then(item => {
+                            setTodoItems(
+                                todoItems => [
+                                    { id: key, title: item.title, description: item.description, isComplete: item.isComplete },
+                                    ...todoItems
+                                ]
+                            )
+                        })
+                    }
+                )
+            }
+        } catch (e) {
+            alert('ERROR: getAllTodoItems');
         }
     }
-   
-    const isCompleteTodoItem = (id) => {
-        setTodoItems(todoItems.map(
-            (item) => {
-                if (item.id === id) item.isComplete = !item.isComplete
-                return item
+
+    const getTodoItem = async (key) => {
+        try {
+            const itemValues = await AsyncStorage.getItem(key)
+            if (itemValues !== null) {
+                return JSON.parse(itemValues)
             }
-        ))
+            return alert('ERROR: Item null');
+        } catch (e) {
+            return alert('ERROR: getTodoItem');
+        }
     }
 
-    const deleteTodoItem = (id) => {
-        let items = [...todoItems]
-        items.splice(todoItems.findIndex((item) => { return item.id === id }), 1)
-        setTodoItems(items)
+    const addTodoItem = async () => {
+        if(inputTitle.length > 0) {
+            try {
+                let key = uuid.v4()
+                await AsyncStorage.setItem(key, JSON.stringify({ title: inputTitle, description: inputDescription, isComplete: false }))
+                setTodoItems(
+                    todoItems => [
+                        { id: key, title: inputTitle, description: inputDescription, isComplete: false },
+                        ...todoItems
+                    ]
+                )
+                setInputTitle('')
+                setInputDescription("")
+                setModalVisible(false)
+            } catch (e) {
+                console.log('ERROR: addTodoItem')
+            }
+        } else {
+            alert("ERROR: Title empty!")
+        }
     }
-    const [modalVisible, setModalVisible] = useState(false)
+    
+    const isCompleteTodoItem = async (key) => {
+        try {
 
+            setTodoItems(todoItems.map(
+                (item) => {
+                    if (item.id === key) {
+                        AsyncStorage.mergeItem(key, JSON.stringify({isComplete: !item.isComplete}))
+                        item.isComplete = !item.isComplete
+                    }
+                    return item
+                }
+            ))
+        } catch (e) {
+            return alert('ERROR: isCompleteTodoItem');
+        }
+
+        
+    }
+
+    const deleteTodoItem = async (key) => {
+        try {
+            await AsyncStorage.removeItem(key)
+            let items = [...todoItems]
+            items.splice(todoItems.findIndex((item) => { return item.id === key }), 1)
+            setTodoItems(items)
+        } catch (e) {
+            return alert('ERROR: deleteTodoItem');
+        }
+        
+    }
 
     return (
         <View style={{flex: 1}}>
-            <FlatList
+            <FlashList
                 data={todoItems}
+                estimatedItemSize={windowWidth * 75}
                 keyExtractor={(item) => item.id}
-                stickyHeaderHiddenOnScroll={true}
-                stickyHeaderIndices={[0]}
-                ListHeaderComponentStyle={{ alignItems: 'center', margin: screenPadding }}
-                ListHeaderComponent={
-                    () => (
-                        <TouchableOpacity onPress={() => setModalVisible(true)} style={StylesTodo.TodoListHeader}>
-                                <IconPlus size={30} color={'black'}/>
-                                <Text style={StylesTexts.small}> Add </Text>
-                        </TouchableOpacity>
-                    )
-                }
+                contentContainerStyle={{padding: screenPadding}}
                 renderItem={
                     ({item}) => (
-                        <View style={{ paddingHorizontal: screenPadding, paddingBottom: screenPadding}}>
+                        <View style={{paddingBottom: screenPadding}}>
                             <TodoItem
                                 id={item.id}
                                 title={item.title}
@@ -104,7 +141,17 @@ const Todo = () => {
                     )
                 }
             />
-            
+
+            <View style={StylesButtons.buttonFooter}>
+                <TouchableOpacity
+                    activeOpacity={ 0.5 }
+                    style={StylesTodo.TodoAddButton}
+                    onPress={() => setModalVisible(true)}
+                >
+                    <IconPlus size={30} color={'black'}/>
+                    <Text style={StylesTexts.small}> Add </Text>
+                </TouchableOpacity>
+            </View>
 
             <Modal
                 visible={modalVisible}
@@ -114,7 +161,6 @@ const Todo = () => {
             >
                 <View style={[StylesContainers.fill, StylesContainers.modalContainer]}>
                     <View style={[StylesContainers.modal, {justifyContent: 'space-between', gap: 50}]}>
-                        
                         <View style={{ gap: 20 }}>
                             <TextInput
                                 inputMode="text"
@@ -145,17 +191,19 @@ const Todo = () => {
                         <View style={{ width: '100%', gap: 10 }}>
 
                             <TouchableOpacity
-                                onPress={() => setModalVisible(false)}
+                                activeOpacity={ 0.5 }
                                 style={[StylesButtons.default, { height: 35, backgroundColor: 'black' }]}
+                                onPress={() => setModalVisible(false)}
                             >
                                 <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
+                                activeOpacity={ 0.5 }
+                                style={[StylesButtons.default, { height: 35, backgroundColor: '#B2F7C1' }]}
                                 onPress={() => addTodoItem()}
-                                style={[StylesButtons.default, { height: 35, backgroundColor: 'green' }]}
                             >
-                                <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Add </Text>
+                                <Text style={[StylesTexts.default]}> Add </Text>
                             </TouchableOpacity>
                         </View>
                     </View>

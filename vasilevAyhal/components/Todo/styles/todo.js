@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     Todo: { flex: 1, gap: 20, },
-    TodoListHeader: {
+    TodoAddButton: {
         alignItems: 'center',
         width: '50%',
         padding: 10,
