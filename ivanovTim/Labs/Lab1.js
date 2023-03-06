@@ -28,7 +28,6 @@ const Lab1 = () => {
             setCount(count + 1);
           }}
           style={{
-            
             marginTop: 10,
             borderRadius: 10,
             height: 50,

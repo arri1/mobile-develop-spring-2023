@@ -1,0 +1,10 @@
+  // backgroundColorIndex.map(convertAsString);
+  // convertAsString((val) => {
+  //   if (val == 0) {
+  //     val = "black";
+  //   }
+  //   if (val == 1) {
+  //     val = "grey";
+  //   }
+  //   return val.toString();
+  // });

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
-//import axios from "axios";
 
 const colors = ["black", "grey"];
 const diffColors = ["pink", "cyan", "purple"];
@@ -13,9 +12,10 @@ const Lab2 = () => {
   useEffect(() => {
     setTimeout(() => {
       console.log(`You clicked ${count} times`);
-    }, 2000);
+      console.log(`Current background color: ${backgroundColorIndex}`);
+    }, 5000);
   });
-
+  
   return (
     <SafeAreaView
       style={{
@@ -35,7 +35,6 @@ const Lab2 = () => {
             setCount(count + 1);
           }}
           style={{
-            
             marginTop: 10,
             borderRadius: 10,
             height: 50,
@@ -78,35 +77,3 @@ const Lab2 = () => {
 };
 
 export default Lab2;
-
-
-/*const AxiosExampleScreen = () => {
-	const [employers,setEmployers] = useState([])
-	const [loading,setLoading] = useState(false)
-
-	const getData = async () =>{
-		const {data:{data:{res}}} = await axios.get('https://dummy.restapiexample.com/api/v1/employees')
-		console.log(res)
-			setEmployers(data);
-		};
-
-	useEffect(() => {
-		getData()
-	}, []);
-
-	return (
-		<View>
-			refreshControl={
-				<RefreshControl refreshing={loading} onRefresh={() => getData()} />
-			}
-    
-			{employers.map(item=>{
-				return <View key={item.id}>
-					<Text>{item.employee_name}</Text>
-				</View>
-			})}
-	 	</View>
-  );
-};
-
-export default Lab2;*/
