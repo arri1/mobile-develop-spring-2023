@@ -1,6 +1,13 @@
 import axios, {AxiosResponse} from 'axios';
 import React, {useMemo, useState} from 'react';
-import {ActivityIndicator, Button, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import {Post} from './post.model';
 
 const Lab3 = () => {
@@ -46,18 +53,22 @@ const Lab3 = () => {
 
   return (
     <View>
-      <Button
-        title="Call rerender"
-        onPress={() => {
-          setDummy(prev => prev + 1);
-        }}
-      />
-      <Button
-        title="Call `getData`"
-        onPress={() => {
-          getData();
-        }}
-      />
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Call rerender"
+          onPress={() => {
+            setDummy(prev => prev + 1);
+          }}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Call `getData`"
+          onPress={() => {
+            getData();
+          }}
+        />
+      </View>
       <TextInput
         editable
         inputMode="decimal"
@@ -70,5 +81,11 @@ const Lab3 = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    marginBottom: 5,
+  },
+});
 
 export default Lab3;
