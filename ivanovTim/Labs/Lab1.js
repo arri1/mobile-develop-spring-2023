@@ -4,7 +4,7 @@ import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 const colors = ["red", "green", "blue"];
 const moreColors = ["pink", "cyan", "purple"];
 
-const App = () => {
+const Lab1 = () => {
   const [count, setCount] = useState(0);
   const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
   const [moreColorsIndex, setmoreColorsIndex] = useState(0);
