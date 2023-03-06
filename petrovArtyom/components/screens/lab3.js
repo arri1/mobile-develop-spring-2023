@@ -1,7 +1,7 @@
 import { View } from "react-native";
 
-const Lab2 = () => {
+const Lab3 = () => {
   return <View></View>;
 };
 
-export default Lab2;
+export default Lab3;

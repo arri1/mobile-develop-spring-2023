@@ -1,5 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
-import Lab2 from "../screens/lab2";
+import { useState, useEffect } from "react";
 import {
   SafeAreaView,
   Text,
