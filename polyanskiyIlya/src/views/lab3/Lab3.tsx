@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from 'axios';
 import React, {useMemo, useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, Button, Text, TextInput, View} from 'react-native';
 import {Post} from './post.model';
 
 const Lab3 = () => {
@@ -35,6 +35,14 @@ const Lab3 = () => {
 
     return result;
   }, [postId]);
+
+  if (loading) {
+    return (
+      <View>
+        <ActivityIndicator />
+      </View>
+    );
+  }
 
   return (
     <View>
