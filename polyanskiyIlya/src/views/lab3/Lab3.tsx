@@ -6,7 +6,7 @@ import {Post} from './post.model';
 const Lab3 = () => {
   const [postId, setPostId] = useState<string>('1');
   const [postData, setPostData] = useState<Partial<Post>>({});
-
+  const [loading, setLoading] = useState<boolean>(false);
   const [_, setDummy] = useState(0);
 
   const getData: () => Promise<AxiosResponse<Post> | undefined> = async () => {
