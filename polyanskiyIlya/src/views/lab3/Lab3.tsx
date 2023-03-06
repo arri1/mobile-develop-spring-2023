@@ -38,6 +38,12 @@ const Lab3 = () => {
           setDummy(prev => prev + 1);
         }}
       />
+      <Button
+        title="Call `getData`"
+        onPress={() => {
+          getData();
+        }}
+      />
       <TextInput
         editable
         inputMode="decimal"
