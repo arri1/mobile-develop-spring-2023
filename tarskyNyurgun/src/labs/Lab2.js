@@ -24,6 +24,10 @@ const Lab2 = ({ navigation }) => {
     getFacts();
   }, []);
 
+  const refreshPage = () => {
+    window.location.reload(false);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Text style={{ fontSize: 36, fontWeight: "bold", textAlign: "center" }}>
