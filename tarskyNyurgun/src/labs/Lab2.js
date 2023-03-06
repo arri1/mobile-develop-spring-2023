@@ -31,7 +31,7 @@ const Lab2 = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Text style={{ fontSize: 36, fontWeight: "bold", textAlign: "center" }}>
-        Cat Facts
+        Cat facts
       </Text>
       <FlatList
         style={styles.list}
