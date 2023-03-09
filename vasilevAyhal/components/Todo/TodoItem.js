@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Animated, View, Text, Easing } from 'react-native';
+import 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import StylesContainers from '../style/containers'

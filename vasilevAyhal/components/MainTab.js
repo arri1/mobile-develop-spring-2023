@@ -71,8 +71,8 @@ const App = () => {
                                     {
                                         route.name == 'Home' ?
                                         <IconHome size={size} color={color}/>
-                                        : (route.name == 'Notification') ?
-                                        <IconInbox size={size} color={color}/>
+                                        // : (route.name == 'Notification') ?
+                                        // <IconInbox size={size} color={color}/>
                                         : (route.name == 'Setting') ?
                                         <IconWrench size={size} color={color}/>
                                         : "null"
@@ -88,10 +88,10 @@ const App = () => {
                     children={() => <HomeStack />}
                 />
 
-                <Tab.Screen name='Notification'
+                {/* <Tab.Screen name='Notification'
                     children={() => <Notification removeBarBadge={removeBarBadge}/>}
                     options={{ tabBarBadge: likeCount > 0 ? likeCount : null, }}
-                />
+                /> */}
                 <Tab.Screen name='Setting'
                     children={() => <Setting />}
                 />

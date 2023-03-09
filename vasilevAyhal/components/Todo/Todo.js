@@ -123,7 +123,7 @@ const Todo = () => {
         <View style={{flex: 1}}>
             <FlashList
                 data={todoItems}
-                estimatedItemSize={windowWidth * 75}
+                estimatedItemSize={70}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{padding: screenPadding}}
                 renderItem={
