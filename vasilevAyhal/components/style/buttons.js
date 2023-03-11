@@ -22,5 +22,14 @@ export default StyleSheet.create({
         bottom: 20,
         width: '100%',
         zIndex: 10,
-    }
+    },
+    addButton: {
+        alignItems: 'center',
+        width: '50%',
+        padding: 10,
+        borderRadius: 10,
+        // shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 6,
+        // elevation: 6, // shadow for android
+        backgroundColor: '#fff',
+    },
 });

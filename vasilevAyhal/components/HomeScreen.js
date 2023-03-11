@@ -22,14 +22,24 @@ const HomeRoute = ({ navigation }) => {
                 </ImageBackground>
 
                 <View style={[styles.content]}>
-                    <View>
+                    <View style={{gap: 20}}>
+
                         <TouchableOpacity
                             activeOpacity={ 0.5 }
                             style={[StylesButtons.default, StylesButtons.buttonsDefault]}
-                            onPress={() => navigation.navigate("Todo")}
+                            onPress={() => navigation.navigate("Notes")}
                         >
-                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Todo </Text>
+                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Заметки </Text>
                         </TouchableOpacity>
+
+                        <TouchableOpacity
+                            activeOpacity={ 0.5 }
+                            style={[StylesButtons.default, StylesButtons.buttonsDefault]}
+                            onPress={() => navigation.navigate("SubjectsStack")}
+                        >
+                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Предметы </Text>
+                        </TouchableOpacity>
+                        
                     </View>
                 </View>
             </View>

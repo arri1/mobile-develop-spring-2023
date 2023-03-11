@@ -92,6 +92,7 @@ const App = () => {
                     children={() => <Notification removeBarBadge={removeBarBadge}/>}
                     options={{ tabBarBadge: likeCount > 0 ? likeCount : null, }}
                 /> */}
+                
                 <Tab.Screen name='Setting'
                     children={() => <Setting />}
                 />

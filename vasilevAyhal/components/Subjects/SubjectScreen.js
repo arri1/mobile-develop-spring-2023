@@ -1,60 +1,66 @@
 import React, { useState, useRef, useEffect } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert, Modal, View, FlatList, TextInput, Text, TouchableOpacity, Dimensions } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import 'react-native-gesture-handler';
 import { FlashList } from "@shopify/flash-list";
 import uuid from 'react-native-uuid';
 
 import StylesContainers from '../style/containers'
-import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
-import StylesTodo from './styles/todo'
+import StylesButtons from '../style/buttons'
 
-import TodoItem from './TodoItem'
+import Task from "./Task";
 
 import IconPlus from '../../assets/svg/plus'
-import IconClose from "../../assets/svg/close";
 
-
-const Todo = () => {
-    const [todoItems, setTodoItems] = useState([])
-    const windowDimensions = Dimensions.get('window');
-    const windowWidth = windowDimensions.width
+const SubjectScreen = ({ route, navigation }) => {
+    const storage = route.params.subjectId
     const screenPadding = StylesContainers.screen.padding
     const [modalVisible, setModalVisible] = useState(false)
+
     const inputSecond = useRef(null)
     const [inputTitle, setInputTitle] = useState('')
     const [inputDescription, setInputDescription] = useState("")
+    const [inputGrade, setInputGrade] = useState("")
 
-    useEffect(() => {
-        // clearStorage()
-        getAllTodoItems()
-    }, [])
+    const [subjectTask, setSubjectTask] = useState([])
 
-    const getAllTodoItems = async () => {
+    useEffect(
+        () => {
+            var promise = getItem(route.params.subjectId)
+            promise.then(item => {
+                navigation.setOptions({ headerTitle: item.title })
+            })
+            getAllSubjectTask()
+        }, []
+    )
+
+    const getAllSubjectTask = async () => {
         try {
             let keys = []
             keys = await AsyncStorage.getAllKeys()
             if (keys !== null) {
                 keys.map(
                     (key) => {
-                        var promise = getTodoItem(key)
+                        var promise = getItem(key)
                         promise.then(item => {
-                            setTodoItems(
-                                todoItems => [
-                                    { id: key, title: item.title, description: item.description, isComplete: item.isComplete },
-                                    ...todoItems
-                                ]
-                            )
+                            if(item.storage === storage)
+                                setSubjectTask(
+                                    subjectTask => [
+                                        { id: key, title: item.title, description: item.description, grade: item.grade },
+                                        ...subjectTask
+                                    ]
+                                )
                         })
                     }
                 )
             }
         } catch (e) {
-            alert('ERROR: getAllTodoItems');
+            alert('ERROR: getAllNote');
         }
     }
 
-    const getTodoItem = async (key) => {
+    const getItem = async (key) => {
         try {
             const itemValues = await AsyncStorage.getItem(key)
             if (itemValues !== null) {
@@ -62,59 +68,43 @@ const Todo = () => {
             }
             return alert('ERROR: Item null');
         } catch (e) {
-            return alert('ERROR: getTodoItem');
+            return alert('ERROR: getItem');
         }
     }
 
-    const addTodoItem = async () => {
+    const addSubjectTask = async () => {
         if(inputTitle.length > 0) {
             try {
                 let key = uuid.v4()
-                await AsyncStorage.setItem(key, JSON.stringify({ title: inputTitle, description: inputDescription, isComplete: false }))
-                setTodoItems(
-                    todoItems => [
-                        { id: key, title: inputTitle, description: inputDescription, isComplete: false },
-                        ...todoItems
+                await AsyncStorage.setItem(key, JSON.stringify(
+                    { title: inputTitle, description: inputDescription, grade: inputGrade, storage: storage }
+                ))
+                setSubjectTask(
+                    subjectTask => [
+                        { id: key, title: inputTitle, description: inputDescription, grade: inputGrade },
+                        ...subjectTask
                     ]
                 )
                 setInputTitle('')
                 setInputDescription("")
+                setInputGrade("")
                 setModalVisible(false)
             } catch (e) {
-                console.log('ERROR: addTodoItem')
+                console.log('ERROR: addSubjectTask')
             }
         } else {
             alert("ERROR: Title empty!")
         }
     }
-    
-    const isCompleteTodoItem = async (key) => {
-        try {
 
-            setTodoItems(todoItems.map(
-                (item) => {
-                    if (item.id === key) {
-                        AsyncStorage.mergeItem(key, JSON.stringify({isComplete: !item.isComplete}))
-                        item.isComplete = !item.isComplete
-                    }
-                    return item
-                }
-            ))
-        } catch (e) {
-            return alert('ERROR: isCompleteTodoItem');
-        }
-
-        
-    }
-
-    const deleteTodoItem = async (key) => {
+    const deleteSubjectTask = async (key) => {
         try {
             await AsyncStorage.removeItem(key)
-            let items = [...todoItems]
-            items.splice(todoItems.findIndex((item) => { return item.id === key }), 1)
-            setTodoItems(items)
+            let items = [...subjectTask]
+            items.splice(subjectTask.findIndex((item) => { return item.id === key }), 1)
+            setSubjectTask(items)
         } catch (e) {
-            return alert('ERROR: deleteTodoItem');
+            return alert('ERROR: deleteSubjectTask');
         }
         
     }
@@ -122,20 +112,18 @@ const Todo = () => {
     return (
         <View style={{flex: 1}}>
             <FlashList
-                data={todoItems}
-                estimatedItemSize={70}
+                data={subjectTask}
+                estimatedItemSize={130}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{padding: screenPadding}}
                 renderItem={
                     ({item}) => (
                         <View style={{paddingBottom: screenPadding}}>
-                            <TodoItem
-                                id={item.id}
+                            <Task
                                 title={item.title}
                                 description={item.description}
-                                isComplete={item.isComplete}
-                                setComplete={() => isCompleteTodoItem(item.id)}
-                                setDelete={() => deleteTodoItem(item.id)}
+                                grade={item.grade}
+                                setDelete={() => deleteSubjectTask(item.id)}
                             />
                         </View>
                     )
@@ -145,7 +133,7 @@ const Todo = () => {
             <View style={StylesButtons.buttonFooter}>
                 <TouchableOpacity
                     activeOpacity={ 0.5 }
-                    style={StylesTodo.TodoAddButton}
+                    style={StylesButtons.addButton}
                     onPress={() => setModalVisible(true)}
                 >
                     <IconPlus size={30} color={'black'}/>
@@ -173,6 +161,7 @@ const Todo = () => {
                                 onChangeText={(v) => setInputTitle(v)}
                                 style={StylesTexts.input}
                                 placeholderTextColor={StylesTexts.placeholder.color}
+                                maxLength={100}
                             />
                             <TextInput
                                 ref={inputSecond}
@@ -185,6 +174,18 @@ const Todo = () => {
                                 placeholderTextColor={StylesTexts.placeholder.color}
                                 multiline={true}
                                 numberOfLines={5}
+                            />
+                            <TextInput
+                                blurOnSubmit={false}
+                                inputMode="numeric"
+                                placeholder="Grade"
+                                returnKeyType={'done'}
+                                onSubmitEditing={() => addSubjectTask()}
+                                value={inputGrade}
+                                onChangeText={(v) => setInputGrade(v)}
+                                style={StylesTexts.input}
+                                placeholderTextColor={StylesTexts.placeholder.color}
+                                numberOfLines={1}
                             />
                         </View>
 
@@ -201,7 +202,7 @@ const Todo = () => {
                             <TouchableOpacity
                                 activeOpacity={ 0.5 }
                                 style={[StylesButtons.default, { height: 35, backgroundColor: '#B2F7C1' }]}
-                                onPress={() => addTodoItem()}
+                                onPress={() => addSubjectTask()}
                             >
                                 <Text style={[StylesTexts.default]}> Add </Text>
                             </TouchableOpacity>
@@ -213,4 +214,4 @@ const Todo = () => {
     );
 };
 
-export default Todo;
+export default SubjectScreen;

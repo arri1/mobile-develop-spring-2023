@@ -1,17 +1,15 @@
-import React from 'react';
+import React from "react";
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import { Easing } from 'react-native';
 
-import NavigationTheme from './style/navigation';
+import NavigationTheme from '../style/navigation';
 
-import HomeScreen from './HomeScreen';
-import Notes from './Notes';
-import SubjectsStack from './Subjects'
+import SubjectsScreen from "./SubjectsScreen";
+import SubjectScreen from "./SubjectScreen";
 
 const Stack = createStackNavigator();
 
-const HomeStack = () => {
-    
+const SubjectStack = () => {
     const transitionSpecConfig = {
         animation: 'timing',
         config: {
@@ -21,8 +19,7 @@ const HomeStack = () => {
     };
 
     return (
-        <Stack.Navigator screenOptions={({route}) => ({
-            headerShown: route.name != 'SubjectsStack' ? true : false,
+        <Stack.Navigator screenOptions={{
             gestureEnabled: true,
             gestureDirection: 'horizontal',
 
@@ -33,12 +30,11 @@ const HomeStack = () => {
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 
             headerStyle: { backgroundColor: NavigationTheme.colors.headerBackground },
-        })}>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Home'}} />
-            <Stack.Screen name="Notes" component={Notes} options={{title: 'Notes'}}  />
-            <Stack.Screen name="SubjectsStack" component={SubjectsStack} options={{title: 'Subjects'}}  />
+        }}>
+            <Stack.Screen name="SubjectsScreen" component={SubjectsScreen} options={{title: 'Subjects'}}  />
+            <Stack.Screen name="SubjectScreen" component={SubjectScreen} options={{title: 'Subject'}}  />
         </Stack.Navigator>
     );
 };
 
-export default HomeStack;
+export default SubjectStack;

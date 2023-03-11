@@ -13,6 +13,9 @@ export default StyleSheet.create({
     lightColor: {
         color: "#ffffff"
     },
+    fadeColor: {
+        color: "#b2b2b2"
+    },
     placeholder: {
         color: "#a9a9a9"
     },

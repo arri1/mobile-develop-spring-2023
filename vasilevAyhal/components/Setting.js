@@ -9,6 +9,39 @@ import StylesTexts from './style/texts';
 
 const Setting = () => {
     const [showAlertClearData, setShowAlertClearData] = useState(false)
+
+    const getAllStorage = async () => {
+        try {
+            console.log("keys")
+            let keys = []
+            keys = await AsyncStorage.getAllKeys()
+            if (keys !== null) {
+                keys.map(
+                    (key) => {
+                        var promise = getStorage(key)
+                        promise.then(item => {
+                            console.log(item)
+                        })
+                    }
+                )
+            }
+        } catch (e) {
+            alert('ERROR: getAllStorage');
+        }
+    }
+    
+    const getStorage = async (key) => {
+        try {
+            const itemValues = await AsyncStorage.getItem(key)
+            if (itemValues !== null) {
+                return JSON.parse(itemValues)
+            }
+            return alert('ERROR: Item null');
+        } catch (e) {
+            return alert('ERROR: getStorage');
+        }
+    }
+
     const clearStorage = async () => {
         try {
             await AsyncStorage.clear();
@@ -20,13 +53,22 @@ const Setting = () => {
 
     return (
         <View style={[StylesContainers.default, StylesContainers.screen]}>
-            <View style={{alignItems: 'center'}}>
+            <View style={{alignItems: 'center', gap: 20}}>
+                
+                <TouchableOpacity
+                    style={[StylesButtons.default, StylesButtons.buttonsDefault]}
+                    onPress={() => getAllStorage()}
+                >
+                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Get all data </Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity
                     style={[StylesButtons.default, StylesButtons.buttonsDefault]}
                     onPress={() => setShowAlertClearData(true)}
                 >
                     <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Clear data </Text>
                 </TouchableOpacity>
+
             </View>
 
             <AwesomeAlert
