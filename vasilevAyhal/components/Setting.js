@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert, View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 import StylesContainers from './style/containers';

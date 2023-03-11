@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import { Animated, View, Text, Easing } from 'react-native';
 import 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -13,14 +13,9 @@ import IconDone from '../../assets/svg/done';
 import IconUndone from '../../assets/svg/undone';
 
 const Task = (props) => {
-    // const translateX = new Animated.Value(0);
-    // const translateY = new Animated.Value(0);
-    // const swipe = Animated.event(
-    //     [ { nativeEvent: { translationX: translateX } }, ],
-    //     { useNativeDriver: true }
-    // );
-    const iconSize = 20
+    const iconSize = 30
     const animValue = new Animated.Value(1)
+    const refSwipeable = useRef(null)
 
     const animStart = () => {
         Animated.timing(animValue, {
@@ -31,29 +26,29 @@ const Task = (props) => {
         }).start(() => props.setDelete())
     };
 
-    // const swipeLeft = () => {
-    //     return (
-    //         <View
-    //             style={[
-    //                 StylesSubject.subjectSwipe,
-    //                 {alignItems: 'flex-start'},
-    //                 props.isComplete ? {backgroundColor: '#F7F19E'} : {backgroundColor: '#B2F7C1'}
-    //             ]}>
-    //             {
-    //                 props.isComplete ?
-    //                     <View style={{ alignItems: 'center' }}>
-    //                         <IconUndone size={iconSize}/>
-    //                         <Text style={StylesTexts.small}> Undone </Text>
-    //                     </View>
-    //                     :
-    //                     <View style={{ alignItems: 'center' }}>
-    //                         <IconDone size={iconSize}/>
-    //                         <Text style={StylesTexts.small}> Done </Text>
-    //                     </View>
-    //             }
-    //         </View>
-    //     );
-    // };
+    const swipeLeft = () => {
+        return (
+            <View
+                style={[
+                    StylesSubject.subjectSwipe,
+                    {alignItems: 'flex-start'},
+                    props.isComplete ? {backgroundColor: '#F7F19E'} : {backgroundColor: '#B2F7C1'}
+                ]}>
+                {
+                    props.isComplete ?
+                        <View style={{ alignItems: 'center' }}>
+                            <IconUndone size={iconSize}/>
+                            <Text style={StylesTexts.small}> Undone </Text>
+                        </View>
+                        :
+                        <View style={{ alignItems: 'center' }}>
+                            <IconDone size={iconSize}/>
+                            <Text style={StylesTexts.small}> Done </Text>
+                        </View>
+                }
+            </View>
+        );
+    };
 
     const swipeRight = () => {
         return (
@@ -73,17 +68,18 @@ const Task = (props) => {
     return (
         <Animated.View style={[StylesSubject.subjectContainer, {transform: [{scale: animValue}], opacity: animValue}]}>
             <Swipeable
-                // renderLeftActions={swipeLeft}
+                ref={refSwipeable}
+                renderLeftActions={swipeLeft}
                 renderRightActions={swipeRight}
                 onSwipeableOpen={
                     (direction) => {
                         if (direction == 'right') {
                             animStart()
                         }
-                        // else {
-                        //     refSwipeable.current.close()
-                        //     props.setComplete()
-                        // }
+                        else {
+                            refSwipeable.current.close()
+                            props.setComplete()
+                        }
                     }
                 }
                 containerStyle={{flex: 1}}
@@ -91,18 +87,12 @@ const Task = (props) => {
             >
                 <View style={StylesSubject.subject}>
                     <Text
-                        style={StylesTexts.default}
+                        style={[StylesTexts.default, props.isComplete ? {textDecorationLine: 'line-through'} : '']}
                         numberOfLines={1}
-                    > 
+                    >
                         {props.title}
                     </Text>
                     <View style={{borderBottomWidth: 1, justifyContent: 'space-between', flexDirection: 'row'}}>
-                        <Text
-                            style={[StylesTexts.small, StylesTexts.fadeColor]}
-                            numberOfLines={1}
-                        >
-                            срок
-                        </Text>
                         <Text
                             style={[StylesTexts.small, StylesTexts.fadeColor]}
                             numberOfLines={1}
@@ -111,7 +101,7 @@ const Task = (props) => {
                         </Text>
                     </View>
                     <Text
-                        style={[StylesSubject.textField, StylesTexts.small]}
+                        style={[StylesSubject.textField, StylesTexts.small, props.isComplete ? {textDecorationLine: 'line-through'} : '']}
                         numberOfLines={2}
                     >
                         {props.description}

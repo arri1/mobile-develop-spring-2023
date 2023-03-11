@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert, Modal, View, FlatList, TextInput, Text, TouchableOpacity } from 'react-native';
+import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { FlashList } from "@shopify/flash-list";
 import uuid from 'react-native-uuid';
 
-import NavigationTheme from '../style/navigation';
 import StylesContainers from '../style/containers'
 import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
@@ -132,7 +131,7 @@ const SubjectsScreen = ({ navigation }) => {
                 }
             />
 
-            <View style={StylesButtons.buttonFooter}>
+            <View style={[StylesButtons.buttonFooter, modalVisible ? {display: 'none'} : {display: 'flex'}]}>
                 <TouchableOpacity
                     activeOpacity={ 0.5 }
                     style={StylesButtons.addButton}
@@ -149,42 +148,48 @@ const SubjectsScreen = ({ navigation }) => {
                 transparent={true}
                 statusBarTranslucent={true}
             >
-                <View style={[StylesContainers.fill, StylesContainers.modalContainer]}>
-                    <View style={[StylesContainers.modal, {justifyContent: 'space-between', gap: 50}]}>
-                        <View>
-                            <TextInput
-                                inputMode="text"
-                                placeholder="Title"
-                                autoFocus={true}
-                                returnKeyType={'done'}
-                                value={inputTitle}
-                                onChangeText={(v) => setInputTitle(v)}
-                                onSubmitEditing={() => addSubject()}
-                                style={StylesTexts.input}
-                                placeholderTextColor={StylesTexts.placeholder.color}
-                            />
+                <KeyboardAvoidingView
+                    behavior='padding'
+                    style={StylesContainers.modalContainer}
+                    enabled
+                >
+                    <ScrollView>
+                        <View style={[StylesContainers.modal, { gap: 50}]}>
+                            <View>
+                                <TextInput
+                                    inputMode="text"
+                                    placeholder="Title"
+                                    autoFocus={true}
+                                    returnKeyType={'done'}
+                                    value={inputTitle}
+                                    onChangeText={(v) => setInputTitle(v)}
+                                    onSubmitEditing={() => addSubject()}
+                                    style={StylesTexts.input}
+                                    placeholderTextColor={StylesTexts.placeholder.color}
+                                />
+                            </View>
+
+                            <View style={{ width: '100%', gap: 10 }}>
+
+                                <TouchableOpacity
+                                    activeOpacity={ 0.5 }
+                                    style={[StylesButtons.default, StylesButtons.bottom, { backgroundColor: 'black' }]}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    activeOpacity={ 0.5 }
+                                    style={[StylesButtons.default, StylesButtons.bottom, { backgroundColor: '#B2F7C1' }]}
+                                    onPress={() => addSubject()}
+                                >
+                                    <Text style={[StylesTexts.default]}> Add </Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-
-                        <View style={{ width: '100%', gap: 10 }}>
-
-                            <TouchableOpacity
-                                activeOpacity={ 0.5 }
-                                style={[StylesButtons.default, { height: 35, backgroundColor: 'black' }]}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                activeOpacity={ 0.5 }
-                                style={[StylesButtons.default, { height: 35, backgroundColor: '#B2F7C1' }]}
-                                onPress={() => addSubject()}
-                            >
-                                <Text style={[StylesTexts.default]}> Add </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </Modal>
         </View>
     );

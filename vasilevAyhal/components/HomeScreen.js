@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, ImageBackground, Text, TouchableOpacity, Image, StyleSheet, ScrollView, Button,
-    Animated, Dimensions } from 'react-native';
+import React from "react";
+import { View, ImageBackground, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
 
 import NavigationTheme from './style/navigation'
 import StylesContainers from './style/containers'
@@ -16,11 +15,9 @@ const HomeRoute = ({ navigation }) => {
 
     return (
         <ScrollView>
-
             <View style={StylesContainers.default}>
                 <ImageBackground source={Psycho} style={styles.background}>
                 </ImageBackground>
-
                 <View style={[styles.content]}>
                     <View style={{gap: 20}}>
 

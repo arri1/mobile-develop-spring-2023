@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
@@ -15,12 +14,13 @@ export default StyleSheet.create({
         height: '100%'
     },
     modalContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 1,
+        paddingVertical: 100,
         backgroundColor: '#00000070',
     },
     modal: {
-        width: '80%',
+        width: '90%',
+        alignSelf: 'center',
         padding: 30,
         backgroundColor: '#ffffff',
         borderRadius: 10,

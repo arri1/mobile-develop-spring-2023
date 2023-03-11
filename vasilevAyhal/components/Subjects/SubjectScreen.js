@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Alert, Modal, View, FlatList, TextInput, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import 'react-native-gesture-handler';
 import { FlashList } from "@shopify/flash-list";
@@ -18,12 +18,13 @@ const SubjectScreen = ({ route, navigation }) => {
     const screenPadding = StylesContainers.screen.padding
     const [modalVisible, setModalVisible] = useState(false)
 
+    const [subjectTask, setSubjectTask] = useState([])
     const inputSecond = useRef(null)
+    const inputThird = useRef(null)
     const [inputTitle, setInputTitle] = useState('')
     const [inputDescription, setInputDescription] = useState("")
     const [inputGrade, setInputGrade] = useState("")
 
-    const [subjectTask, setSubjectTask] = useState([])
 
     useEffect(
         () => {
@@ -47,7 +48,7 @@ const SubjectScreen = ({ route, navigation }) => {
                             if(item.storage === storage)
                                 setSubjectTask(
                                     subjectTask => [
-                                        { id: key, title: item.title, description: item.description, grade: item.grade },
+                                        { id: key, title: item.title, description: item.description, grade: item.grade, isComplete: item.isComplete },
                                         ...subjectTask
                                     ]
                                 )
@@ -77,11 +78,11 @@ const SubjectScreen = ({ route, navigation }) => {
             try {
                 let key = uuid.v4()
                 await AsyncStorage.setItem(key, JSON.stringify(
-                    { title: inputTitle, description: inputDescription, grade: inputGrade, storage: storage }
+                    { title: inputTitle, description: inputDescription, grade: inputGrade, isComplete: false, storage: storage }
                 ))
                 setSubjectTask(
                     subjectTask => [
-                        { id: key, title: inputTitle, description: inputDescription, grade: inputGrade },
+                        { id: key, title: inputTitle, description: inputDescription, grade: inputGrade, isComplete: false },
                         ...subjectTask
                     ]
                 )
@@ -109,11 +110,27 @@ const SubjectScreen = ({ route, navigation }) => {
         
     }
 
+    const setIsComplete = async (key) => {
+        try {
+            setSubjectTask(subjectTask.map(
+                (item) => {
+                    if (item.id === key) {
+                        AsyncStorage.mergeItem(key, JSON.stringify({isComplete: !item.isComplete}))
+                        item.isComplete = !item.isComplete
+                    }
+                    return item
+                }
+            ))
+        } catch (e) {
+            return alert('ERROR: isComplete');
+        }
+    }
+
     return (
         <View style={{flex: 1}}>
             <FlashList
                 data={subjectTask}
-                estimatedItemSize={130}
+                estimatedItemSize={156}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{padding: screenPadding}}
                 renderItem={
@@ -123,14 +140,16 @@ const SubjectScreen = ({ route, navigation }) => {
                                 title={item.title}
                                 description={item.description}
                                 grade={item.grade}
+                                isComplete={item.isComplete}
                                 setDelete={() => deleteSubjectTask(item.id)}
+                                setComplete={() => setIsComplete(item.id)}
                             />
                         </View>
                     )
                 }
             />
 
-            <View style={StylesButtons.buttonFooter}>
+            <View style={[StylesButtons.buttonFooter, modalVisible ? {display: 'none'} : {display: 'flex'}]}>
                 <TouchableOpacity
                     activeOpacity={ 0.5 }
                     style={StylesButtons.addButton}
@@ -147,68 +166,72 @@ const SubjectScreen = ({ route, navigation }) => {
                 transparent={true}
                 statusBarTranslucent={true}
             >
-                <View style={[StylesContainers.fill, StylesContainers.modalContainer]}>
-                    <View style={[StylesContainers.modal, {justifyContent: 'space-between', gap: 50}]}>
-                        <View style={{ gap: 20 }}>
-                            <TextInput
-                                inputMode="text"
-                                placeholder="Title"
-                                autoFocus={true}
-                                blurOnSubmit={false}
-                                onSubmitEditing={() => inputSecond.current.focus()}
-                                returnKeyType={'next'}
-                                value={inputTitle}
-                                onChangeText={(v) => setInputTitle(v)}
-                                style={StylesTexts.input}
-                                placeholderTextColor={StylesTexts.placeholder.color}
-                                maxLength={100}
-                            />
-                            <TextInput
-                                ref={inputSecond}
-                                blurOnSubmit={false}
-                                inputMode="text"
-                                placeholder="Description"
-                                value={inputDescription}
-                                onChangeText={(v) => setInputDescription(v)}
-                                style={[StylesTexts.input, StylesTexts.inputMulti]}
-                                placeholderTextColor={StylesTexts.placeholder.color}
-                                multiline={true}
-                                numberOfLines={5}
-                            />
-                            <TextInput
-                                blurOnSubmit={false}
-                                inputMode="numeric"
-                                placeholder="Grade"
-                                returnKeyType={'done'}
-                                onSubmitEditing={() => addSubjectTask()}
-                                value={inputGrade}
-                                onChangeText={(v) => setInputGrade(v)}
-                                style={StylesTexts.input}
-                                placeholderTextColor={StylesTexts.placeholder.color}
-                                numberOfLines={1}
-                            />
+                <KeyboardAvoidingView
+                    behavior='padding'
+                    style={StylesContainers.modalContainer}
+                    enabled
+                >
+                    <ScrollView>
+                        <View style={[StylesContainers.modal, {gap: 50}]}>
+                            <View style={{ gap: 20 }}>
+                                <TextInput
+                                    blurOnSubmit={false}
+                                    inputMode="text"
+                                    placeholder="Title"
+                                    returnKeyType='next'
+                                    value={inputTitle}
+                                    onChangeText={(v) => setInputTitle(v)}
+                                    onSubmitEditing={() => inputSecond.current.focus()}
+                                    style={StylesTexts.input}
+                                    placeholderTextColor={StylesTexts.placeholder.color}
+                                    maxLength={100}
+                                />
+                                <TextInput
+                                    ref={inputSecond}
+                                    blurOnSubmit={false}
+                                    inputMode="numeric"
+                                    placeholder="Grade"
+                                    returnKeyType='next'
+                                    value={inputGrade}
+                                    onChangeText={(v) => setInputGrade(v)}
+                                    onSubmitEditing={() => inputThird.current.focus()}
+                                    style={StylesTexts.input}
+                                    placeholderTextColor={StylesTexts.placeholder.color}
+                                    numberOfLines={1}
+                                />
+                                <TextInput
+                                    ref={inputThird}
+                                    blurOnSubmit={false}
+                                    inputMode="text"
+                                    placeholder="Description"
+                                    value={inputDescription}
+                                    onChangeText={(v) => setInputDescription(v)}
+                                    style={[StylesTexts.input, StylesTexts.inputMulti]}
+                                    placeholderTextColor={StylesTexts.placeholder.color}
+                                    multiline={true}
+                                    numberOfLines={5}
+                                />
+                            </View>
+                            <View style={{ width: '100%', gap: 10 }}>
+                                <TouchableOpacity
+                                    activeOpacity={ 0.5 }
+                                    style={[StylesButtons.default, StylesButtons.bottom, { backgroundColor: 'black' }]}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    activeOpacity={ 0.5 }
+                                    style={[StylesButtons.default, StylesButtons.bottom, { backgroundColor: '#B2F7C1' }]}
+                                    onPress={() => addSubjectTask()}
+                                >
+                                    <Text style={[StylesTexts.default]}> Add </Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-
-                        <View style={{ width: '100%', gap: 10 }}>
-
-                            <TouchableOpacity
-                                activeOpacity={ 0.5 }
-                                style={[StylesButtons.default, { height: 35, backgroundColor: 'black' }]}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                activeOpacity={ 0.5 }
-                                style={[StylesButtons.default, { height: 35, backgroundColor: '#B2F7C1' }]}
-                                onPress={() => addSubjectTask()}
-                            >
-                                <Text style={[StylesTexts.default]}> Add </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </Modal>
         </View>
     );

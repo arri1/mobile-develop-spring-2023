@@ -1,16 +1,12 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { Animated, View, Text, Easing } from 'react-native';
 import 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-import StylesContainers from '../style/containers'
 import StylesTexts from '../style/texts'
 import StylesNote from './styles/note'
 
 import IconDelete from '../../assets/svg/delete';
-import IconEdit from '../../assets/svg/edit';
-import IconDone from '../../assets/svg/done';
-import IconUndone from '../../assets/svg/undone';
 
 const Note = (props) => {
     // const translateX = new Animated.Value(0);

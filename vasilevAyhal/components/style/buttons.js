@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
@@ -32,4 +31,7 @@ export default StyleSheet.create({
         // elevation: 6, // shadow for android
         backgroundColor: '#fff',
     },
+    bottom: {
+        height: 45
+    }
 });

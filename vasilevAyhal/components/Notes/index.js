@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert, Modal, View, FlatList, TextInput, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { FlashList } from "@shopify/flash-list";
 import uuid from 'react-native-uuid';
 
@@ -85,23 +85,6 @@ const Notes = () => {
             alert("ERROR: Title empty!")
         }
     }
-    
-    // const isCompleteNoteItem = async (key) => {
-    //     try {
-
-    //         setNote(note.map(
-    //             (item) => {
-    //                 if (item.id === key) {
-    //                     AsyncStorage.mergeItem(key, JSON.stringify({isComplete: !item.isComplete}))
-    //                     item.isComplete = !item.isComplete
-    //                 }
-    //                 return item
-    //             }
-    //         ))
-    //     } catch (e) {
-    //         return alert('ERROR: isCompleteNoteItem');
-    //     }
-    // }
 
     const deleteNote = async (key) => {
         try {
@@ -135,7 +118,7 @@ const Notes = () => {
                 }
             />
 
-            <View style={StylesButtons.buttonFooter}>
+            <View style={[StylesButtons.buttonFooter, modalVisible ? {display: 'none'} : {display: 'flex'}]}>
                 <TouchableOpacity
                     activeOpacity={ 0.5 }
                     style={StylesButtons.addButton}
@@ -152,56 +135,62 @@ const Notes = () => {
                 transparent={true}
                 statusBarTranslucent={true}
             >
-                <View style={[StylesContainers.fill, StylesContainers.modalContainer]}>
-                    <View style={[StylesContainers.modal, {justifyContent: 'space-between', gap: 50}]}>
-                        <View style={{ gap: 20 }}>
-                            <TextInput
-                                inputMode="text"
-                                placeholder="Title"
-                                autoFocus={true}
-                                blurOnSubmit={false}
-                                onSubmitEditing={() => inputSecond.current.focus()}
-                                returnKeyType={'next'}
-                                value={inputTitle}
-                                onChangeText={(v) => setInputTitle(v)}
-                                style={StylesTexts.input}
-                                placeholderTextColor={StylesTexts.placeholder.color}
-                                maxLength={100}
-                            />
-                            <TextInput
-                                ref={inputSecond}
-                                blurOnSubmit={false}
-                                inputMode="text"
-                                placeholder="Description"
-                                value={inputDescription}
-                                onChangeText={(v) => setInputDescription(v)}
-                                style={[StylesTexts.input, StylesTexts.inputMulti]}
-                                placeholderTextColor={StylesTexts.placeholder.color}
-                                multiline={true}
-                                numberOfLines={5}
-                            />
+                <KeyboardAvoidingView
+                    behavior='padding'
+                    style={StylesContainers.modalContainer}
+                    enabled
+                >
+                    <ScrollView>
+                        <View style={[StylesContainers.modal, { gap: 50}]}>
+                            <View style={{ gap: 20 }}>
+                                <TextInput
+                                    inputMode="text"
+                                    placeholder="Title"
+                                    autoFocus={true}
+                                    blurOnSubmit={false}
+                                    onSubmitEditing={() => inputSecond.current.focus()}
+                                    returnKeyType={'next'}
+                                    value={inputTitle}
+                                    onChangeText={(v) => setInputTitle(v)}
+                                    style={StylesTexts.input}
+                                    placeholderTextColor={StylesTexts.placeholder.color}
+                                    maxLength={100}
+                                />
+                                <TextInput
+                                    ref={inputSecond}
+                                    blurOnSubmit={false}
+                                    inputMode="text"
+                                    placeholder="Description"
+                                    value={inputDescription}
+                                    onChangeText={(v) => setInputDescription(v)}
+                                    style={[StylesTexts.input, StylesTexts.inputMulti]}
+                                    placeholderTextColor={StylesTexts.placeholder.color}
+                                    multiline={true}
+                                    numberOfLines={5}
+                                />
+                            </View>
+
+                            <View style={{ width: '100%', gap: 10 }}>
+
+                                <TouchableOpacity
+                                    activeOpacity={ 0.5 }
+                                    style={[StylesButtons.default, StylesButtons.bottom, { backgroundColor: 'black' }]}
+                                    onPress={() => setModalVisible(false)}
+                                >
+                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    activeOpacity={ 0.5 }
+                                    style={[StylesButtons.default, StylesButtons.bottom, { backgroundColor: '#B2F7C1' }]}
+                                    onPress={() => addNote()}
+                                >
+                                    <Text style={[StylesTexts.default]}> Add </Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-
-                        <View style={{ width: '100%', gap: 10 }}>
-
-                            <TouchableOpacity
-                                activeOpacity={ 0.5 }
-                                style={[StylesButtons.default, { height: 35, backgroundColor: 'black' }]}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                activeOpacity={ 0.5 }
-                                style={[StylesButtons.default, { height: 35, backgroundColor: '#B2F7C1' }]}
-                                onPress={() => addNote()}
-                            >
-                                <Text style={[StylesTexts.default]}> Add </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </Modal>
         </View>
     );

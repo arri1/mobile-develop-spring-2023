@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Animated, Easing, View, Dimensions } from 'react-native';
 
 import NavigationTheme from './style/navigation';
-import StylesTexts from './style/texts';
 import StylesContainers from './style/containers';
 
 import HomeStack from './HomeStack';
@@ -20,7 +19,6 @@ const Tab = createBottomTabNavigator();
 const windowHeight = Dimensions.get('window').height;
 
 const App = () => {
-    const [likeCount, setCount] = useState(0)
     const size = windowHeight / 100 * 5
     const activeTintColor = NavigationTheme.colors.activeColor
     const inactiveTintColor = NavigationTheme.colors.inactiveColor
@@ -36,9 +34,6 @@ const App = () => {
             useNativeDriver: true,
         }).start();
     };
-
-    const addBarBadge = () => { setCount(likeCount + 1) }
-    const removeBarBadge = () => { if(likeCount != 0) setCount(likeCount - 1) }
 
     return (
         <NavigationContainer theme={NavigationTheme}>
