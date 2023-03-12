@@ -1,56 +1,55 @@
 import React, { useState, useRef, useEffect } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator, Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FlashList } from "@shopify/flash-list";
 import uuid from 'react-native-uuid';
 
 import StylesContainers from '../style/containers'
-import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
+import StylesButtons from '../style/buttons'
 
-import Note from './Note'
+import Task from "./Task";
 
 import IconPlus from '../../assets/svg/plus'
 
-
-const Notes = () => {
-    const storage = 'notes'
+const Tasks = (props) => {
+    const storage = props.subjectId
     const screenPadding = StylesContainers.screen.padding
     const [modalVisible, setModalVisible] = useState(false)
-    const [note, setNote] = useState([])
+    const [subjectTask, setSubjectTask] = useState([])
     const [loading, setLoading] = useState(true)
 
     const inputSecond = useRef(null)
+    const inputThird = useRef(null)
     const [inputTitle, setInputTitle] = useState('')
     const [inputDescription, setInputDescription] = useState("")
-    
+    const [inputGrade, setInputGrade] = useState("")
 
-    useEffect(() => {
-        getAllNote()
-        setTimeout(() => {
-            setLoading(false)
-        }, 500)
-    }, [])
 
-    const getAllNote = async () => {
+    useEffect(
+        () => {
+            getAllSubjectTask()
+            setTimeout(() => {
+                setLoading(false)
+            }, 500)
+        }, []
+    )
+
+    const getAllSubjectTask = async () => {
         try {
             let keys = []
             keys = await AsyncStorage.getAllKeys()
             if (keys !== null) {
-                keys.map(
-                    (key) => {
-                        var promise = getItem(key)
-                        promise.then(item => {
-                            if(item.storage === storage)
-                                setNote(
-                                    note => [
-                                        ...note,
-                                        { id: key, title: item.title, description: item.description },
-                                    ]
-                                )
-                        })
-                    }
-                )
+                keys.map((key) => {
+                    var promise = getItem(key)
+                    promise.then(item => {
+                        if(item.storage === storage)
+                            setSubjectTask( subjectTask => [
+                                ...subjectTask,
+                                { id: key, title: item.title, description: item.description, grade: item.grade, isComplete: item.isComplete },
+                            ])
+                    })
+                })
             }
         } catch (e) {
             alert('ERROR: getAllNote');
@@ -69,36 +68,56 @@ const Notes = () => {
         }
     }
 
-    const addNote = async () => {
+    const addSubjectTask = async () => {
         if(inputTitle.length > 0) {
             try {
                 let key = uuid.v4()
-                await AsyncStorage.setItem(key, JSON.stringify({ title: inputTitle, description: inputDescription, storage: storage }))
-                setNote(
-                    note => [
-                        { id: key, title: inputTitle, description: inputDescription },
-                        ...note
+                await AsyncStorage.setItem(key, JSON.stringify(
+                    { title: inputTitle, description: inputDescription, grade: inputGrade, isComplete: false, storage: storage }
+                ))
+                setSubjectTask(
+                    subjectTask => [
+                        { id: key, title: inputTitle, description: inputDescription, grade: inputGrade, isComplete: false },
+                        ...subjectTask
                     ]
                 )
                 setInputTitle('')
                 setInputDescription("")
+                setInputGrade("")
                 setModalVisible(false)
             } catch (e) {
-                console.log('ERROR: addNote')
+                console.log('ERROR: addSubjectTask')
             }
         } else {
             alert("ERROR: Title empty!")
         }
     }
 
-    const deleteNote = async (key) => {
+    const deleteSubjectTask = async (key) => {
         try {
             await AsyncStorage.removeItem(key)
-            let items = [...note]
-            items.splice(note.findIndex((item) => { return item.id === key }), 1)
-            setNote(items)
+            let items = [...subjectTask]
+            items.splice(subjectTask.findIndex((item) => { return item.id === key }), 1)
+            setSubjectTask(items)
         } catch (e) {
-            return alert('ERROR: deleteNote');
+            return alert('ERROR: deleteSubjectTask');
+        }
+        
+    }
+
+    const setIsComplete = async (key) => {
+        try {
+            setSubjectTask(subjectTask.map(
+                (item) => {
+                    if (item.id === key) {
+                        AsyncStorage.mergeItem(key, JSON.stringify({isComplete: !item.isComplete}))
+                        item.isComplete = !item.isComplete
+                    }
+                    return item
+                }
+            ))
+        } catch (e) {
+            return alert('ERROR: isComplete');
         }
     }
 
@@ -106,24 +125,27 @@ const Notes = () => {
         <View style={{flex: 1}}>
             {
                 loading ? <ActivityIndicator size="large" color="#00000050" style={{flex: 1}}/> :
-                note.length === 0 ?
+                subjectTask.length === 0 ?
                 <View style={[StylesContainers.screen, StylesContainers.default]}>
                     <Text style={[StylesTexts.default, StylesContainers.alert]}> Нет записей </Text>
                 </View>
                 :
                 <FlashList
-                    data={note}
-                    estimatedItemSize={130}
+                    data={subjectTask}
+                    estimatedItemSize={156}
+                    progressViewOffset={100}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={{padding: screenPadding, paddingBottom: screenPadding*3}}
                     renderItem={
                         ({item}) => (
                             <View style={{marginBottom: screenPadding}}>
-                                <Note
-                                    id={item.id}
+                                <Task
                                     title={item.title}
                                     description={item.description}
-                                    setDelete={() => deleteNote(item.id)}
+                                    grade={item.grade}
+                                    isComplete={item.isComplete}
+                                    setDelete={() => deleteSubjectTask(item.id)}
+                                    setComplete={() => setIsComplete(item.id)}
                                 />
                             </View>
                         )
@@ -156,24 +178,38 @@ const Notes = () => {
                     <ScrollView>
                         <View style={[StylesContainers.modal, { gap: 30 }]}>
                             <Text style={StylesTexts.big}>
-                                Create new note
+                                Create new task
                             </Text>
                             <View style={{ gap: 20 }}>
                                 <TextInput
                                     autoFocus={true}
+                                    blurOnSubmit={false}
                                     inputMode="text"
                                     placeholder="Title"
-                                    blurOnSubmit={false}
-                                    onSubmitEditing={() => inputSecond.current.focus()}
-                                    returnKeyType={'next'}
+                                    returnKeyType='next'
                                     value={inputTitle}
                                     onChangeText={(v) => setInputTitle(v)}
+                                    onSubmitEditing={() => inputSecond.current.focus()}
                                     style={StylesTexts.input}
                                     placeholderTextColor={StylesTexts.placeholder.color}
                                     maxLength={100}
                                 />
                                 <TextInput
                                     ref={inputSecond}
+                                    blurOnSubmit={false}
+                                    inputMode="numeric"
+                                    placeholder="Grade"
+                                    returnKeyType='next'
+                                    value={inputGrade}
+                                    onChangeText={(v) => setInputGrade(v)}
+                                    onSubmitEditing={() => inputThird.current.focus()}
+                                    style={StylesTexts.input}
+                                    placeholderTextColor={StylesTexts.placeholder.color}
+                                    numberOfLines={1}
+                                    maxLength={100}
+                                />
+                                <TextInput
+                                    ref={inputThird}
                                     blurOnSubmit={false}
                                     inputMode="text"
                                     placeholder="Description"
@@ -185,9 +221,7 @@ const Notes = () => {
                                     numberOfLines={5}
                                 />
                             </View>
-
                             <View style={{ flexDirection: 'row', width: '100%', gap: 10 }}>
-
                                 <TouchableOpacity
                                     activeOpacity={ 0.5 }
                                     style={[StylesButtons.default, StylesButtons.bottom, { flex: 0.5, backgroundColor: 'black' }]}
@@ -199,7 +233,7 @@ const Notes = () => {
                                 <TouchableOpacity
                                     activeOpacity={ 0.5 }
                                     style={[StylesButtons.default, StylesButtons.bottom, { flex: 0.5, backgroundColor: '#B2F7C1' }]}
-                                    onPress={() => addNote()}
+                                    onPress={() => addSubjectTask()}
                                 >
                                     <Text style={[StylesTexts.default]}> Add </Text>
                                 </TouchableOpacity>
@@ -212,4 +246,4 @@ const Notes = () => {
     );
 };
 
-export default Notes;
+export default Tasks;

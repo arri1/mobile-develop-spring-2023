@@ -36,7 +36,6 @@ const HomeRoute = ({ navigation }) => {
                         >
                             <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Предметы </Text>
                         </TouchableOpacity>
-                        
                     </View>
                 </View>
             </View>

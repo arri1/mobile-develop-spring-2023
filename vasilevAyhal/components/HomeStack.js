@@ -3,6 +3,7 @@ import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/
 import { Easing } from 'react-native';
 
 import NavigationTheme from './style/navigation';
+import StylesTexts from './style/texts';
 
 import HomeScreen from './HomeScreen';
 import Notes from './Notes';

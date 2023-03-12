@@ -5,6 +5,7 @@ import { Animated, Easing, View, Dimensions } from 'react-native';
 
 import NavigationTheme from './style/navigation';
 import StylesContainers from './style/containers';
+import StylesTexts from './style/texts';
 
 import HomeStack from './HomeStack';
 import Notification from './Notification';

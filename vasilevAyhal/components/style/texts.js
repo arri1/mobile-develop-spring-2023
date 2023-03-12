@@ -3,7 +3,11 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     default: {
         fontSize: 20,
-        fontWeight: '600',        
+        fontWeight: '600',
+    },
+    header: {
+        fontSize: 18,
+        fontWeight: '600',
     },
     big: {
         fontSize: 26,
@@ -38,5 +42,5 @@ export default StyleSheet.create({
         paddingVertical: 5,
         textAlignVertical: 'top',
         // borderRightWidth: 2,
-    }
+    },
 });

@@ -24,5 +24,10 @@ export default StyleSheet.create({
         padding: 30,
         backgroundColor: '#ffffff',
         borderRadius: 10,
+    },
+    alert: {
+        padding: 40,
+        backgroundColor: '#ffffff90',
+        borderRadius: 10,
     }
 });

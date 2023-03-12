@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { ActivityIndicator, Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { FlashList } from "@shopify/flash-list";
 import uuid from 'react-native-uuid';
 
@@ -13,15 +13,19 @@ import Subject from './Subject'
 import IconPlus from '../../assets/svg/plus'
 
 const SubjectsScreen = ({ navigation }) => {
-
     const storage = 'subjects'
     const screenPadding = StylesContainers.screen.padding
     const [modalVisible, setModalVisible] = useState(false)
     const [subjects, setSubjects] = useState([])
+    const [loading, setLoading] = useState(true)
+
     const [inputTitle, setInputTitle] = useState('')
 
     useEffect(() => {
         getAllSubjects()
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
     }, [])
 
     const getAllSubjects = async () => {
@@ -33,13 +37,14 @@ const SubjectsScreen = ({ navigation }) => {
                     (key) => {
                         var promise = getItem(key)
                         promise.then(item => {
-                            if(item.storage === storage)
+                            if(item.storage === storage) {
                                 setSubjects(
                                     subjects => [
+                                        ...subjects,
                                         { id: key, title: item.title },
-                                        ...subjects
                                     ]
                                 )
+                            }
                         })
                     }
                 )
@@ -108,28 +113,37 @@ const SubjectsScreen = ({ navigation }) => {
 
     return (
         <View style={{flex: 1}}>
-            <FlashList
-                data={subjects}
-                estimatedItemSize={76}
-                keyExtractor={(item) => item.id}
-                contentContainerStyle={{padding: screenPadding}}
-                renderItem={
-                    ({item}) => (
-                        <TouchableOpacity
-                            onPress={
-                                () => { navigation.navigate('SubjectScreen', { subjectId: item.id }) }
-                            }
-                            activeOpacity={ 0.5 }
-                            style={{paddingBottom: screenPadding}}
-                        >
-                            <Subject
-                                title={item.title}
-                                setDelete={() => deleteSubject(item.id)}
-                            />
-                        </TouchableOpacity>
-                    )
-                }
-            />
+            {
+                loading ? <ActivityIndicator size="large" color="#00000050" style={{flex: 1}}/> :
+                subjects.length === 0 ?
+                <View style={[StylesContainers.screen, StylesContainers.default]}>
+                    <Text style={[StylesTexts.default, StylesContainers.alert]}> Нет записей </Text>
+                </View>
+                :
+                <FlashList
+                    data={subjects}
+                    estimatedItemSize={76}
+                    keyExtractor={(item) => item.id}
+                    contentContainerStyle={{padding: screenPadding, paddingBottom: screenPadding*3}}
+                    renderItem={
+                        ({item}) => (
+                            <TouchableOpacity
+                                onPress={
+                                    () => { navigation.navigate('SubjectScreen', { subjectId: item.id }) }
+                                }
+                                activeOpacity={ 0.5 }
+                                style={{marginBottom: screenPadding}}
+                            >
+                                <Subject
+                                    title={item.title}
+                                    countTask={item.countTask}
+                                    setDelete={() => deleteSubject(item.id)}
+                                />
+                            </TouchableOpacity>
+                        )
+                    }
+                />
+            }
 
             <View style={[StylesButtons.buttonFooter, modalVisible ? {display: 'none'} : {display: 'flex'}]}>
                 <TouchableOpacity
@@ -154,12 +168,15 @@ const SubjectsScreen = ({ navigation }) => {
                     enabled
                 >
                     <ScrollView>
-                        <View style={[StylesContainers.modal, { gap: 50}]}>
+                        <View style={[StylesContainers.modal, { gap: 30 }]}>
+                            <Text style={StylesTexts.big}>
+                                Create new subject
+                            </Text>
                             <View>
                                 <TextInput
+                                    autoFocus={true}
                                     inputMode="text"
                                     placeholder="Title"
-                                    autoFocus={true}
                                     returnKeyType={'done'}
                                     value={inputTitle}
                                     onChangeText={(v) => setInputTitle(v)}
@@ -169,11 +186,11 @@ const SubjectsScreen = ({ navigation }) => {
                                 />
                             </View>
 
-                            <View style={{ width: '100%', gap: 10 }}>
+                            <View style={{ flexDirection: 'row', width: '100%', gap: 10 }}>
 
                                 <TouchableOpacity
                                     activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, { backgroundColor: 'black' }]}
+                                    style={[StylesButtons.default, StylesButtons.bottom, { flex: 0.5, backgroundColor: 'black' }]}
                                     onPress={() => setModalVisible(false)}
                                 >
                                     <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
@@ -181,7 +198,7 @@ const SubjectsScreen = ({ navigation }) => {
 
                                 <TouchableOpacity
                                     activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, { backgroundColor: '#B2F7C1' }]}
+                                    style={[StylesButtons.default, StylesButtons.bottom, { flex: 0.5, backgroundColor: '#B2F7C1' }]}
                                     onPress={() => addSubject()}
                                 >
                                     <Text style={[StylesTexts.default]}> Add </Text>
