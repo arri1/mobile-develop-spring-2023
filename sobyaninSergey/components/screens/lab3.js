@@ -8,8 +8,14 @@ const Lab3 = () => {
   const [backgroundColor, setBackgroundColor] = useState(0);
 
   const getRandomId = useMemo(() => {
+    // for (let i = 0; i < 1000000000; i++) {}
     return Math.floor(Math.random() * 200) + 1;
   }, [advice]);
+
+  // const getRandomId = () => {
+  //   for (let i = 0; i < 1000000000; i++) {}
+  //   return Math.floor(Math.random() * 200) + 1;
+  // };
 
   const getAdvice = () => {
     axios
@@ -28,6 +34,22 @@ const Lab3 = () => {
         justifyContent: "center",
       }}
     >
+      <View
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginHorizontal: 20,
+          marginBottom: 10,
+        }}
+      >
+        <Button
+          title="Change Color"
+          onPress={() => {
+            setBackgroundColor((backgroundColor + 1) % colors.length);
+          }}
+          color="green"
+        />
+      </View>
       <Button title="Get Advice" onPress={getAdvice} color="green" />
       <Text
         style={{
@@ -40,22 +62,6 @@ const Lab3 = () => {
         advice:
         {advice}
       </Text>
-      <View
-        style={{
-          fontSize: 20,
-          fontWeight: "bold",
-          marginHorizontal: 20,
-          marginTop: 10,
-        }}
-      >
-        <Button
-          title="Change Color"
-          onPress={() => {
-            setBackgroundColor((backgroundColor + 1) % colors.length);
-          }}
-          color="green"
-        />
-      </View>
     </View>
   );
 };
