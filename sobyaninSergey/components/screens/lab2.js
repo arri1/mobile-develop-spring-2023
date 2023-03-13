@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Text, View, Button, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 
 var styles = StyleSheet.create({
   buttons: {
@@ -25,6 +25,16 @@ var styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "black",
+  },
+  text: {
+    marginTop: 10,
+    fontWeight: "bold",
+    fontStyle: "italic",
+    color: "white",
+    display: "flex",
+    alignItems: "center",
+    textAlign: "center",
+    maxWidth: 250,
   },
 });
 
@@ -63,18 +73,7 @@ const Lab2 = () => {
           <Text style={styles.buttonsText}>ALBUMS</Text>
         </TouchableOpacity>
       </View>
-      <Text
-        style={{
-          marginTop: 10,
-          fontWeight: "bold",
-          fontStyle: "italic",
-          color: "white",
-          display: "flex",
-          alignItems: "center",
-          textAlign: "center",
-          maxWidth: 250,
-        }}
-      >
+      <Text style={styles.text}>
         {recourceType} title: {JSON.stringify(items["title"])}
       </Text>
     </View>
