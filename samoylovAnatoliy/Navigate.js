@@ -5,8 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Lab1 from './components/Lab1';
+import Lab2 from './components/Lab2';
 
 import spisok from './assets/spisok.png'
+import effect from './assets/effect.png'
 
 const Tab = createBottomTabNavigator();
 
@@ -23,12 +25,24 @@ const Navigate = () => {
             }}>
 
                 <Tab.Screen
-                    name="To do list (useState, useEffect)"
+                    name="To do list"
                     component={Lab1}
                     options={{
                         tabBarLabel: 'Lab1',
                         tabBarIcon: ({ color, size }) => (
                             <Image style={styles.tinyLogo} source={spisok}/>
+                            
+                        ) 
+                    }}
+                />
+
+                <Tab.Screen
+                    name="UseEffect"
+                    component={Lab2}
+                    options={{
+                        tabBarLabel: 'Lab2',
+                        tabBarIcon: ({ color, size }) => (
+                            <Image style={styles.tinyLogo} source={effect}/>
                             
                         ) 
                     }}
