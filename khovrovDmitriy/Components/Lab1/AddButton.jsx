@@ -19,9 +19,9 @@ export default AddButton;
 
 const styles = StyleSheet.create({
   addButton: {
-    backgroundColor: "#6161ff",
+    backgroundColor: "#838FFF",
     width: "90%",
-    height: 40,
+    height: 50,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
