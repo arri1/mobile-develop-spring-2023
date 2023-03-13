@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 
-const colors = ["black", "grey"];
+const colors = ["black", "white"];
 const diffColors = ["pink", "cyan", "purple"];
 
 const Lab2 = () => {
   const [count, setCount] = useState(0);
-  const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
+  const [backgroundColorIndex] = useState(0);
   const [diffColorsIndex, setDiffColorsIndex] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
-      console.log(`You clicked ${count} times`);
-      console.log(`Current background color: ${backgroundColorIndex}`);
-    }, 5000);
+      console.warn(`You clicked ${count} times`);
+    }, 1000);
   });
   
   return (
@@ -38,21 +37,7 @@ const Lab2 = () => {
             marginTop: 10,
             borderRadius: 10,
             height: 50,
-            backgroundColor: colors[(backgroundColorIndex + 1) % colors.length],
-          }}
-        />
-        <Text style={{ color: "white", fontSize: 20, fontWeight: "800" }}>
-          Change color
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            setBackgroundColorIndex((backgroundColorIndex + 1) % colors.length);
-          }}
-          style={{
-            marginTop: 10,
-            borderRadius: 10,
-            height: 50,
-            backgroundColor: colors[(backgroundColorIndex + 1) % colors.length],
+            backgroundColor: colors[(backgroundColorIndex + 1)],
           }}
         />
         <View style={{ alignItems: "center" }}>
