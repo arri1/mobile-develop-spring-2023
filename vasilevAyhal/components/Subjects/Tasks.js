@@ -40,7 +40,7 @@ const Tasks = (props) => {
             let keys = []
             keys = await AsyncStorage.getAllKeys()
             if (keys !== null) {
-                keys.map((key) => {
+                keys.reverse().map((key) => {
                     var promise = getItem(key)
                     promise.then(item => {
                         if(item.storage === storage)
@@ -78,7 +78,7 @@ const Tasks = (props) => {
                 setSubjectTask(
                     subjectTask => [
                         { id: key, title: inputTitle, description: inputDescription, grade: inputGrade, isComplete: false },
-                        ...subjectTask
+                        ...subjectTask,
                     ]
                 )
                 setInputTitle('')
@@ -132,8 +132,7 @@ const Tasks = (props) => {
                 :
                 <FlashList
                     data={subjectTask}
-                    estimatedItemSize={156}
-                    progressViewOffset={100}
+                    estimatedItemSize={130}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={{padding: screenPadding, paddingBottom: screenPadding*3}}
                     renderItem={

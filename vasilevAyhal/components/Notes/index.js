@@ -118,14 +118,14 @@ const Notes = () => {
                     contentContainerStyle={{padding: screenPadding, paddingBottom: screenPadding*3}}
                     renderItem={
                         ({item}) => (
-                            <View style={{marginBottom: screenPadding}}>
+                            <TouchableOpacity style={{marginBottom: screenPadding}}>
                                 <Note
                                     id={item.id}
                                     title={item.title}
                                     description={item.description}
                                     setDelete={() => deleteNote(item.id)}
                                 />
-                            </View>
+                            </TouchableOpacity>
                         )
                     }
                 />

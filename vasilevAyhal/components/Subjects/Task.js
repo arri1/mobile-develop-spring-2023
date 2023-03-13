@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Animated, View, Text, Easing } from 'react-native';
+import { Animated, View, Text, Easing, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -11,15 +11,23 @@ import IconDelete from '../../assets/svg/delete';
 import IconEdit from '../../assets/svg/edit';
 import IconDone from '../../assets/svg/done';
 import IconUndone from '../../assets/svg/undone';
+import IconCheck from '../../assets/svg/check';
 
 const Task = (props) => {
     const iconSize = 30
-    const animValue = new Animated.Value(1)
+    const animValue = new Animated.Value(0)
+    const opacityValue = new Animated.Value(1)
     const refSwipeable = useRef(null)
 
-    const animStart = () => {
-        Animated.timing(animValue, {
+    const animStart = async () => {
+        Animated.timing(opacityValue, {
             toValue: 0,
+            duration: 200,
+            easing: Easing.cubic,
+            useNativeDriver: true,
+        }).start()
+        Animated.timing(animValue, {
+            toValue: -300,
             duration: 200,
             easing: Easing.cubic,
             useNativeDriver: true,
@@ -31,7 +39,6 @@ const Task = (props) => {
             <View
                 style={[
                     StylesSubject.subjectSwipe,
-                    {alignItems: 'flex-start'},
                     props.isComplete ? {backgroundColor: '#F7F19E'} : {backgroundColor: '#B2F7C1'}
                 ]}>
                 {
@@ -52,31 +59,31 @@ const Task = (props) => {
 
     const swipeRight = () => {
         return (
-            <View
+            <TouchableOpacity onPress={() => animStart()}
                 style={[
                     StylesSubject.subjectSwipe,
-                    {alignItems: 'flex-end', backgroundColor: '#FFA9A1'}
+                    {backgroundColor: '#FFA9A1'}
                 ]}>
                 <View style={{ alignItems: 'center' }}>
                     <IconDelete size={iconSize}/>
                     <Text style={StylesTexts.small}> Delete </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     };
 
     return (
-        <Animated.View style={[StylesSubject.subjectContainer, {transform: [{scale: animValue}], opacity: animValue}]}>
+        <Animated.View style={[StylesSubject.subjectContainer, {transform: [{translateX: animValue}], opacity: opacityValue}]}>
             <Swipeable
                 ref={refSwipeable}
+                friction={3}
+                overshootLeft={false}
+                overshootRight={false}
                 renderLeftActions={swipeLeft}
                 renderRightActions={swipeRight}
                 onSwipeableOpen={
                     (direction) => {
-                        if (direction == 'right') {
-                            animStart()
-                        }
-                        else {
+                        if (direction == 'left') {
                             refSwipeable.current.close()
                             props.setComplete()
                         }
@@ -85,27 +92,35 @@ const Task = (props) => {
                 containerStyle={{flex: 1}}
                 childrenContainerStyle={{flex: 1}}
             >
-                <View style={StylesSubject.subject}>
-                    <Text
-                        style={[StylesTexts.default, props.isComplete ? {textDecorationLine: 'line-through'} : '']}
-                        numberOfLines={1}
-                    >
-                        {props.title}
-                    </Text>
-                    <View style={{borderBottomWidth: 1, justifyContent: 'space-between', flexDirection: 'row'}}>
-                        <Text
-                            style={[StylesTexts.small, StylesTexts.fadeColor]}
-                            numberOfLines={1}
+                <View style={[StylesSubject.subject, {flexDirection: 'row', height: 100}]}>
+                    <View style={{justifyContent: 'center'}}>
+                        <TouchableOpacity
+                            style={[{width: 30, height: 30}, props.isComplete ? StylesSubject.taskCheck : StylesSubject.taskUnCheck]}
+                            onPress={() => props.setComplete()}
                         >
-                            {props.grade} баллов
-                        </Text>
+                            { props.isComplete ? <IconCheck color={'#000000'} size={'100%'}/> : null }
+                        </TouchableOpacity>
                     </View>
-                    <Text
-                        style={[StylesSubject.textField, StylesTexts.small, props.isComplete ? {textDecorationLine: 'line-through'} : '']}
-                        numberOfLines={2}
-                    >
-                        {props.description}
-                    </Text>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={[StylesTexts.big]} numberOfLines={1}>
+                                {props.title}
+                            </Text>
+                            {
+                                props.grade.length === 0 ? null :
+                                <Text style={[StylesTexts.small, StylesTexts.fadeColor]} numberOfLines={1}>
+                                    {props.grade} баллов
+                                </Text>
+                            }
+                        </View>
+
+                        {
+                            props.description.length === 0 ? null :
+                            <Text style={[StylesSubject.textField, StylesTexts.small]} numberOfLines={2}>
+                                {props.description}
+                            </Text>
+                        }
+                    </View>
                     
                 </View>
             </Swipeable>

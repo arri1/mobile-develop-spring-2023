@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Button } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 import StylesContainers from './style/containers';
@@ -9,6 +9,19 @@ import StylesTexts from './style/texts';
 
 const Setting = () => {
     const [showAlertClearData, setShowAlertClearData] = useState(false)
+    const [count, setCount] = useState(0)
+
+    useMemo(
+        () => {
+            console.log('useMemo', count)
+            let i = 100000
+            console.log(i)
+            while(i >= 0) {
+                i-=1
+            }
+            console.log(i)
+        }, [count]
+    )
 
     const getAllStorage = async () => {
         try {
@@ -20,7 +33,7 @@ const Setting = () => {
                     (key) => {
                         var promise = getStorage(key)
                         promise.then(item => {
-                            console.log(item)
+                            console.log(key, item)
                         })
                     }
                 )
@@ -52,7 +65,15 @@ const Setting = () => {
     }
 
     return (
-        <View style={[StylesContainers.default, StylesContainers.screen]}>
+        <View style={[StylesContainers.default, StylesContainers.screen, {gap: 50}]}>
+            <View style={{alignItems: 'center', gap: 20}}>
+                <Text> {count} </Text>
+                <View style={{flexDirection: 'row', gap: 10}}>
+                    <Button title='-' onPress={() => setCount(count-1)}/>
+                    <Button title='+' onPress={() => setCount(count+1)}/>
+                </View>
+            </View>
+
             <View style={{alignItems: 'center', gap: 20}}>
                 
                 <TouchableOpacity

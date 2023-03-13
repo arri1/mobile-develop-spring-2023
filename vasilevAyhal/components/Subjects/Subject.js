@@ -1,5 +1,5 @@
 import React from "react";
-import { Animated, View, Text, Easing } from 'react-native';
+import { Animated, View, Text, Easing, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -10,11 +10,18 @@ import IconDelete from '../../assets/svg/delete';
 
 const Subject = (props) => {
     const iconSize = 20
-    const animValue = new Animated.Value(1)
+    const animValue = new Animated.Value(0)
+    const opacityValue = new Animated.Value(1)
 
-    const animStart = () => {
-        Animated.timing(animValue, {
+    const animStart = async () => {
+        Animated.timing(opacityValue, {
             toValue: 0,
+            duration: 200,
+            easing: Easing.cubic,
+            useNativeDriver: true,
+        }).start()
+        Animated.timing(animValue, {
+            toValue: -300,
             duration: 200,
             easing: Easing.cubic,
             useNativeDriver: true,
@@ -23,34 +30,30 @@ const Subject = (props) => {
 
     const swipeRight = () => {
         return (
-            <View
+            <TouchableOpacity onPress={() => animStart()}
                 style={[
                     StylesSubject.subjectSwipe,
-                    {alignItems: 'flex-end', backgroundColor: '#FFA9A1'}
+                    {backgroundColor: '#FFA9A1'}
                 ]}>
                 <View style={{ alignItems: 'center' }}>
                     <IconDelete size={iconSize}/>
                     <Text style={StylesTexts.small}> Delete </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     };
 
     return (
-        <Animated.View style={[StylesSubject.subjectContainer, {transform: [{scale: animValue}], opacity: animValue}]}>
+        <Animated.View style={[StylesSubject.subjectContainer, {transform: [{translateX: animValue}], opacity: opacityValue}]}>
             <Swipeable
+                friction={3}
+                overshootLeft={false}
+                overshootRight={false}
                 renderRightActions={swipeRight}
-                onSwipeableOpen={
-                    (direction) => {
-                        if (direction == 'right') {
-                            animStart()
-                        }
-                    }
-                }
                 containerStyle={{flex: 1}}
                 childrenContainerStyle={{flex: 1}}
             >
-                <View style={StylesSubject.subject}>
+                <View style={[StylesSubject.subject, {height: 50}]}>
                     <Text
                         style={StylesTexts.default}
                         numberOfLines={1}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Animated, View, Text, Easing } from 'react-native';
+import { Animated, View, Text, Easing, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -16,11 +16,18 @@ const Note = (props) => {
     //     { useNativeDriver: true }
     // );
     const iconSize = 30
-    const animValue = new Animated.Value(1)
+    const animValue = new Animated.Value(0)
+    const opacityValue = new Animated.Value(1)
 
-    const animStart = () => {
-        Animated.timing(animValue, {
+    const animStart = async () => {
+        Animated.timing(opacityValue, {
             toValue: 0,
+            duration: 200,
+            easing: Easing.cubic,
+            useNativeDriver: true,
+        }).start()
+        Animated.timing(animValue, {
+            toValue: -300,
             duration: 200,
             easing: Easing.cubic,
             useNativeDriver: true,
@@ -29,47 +36,40 @@ const Note = (props) => {
 
     const swipeRight = () => {
         return (
-            <View
+            <TouchableOpacity onPress={() => animStart()}
                 style={[
                     StylesNote.noteSwipe,
-                    {alignItems: 'flex-end', backgroundColor: '#FFA9A1'}
+                    {backgroundColor: '#FFA9A1'}
                 ]}>
                 <View style={{ alignItems: 'center' }}>
                     <IconDelete size={iconSize}/>
                     <Text style={StylesTexts.small}> Delete </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     };
 
     return (
-        <Animated.View style={[StylesNote.noteContainer, {transform: [{scale: animValue}], opacity: animValue}]}>
+        <Animated.View style={[StylesNote.noteContainer, {transform: [{translateX: animValue}], opacity: opacityValue}]}>
             <Swipeable
+                friction={3}
+                overshootLeft={false}
+                overshootRight={false}
                 renderRightActions={swipeRight}
-                onSwipeableOpen={
-                    (direction) => {
-                        if (direction == 'right') {
-                            animStart()
-                        }
-                    }
-                }
                 containerStyle={{flex: 1}}
                 childrenContainerStyle={{flex: 1}}
             >
                 <View style={StylesNote.note}>
-                    <Text
-                        style={[StylesTexts.default, {borderBottomWidth: 1}]}
-                        numberOfLines={1}
-                    > 
+                    <Text style={[StylesTexts.big]} numberOfLines={1}> 
                         {props.title}
                     </Text>
 
-                    <Text
-                        style={[StylesNote.textField, StylesTexts.small]}
-                        numberOfLines={2}
-                    >
-                        {props.description}
-                    </Text>
+                    {
+                        props.description.length === 0 ? null :
+                        <Text style={[StylesNote.textField, StylesTexts.small]} numberOfLines={2}>
+                            {props.description}
+                        </Text>
+                    }
                 </View>
             </Swipeable>
         </Animated.View>

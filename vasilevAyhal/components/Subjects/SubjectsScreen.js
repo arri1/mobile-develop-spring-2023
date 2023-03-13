@@ -69,21 +69,27 @@ const SubjectsScreen = ({ navigation }) => {
     const addSubject = async () => {
         if(inputTitle.length > 0) {
             try {
-                const key = uuid.v4()
-                await AsyncStorage.setItem(key, JSON.stringify({ title: inputTitle, storage: storage }))
-                setSubjects(
-                    subjects => [
-                        { id: key, title: inputTitle },
-                        ...subjects
-                    ]
-                )
-                setInputTitle('')
-                setModalVisible(false)
+                const key = `${storage}_${inputTitle}`
+                const keys = await AsyncStorage.getAllKeys()
+                if (keys.find(v => v === key)) {
+                    alert("Subject exists!")
+                }
+                else {
+                    await AsyncStorage.setItem(key, JSON.stringify({ title: inputTitle, storage: storage }))
+                    setSubjects(
+                        subjects => [
+                            { id: key, title: inputTitle },
+                            ...subjects
+                        ]
+                    )
+                    setInputTitle('')
+                    setModalVisible(false)
+                }
             } catch (e) {
                 console.log('ERROR: addSubject')
             }
         } else {
-            alert("ERROR: Title empty!")
+            alert("Title empty!")
         }
     }
 
@@ -122,7 +128,7 @@ const SubjectsScreen = ({ navigation }) => {
                 :
                 <FlashList
                     data={subjects}
-                    estimatedItemSize={76}
+                    estimatedItemSize={80}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={{padding: screenPadding, paddingBottom: screenPadding*3}}
                     renderItem={

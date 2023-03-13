@@ -3,9 +3,11 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     note: {
         width: '100%',
+        height: 100,
+        justifyContent: 'center',
         padding: 10,
         gap: 10,
-        backgroundColor: '#D5E9F7',
+        backgroundColor: '#DBE5FF',
     },
     noteContainer: {
         width: '100%',
@@ -14,8 +16,6 @@ export default StyleSheet.create({
         // elevation: 6, // shadow for android
         overflow: 'hidden',
     },
-    noteSwipe: { justifyContent: 'center', width: '100%', paddingHorizontal: 10 },
-    textField: {
-        height: 40,
-    }
+    noteSwipe: { justifyContent: 'center', width: '30%', paddingHorizontal: 10 },
+    textField: { color: '#00000080' }
 });

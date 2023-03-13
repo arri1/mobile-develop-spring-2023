@@ -11,12 +11,14 @@ export default StyleSheet.create({
     },
     subject: {
         width: '100%',
+        justifyContent: 'center',
         padding: 10,
         gap: 10,
-        backgroundColor: '#D5E9F7',
+        backgroundColor: '#ffffff',
     },
-    subjectSwipe: { justifyContent: 'center', width: '100%', paddingHorizontal: 10 },
-    textField: {
-        height: 40,
-    }
+    subjectSwipe: { justifyContent: 'center', alignItems: 'center', width: '30%', paddingHorizontal: 10 },
+    textField: { color: '#00000080' },
+    taskUnCheck: { borderColor: '#B3B3B3', borderWidth: 2, borderRadius: 100 },
+    taskCheck: { backgroundColor: '#B2F7C1', borderRadius: 100 },
+    
 });

@@ -21,6 +21,6 @@ export default StyleSheet.create({
     },
     textSmall: {
         fontSize: 18,
-        color: '#00000040'
+        color: '#B3B3B3'
     }
 });
