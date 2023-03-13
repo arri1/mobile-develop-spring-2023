@@ -9,36 +9,42 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 
-const colors = ["red", "green"];
+const colors = ['red', 'green'];
 const task2 = () => {
   const [word, setWord] = useState('');
   const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
-  const guess = "GASL";
-  
+  const guess = 'QWERTY';
+
   useEffect(() => {
-    if (word == guess){
-        setBackgroundColorIndex(count = 1);
+    if (word == guess) {
+      setBackgroundColorIndex((count = 1));
     }
-    if (word != guess){
-        setBackgroundColorIndex(count = 0);
+    if (word != guess) {
+      setBackgroundColorIndex((count = 0));
     }
-  },[word]);
+  }, [word]);
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: colors[backgroundColorIndex]
+        backgroundColor: colors[backgroundColorIndex],
       }}>
       <View style={{flex: 1, paddingBottom: 20, alignItems: 'center'}}>
-        <Text style={{color: 'black',backgroundColor: colors[backgroundColorIndex], fontSize: 30, textAlign: 'center'}}>
+        <Text
+          style={{
+            color: 'black',
+            backgroundColor: colors[backgroundColorIndex],
+            fontSize: 30,
+            textAlign: 'center',
+          }}>
           {guess}
         </Text>
         <TextInput
           style={{
-            color: 'BLUE',
+            color: 'black',
             fontSize: 30,
             textAlign: 'center',
-            backgroundColor: colors[backgroundColorIndex],
+            backgroundColor: '#555555',
           }}
           multiline
           textAlign="center"
