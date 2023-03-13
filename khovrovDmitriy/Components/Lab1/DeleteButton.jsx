@@ -8,7 +8,7 @@ const DeleteButton = ({ setTodos }) => {
         setTodos([]);
       }}
     >
-      <Text style={{ fontSize: 20, color: "white" }}>Удалить</Text>
+      <Text style={{ fontSize: 15, color: "#FF6666" }}>Удалить все</Text>
     </TouchableOpacity>
   );
 };
@@ -17,7 +17,6 @@ export default DeleteButton;
 
 const styles = StyleSheet.create({
   deleteButton: {
-    backgroundColor: "#ff6161",
     width: "90%",
     height: 40,
     alignItems: "center",

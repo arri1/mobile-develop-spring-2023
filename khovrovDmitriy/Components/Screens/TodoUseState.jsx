@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   ScrollView,
   StyleSheet,
-  TextInput,
   View,
   Dimensions,
 } from "react-native";
@@ -10,6 +9,8 @@ import Todo from "../Lab1/Todo";
 import AddButton from "../Lab1/AddButton";
 import DeleteButton from "../Lab1/DeleteButton";
 import TodoModal from "../ModalWindows/TodoModal";
+import TitleList from "../Lab4/TitleList";
+import MainTextInput from "../Lab1/MainTextInput";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -36,6 +37,7 @@ const TodoUseState = () => {
         todos={todos}
         SetTodos={setTodos}
       />
+      <TitleList />
       <View style={styles.todos}>
         <ScrollView contentContainerStyle={styles.scrollView}>
           {todos.map((todo) => (
@@ -45,7 +47,7 @@ const TodoUseState = () => {
       </View>
 
       <View style={styles.form}>
-        <TextInput style={styles.input} onChangeText={setText} value={text} />
+        <MainTextInput setText={setText} text={text} />
         <AddButton
           todos={todos}
           setTodos={setTodos}
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f3f7",
   },
   todos: {
-    flex: 3,
+    flex: 2,
     alignItems: "center",
   },
   scrollView: {
@@ -76,17 +78,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginBottom: 40,
-  },
-  input: {
-    backgroundColor: "white",
-    margin: 20,
-    padding: 10,
-    borderColor: "black",
-    width: "90%",
-    height: 40,
-    textAlign: "center",
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "silver",
   },
 });
