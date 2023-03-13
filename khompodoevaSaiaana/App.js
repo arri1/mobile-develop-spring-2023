@@ -1,70 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { Image } from 'react-native';
+import React from 'react';
+import Lab1 from './screens/lab1'
+import Lab2 from './screens/lab2'
 
-TouchableOpacity.defaultProps = { activeOpacity: 0.6 };
+const Tab = createBottomTabNavigator();
 
-const AppButton = ({ onPress, title }) => (
-  <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
-    <Text style={styles.appButtonText}>{title}</Text>
-  </TouchableOpacity>
-);
+const MyTabs = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name='useState' component={Lab1} options={{
+        tabBarIcon: () => {
+          return (<Image
+            style={{ width: 25, height: 25 }}
+            source={{ uri: `https://cdn-icons-png.flaticon.com/512/287/287221.png` }}/>);}
+      }}
+      />
+      <Tab.Screen name='useEffect' component={Lab2} options={{
+        tabBarIcon: () => {
+          return (<Image
+            style={{ width: 25, height: 25 }}
+            source={{ uri: `https://cdn-icons-png.flaticon.com/512/188/188987.png` }}/>);}
+      }}
+      />
+    </Tab.Navigator>
+  );
+}
 
-const Lab1 = () => {
-    const [pokemon, setPokemon] = useState(1000);
-    const nextPokemon = () => {
-        pokemon < 1008 ? setPokemon(pokemon+1) : setPokemon(1)
-    }
-    const backPokemon = () => {
-        pokemon > 1 ? setPokemon(pokemon-1) : setPokemon(1008)
-    }
-    return (
-      <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon}.png`,
-        }}
-        />
-        <Text style={{
-            fontSize: 28,
-            fontWeight: 'bold'
-            }}>Pokemon {pokemon}</Text>
-        <AppButton
-          onPress={() => backPokemon()}
-          title='Back'/>
-        <AppButton
-          onPress={() => nextPokemon()}
-          title='Next'/>
-      </View>
-    );
-  }
-  
-  const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 50,
-    },
-    image: {
-        alignSelf: 'center',
-        width: 350,
-        height: 350,
-        resizeMode: 'contain',
-    },
-    appButtonContainer: {
-        backgroundColor: '#A3E4D7',
-        borderRadius: 20,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        margin: 5,
-    },
-    appButtonText: {
-        fontSize: 20,
-        color: '#21618C',
-        fontWeight: 'bold',
-        alignSelf: 'center',
-    },
-});
+const App = () => {
+  return (
+    <NavigationContainer>
+      <MyTabs/>
+    </NavigationContainer>
+  );
+}
 
-export default Lab1;
+export default App;
