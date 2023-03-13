@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SafeAreaView,
   Text,
@@ -7,6 +7,8 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { getFacts } from "../../store";
 
 const getCats = () => {
   const cats = [];
@@ -26,6 +28,18 @@ const Lab1 = () => {
   const cats = getCats();
   const [catIndex, setCatIndex] = useState(0);
 
+  const dispatch = useDispatch();
+
+  const counter = useSelector((state) => state.counter.value);
+
+  const facts = useSelector((state) => state.cat.facts);
+
+  console.log('lab1',facts)
+
+  useEffect(() => {
+    dispatch(getFacts());
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
@@ -44,6 +58,9 @@ const Lab1 = () => {
       >
         <Text style={styles.text}>See another one!</Text>
       </TouchableOpacity>
+      <Text style={{ color: "white", fontSize: 24, marginTop: 20 }}>
+        {counter}
+      </Text>
     </SafeAreaView>
   );
 };

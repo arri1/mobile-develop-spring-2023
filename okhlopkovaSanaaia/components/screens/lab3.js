@@ -1,12 +1,27 @@
-import { StyleSheet, SafeAreaView, View, Text, Button } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  View,
+  Text,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useState, useEffect, useMemo } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {counterSlice} from "../../store";
 
 const Lab3 = () => {
   const [selectedDate, setSelectedDate] = useState(
     new Date("2024-01-01T00:00:00")
   );
   const [datePickerVisible, setDatePickerVisible] = useState(false);
+
+  const facts = useSelector((state) => state.cat.facts);
+
+  console.log('lab3',facts)
+
+  const dispatch = useDispatch()
 
   const parsedDate = useMemo(() => {
     return Date.parse(selectedDate);
@@ -79,6 +94,17 @@ const Lab3 = () => {
       <Text style={[styles.text, { color: "red" }]}>
         {over ? "Time's up!" : ""}
       </Text>
+      <TouchableOpacity
+        onPress={()=>{
+          dispatch(counterSlice.actions.increment())
+        }}
+        style={{
+          width: 300,
+          height: 40,
+          borderRadius: 10,
+          backgroundColor: "red",
+        }}
+      />
     </SafeAreaView>
   );
 };
