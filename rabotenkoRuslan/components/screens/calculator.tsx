@@ -4,11 +4,22 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 type operatorType = '+' | '-' | '*' |'/';
 type ButtonType = OperatorType | 'AC' | '.' | '=' | number;
 
-const Lab3: React.FC<CalculatorProps> = () => {
+const CalculatorButton = ({ title, onPress }) => {
+  return (
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const Calculator: React.FC = () => {
   const [result, setResult] = useState<string>('0');
   const [history, setHistory] = useState<string>('');
 
   const operators = ['+', '-', '*', '/'];
+
+
+  
 
   const handleNumberClick = (num: number) => {
     if (result === '0'|| result === 'Error') {
@@ -62,92 +73,28 @@ const Lab3: React.FC<CalculatorProps> = () => {
       </View>
       <View style={styles.buttonsContainer}>
         <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('7')}>
-            <Text style={styles.buttonText}>7</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('8')}>
-            <Text style={styles.buttonText}>8</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('9')}>
-            <Text style={styles.buttonText}>9</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleOperatorClick('/')}>
-            <Text style={styles.buttonText}>/</Text>
-          </TouchableOpacity>
+          <CalculatorButton title="7" onPress={() => handleNumberClick('7')} />
+          <CalculatorButton title="8" onPress={() => handleNumberClick('8')} />
+          <CalculatorButton title="9" onPress={() => handleNumberClick('9')} />
+          <CalculatorButton title="/" onPress={() => handleOperatorClick('/')} />
         </View>
         <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('4')}>
-            <Text style={styles.buttonText}>4</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('5')}>
-            <Text style={styles.buttonText}>5</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('6')}>
-            <Text style={styles.buttonText}>6</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleOperatorClick('*')}>
-            <Text style={styles.buttonText}>*</Text>
-          </TouchableOpacity>
+          <CalculatorButton title="4" onPress={() => handleNumberClick('4')} />
+          <CalculatorButton title="5" onPress={() => handleNumberClick('5')} />
+          <CalculatorButton title="6" onPress={() => handleNumberClick('6')} />
+          <CalculatorButton title="*" onPress={() => handleOperatorClick('*')} />
         </View>
         <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('1')}>
-            <Text style={styles.buttonText}>1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('2')}>
-            <Text style={styles.buttonText}>2</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('3')}>
-            <Text style={styles.buttonText}>3</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleOperatorClick('-')}>
-            <Text style={styles.buttonText}>-</Text>
-          </TouchableOpacity>
+          <CalculatorButton title="1" onPress={() => handleNumberClick('1')} />
+          <CalculatorButton title="2" onPress={() => handleNumberClick('2')} />
+          <CalculatorButton title="3" onPress={() => handleNumberClick('3')} />
+          <CalculatorButton title="-" onPress={() => handleOperatorClick('-')} />
         </View>
         <View style={styles.row}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleOperatorClick('.')}>
-            <Text style={styles.buttonText}>.</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleNumberClick('0')}>
-            <Text style={styles.buttonText}>0</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleEqualClick()}>
-            <Text style={styles.buttonText}>=</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleOperatorClick('+')}>
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableOpacity>
+          <CalculatorButton title="." onPress={() => handleOperatorClick('.')} />
+          <CalculatorButton title="0" onPress={() => handleNumberClick('0')} />
+          <CalculatorButton title="=" onPress={() => handleEqualClick()} />
+          <CalculatorButton title="+" onPress={() => handleOperatorClick('+')} />
         </View>
         <View style={styles.row}>
           <TouchableOpacity
@@ -245,4 +192,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Lab3;
+export default Calculator;
