@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   Modal,
   StyleSheet,
@@ -13,7 +13,31 @@ import {
 
 const Separator = () => <View style={styles.separator} />;
 
+function complexCompure(num) {
+  console.log("complexCompute");
+  let i = 0;
+  while (i < 100000000) i++;
+  return num * 2;
+}
+
 const HomeScreen = (props) => {
+  const [number, setNumber] = useState(42);
+  const [colored, setColored] = useState(false);
+
+  const styles2 = useMemo(
+    () => ({
+      color: colored ? "darkred" : "black",
+    }),
+    [colored]
+  );
+
+  const computed = useMemo(() => {
+    return complexCompure(number);
+  }, [number]);
+
+  useEffect(() => {
+    console.log("Styles changed");
+  }, [styles2]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,7 +51,21 @@ const HomeScreen = (props) => {
           title="да"
           onPress={() => Alert.alert("правильно, это кошка)")}
         />
-        <Button title="нет" onPress={() => Alert.alert("неправильно, это кот)")} />
+        <Button
+          title="нет"
+          onPress={() => Alert.alert("неправильно, это кот)")}
+        />
+      </View>
+      <Separator />
+      <View>
+        <Text style={styles2}>Вычисляемое свойство: {computed}</Text>
+        <Button
+          title="Добавить"
+          onPress={() => setNumber((prev) => prev + 1)}
+        />
+        <Button title="Убрать" onPress={() => setNumber((prev) => prev - 1)} />
+
+        <Button title="Изменить" onPress={() => setColored((prev) => !prev)} />
       </View>
     </SafeAreaView>
   );
