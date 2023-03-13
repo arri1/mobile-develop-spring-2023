@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
-import FirstTask from "./components/firstTask";
+import AppNavigator from "./components/appNavigator";
 import React from "react";
 
 const App = () => {
-  return <FirstTask />;
+  return <AppNavigator />;
 };
 
 export default App;
