@@ -6,18 +6,17 @@ const Lab2 = () => {
     const [pokemon, setPokemon] = useState(1000);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (count < 2) {
-                nextPokemon();
-                setCount(3);
-            } else {
-                setCount(count-1);
-            }
-        }, 1000);
+      const intervalId = setInterval(() => {
+        if (count < 2) {
+          nextPokemon();
+          setCount(3);
+        } else {
+          setCount(count-1);
+        }}, 1000);
         return () => {
           clearInterval(intervalId);
         };
-      },
+      }, [count]
     );
 
     const nextPokemon = () => {
@@ -27,26 +26,27 @@ const Lab2 = () => {
     return( 
     <View
     style={{
-        flex: 1,
-        alignItems: 'center', 
-        justifyContent: 'center'}}
-        >
-        <Text style={{ fontSize: 32 }}>
-            Next one in: {count}
-            </Text>
-        <Image
-          style={{
-            width: 350,
-            height: 350,
-            resizeMode: 'contain',
-            }}
-          source={{
-            uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon}.png`,
-                }}/>
-        <Text style={{
-            fontSize: 28,
-            fontWeight: 'bold'
-            }}>Pokemon {pokemon}</Text>
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#fff'
+    }}>
+      <Text style={{ fontSize: 32 }}>
+        Next one in: {count}
+      </Text>
+      <Image
+      style={{
+        width: 350,
+        height: 350,
+        resizeMode: 'contain',
+      }}
+      source={{
+        uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon}.png`
+        }}/>
+      <Text style={{
+        fontSize: 28,
+        fontWeight: 'bold'
+        }}>Pokemon {pokemon}</Text>
     </View>
  );
 }
