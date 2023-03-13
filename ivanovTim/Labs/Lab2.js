@@ -13,8 +13,8 @@ const Lab2 = () => {
     setTimeout(() => {
       console.warn(`You clicked ${count} times`);
     }, 1000);
-  });
-  
+  }, [count]);
+
   return (
     <SafeAreaView
       style={{
