@@ -7,7 +7,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
         gap: 10,
-        backgroundColor: '#DBE5FF',
+        backgroundColor: '#E0E2FF',
     },
     noteContainer: {
         width: '100%',
@@ -17,5 +17,6 @@ export default StyleSheet.create({
         overflow: 'hidden',
     },
     noteSwipe: { justifyContent: 'center', width: '30%', paddingHorizontal: 10 },
-    textField: { color: '#00000080' }
+    textField: { color: '#00000080' },
+    editField: { padding: 30, color: '#000000', }
 });

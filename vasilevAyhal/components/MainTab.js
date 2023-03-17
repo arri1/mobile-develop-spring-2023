@@ -8,7 +8,6 @@ import StylesContainers from './style/containers';
 import StylesTexts from './style/texts';
 
 import HomeStack from './HomeStack';
-import Notification from './Notification';
 import Setting from './Setting';
 
 import IconInbox from '../assets/svg/inbox';
@@ -58,6 +57,7 @@ const App = () => {
                                     focused ?
                                         <Animated.View style={[
                                             StylesContainers.default,
+                                            {position: 'absolute'},
                                             NavigationTheme.tabBarIconBackground,
                                             { width: size, height: size, transform: [{ scale: tabBarIconBackgroundAnim }] }
                                         ]}/>

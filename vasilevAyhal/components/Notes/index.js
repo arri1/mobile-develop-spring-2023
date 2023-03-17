@@ -1,124 +1,164 @@
 import React, { useState, useRef, useEffect } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator, Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import * as SQLite from 'expo-sqlite'
+import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, RefreshControl } from 'react-native';
 import { FlashList } from "@shopify/flash-list";
-import uuid from 'react-native-uuid';
 
 import StylesContainers from '../style/containers'
 import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
 
 import Note from './Note'
+import ModalEdit from './ModalEdit'
 
 import IconPlus from '../../assets/svg/plus'
 
-
 const Notes = () => {
-    const storage = 'notes'
+    const table = 'notes'
+    const db = SQLite.openDatabase(`${table}.db`)
     const screenPadding = StylesContainers.screen.padding
-    const [modalVisible, setModalVisible] = useState(false)
-    const [note, setNote] = useState([])
+    const [notes, setNotes] = useState([])
     const [loading, setLoading] = useState(true)
+    
+    const [modalMore, setModalMore] = useState(false)
+    const [modalAdd, setModalAdd] = useState(false)
+    const [modalEdit, setModalEdit] = useState(false)
+    
+    const [itemId, setItemId] = useState('')
+    const [itemTitle, setItemTitle] = useState('')
+    const [itemDescription, setItemDescription] = useState("")
 
     const inputSecond = useRef(null)
     const [inputTitle, setInputTitle] = useState('')
     const [inputDescription, setInputDescription] = useState("")
-    
 
-    useEffect(() => {
+    const refresh = React.useCallback(() => {
         getAllNote()
         setTimeout(() => {
             setLoading(false)
         }, 500)
+    }, []);
+
+    useEffect(() => {
+        db.transaction(tx => 
+            tx.executeSql(`CREATE TABLE IF NOT EXISTS ${table}
+                (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    title TEXT,
+                    description TEXT
+                )`
+            )
+        )
+        refresh()
     }, [])
 
-    const getAllNote = async () => {
-        try {
-            let keys = []
-            keys = await AsyncStorage.getAllKeys()
-            if (keys !== null) {
-                keys.map(
-                    (key) => {
-                        var promise = getItem(key)
-                        promise.then(item => {
-                            if(item.storage === storage)
-                                setNote(
-                                    note => [
-                                        ...note,
-                                        { id: key, title: item.title, description: item.description },
-                                    ]
-                                )
-                        })
+    const getAllNote = () => {
+        setNotes([])
+        db.transaction(tx =>
+            tx.executeSql(`SELECT * FROM ${table} ORDER BY id DESC`, [],
+                (_, res) => {
+                    var rows = []
+                    for (let i = 0; i < res.rows.length; i++) {
+                        rows.push(res.rows.item(i))
                     }
-                )
-            }
-        } catch (e) {
-            alert('ERROR: getAllNote');
-        }
+                    setNotes(rows)
+                },
+                (_, error) => console.log(error)
+            )
+        )
     }
 
-    const getItem = async (key) => {
-        try {
-            const itemValues = await AsyncStorage.getItem(key)
-            if (itemValues !== null) {
-                return JSON.parse(itemValues)
-            }
-            return alert('ERROR: Item null');
-        } catch (e) {
-            return alert('ERROR: getItem');
-        }
-    }
-
-    const addNote = async () => {
+    const addNote = () => {
         if(inputTitle.length > 0) {
-            try {
-                let key = uuid.v4()
-                await AsyncStorage.setItem(key, JSON.stringify({ title: inputTitle, description: inputDescription, storage: storage }))
-                setNote(
-                    note => [
-                        { id: key, title: inputTitle, description: inputDescription },
-                        ...note
-                    ]
-                )
-                setInputTitle('')
-                setInputDescription("")
-                setModalVisible(false)
-            } catch (e) {
-                console.log('ERROR: addNote')
-            }
+            db.transaction(tx => {
+                tx.executeSql(
+                    `INSERT INTO ${table} (title, description) VALUES (?, ?)`, [inputTitle, inputDescription],
+                    (_, res) => {
+                        setNotes(
+                            item => [
+                                {id: res.insertId, title: inputTitle, description: inputDescription},
+                                ...item
+                            ]
+                        )
+                    },
+                    (_, error) => console.log(error)
+                );
+            });
+            setInputTitle('')
+            setInputDescription('')
+            setModalAdd(false)
         } else {
-            alert("ERROR: Title empty!")
+            alert("Заголовок пустой!")
         }
     }
 
-    const deleteNote = async (key) => {
-        try {
-            await AsyncStorage.removeItem(key)
-            let items = [...note]
-            items.splice(note.findIndex((item) => { return item.id === key }), 1)
-            setNote(items)
-        } catch (e) {
-            return alert('ERROR: deleteNote');
-        }
+    const deleteNote = (id) => {
+        db.transaction(tx =>
+            tx.executeSql(`DELETE FROM ${table} WHERE id = ?`, [id],
+                (_, res) => {
+                    if (res.rowsAffected > 0) {
+                        let items = [...notes]
+                        items.splice(notes.findIndex((item) => { return item.id === id }), 1)
+                        setNotes(items)
+                    }
+                },
+                (_, error) => console.log(error)
+            )
+        )
+    }
+    
+    const saveInputs = (title, description) => {
+        db.transaction(tx =>
+            tx.executeSql(
+                `UPDATE ${table} SET title = ?, description = ? WHERE id = ?`, [title, description, itemId],
+                (_, res) => {
+                    if (res.rowsAffected > 0) {
+                        var rows = [...notes];
+                        const indexToUpdate = rows.findIndex(item => item.id === itemId);
+                        rows[indexToUpdate].title = title;
+                        rows[indexToUpdate].description = description;
+                        setNotes(rows);
+                    }
+                },
+                (_, error) => console.log(error)
+            )
+        )
     }
 
     return (
         <View style={{flex: 1}}>
             {
-                loading ? <ActivityIndicator size="large" color="#00000050" style={{flex: 1}}/> :
-                note.length === 0 ?
+                !notes ? null : notes.length === 0 ?
                 <View style={[StylesContainers.screen, StylesContainers.default]}>
                     <Text style={[StylesTexts.default, StylesContainers.alert]}> Нет записей </Text>
                 </View>
                 :
                 <FlashList
-                    data={note}
+                    data={notes}
                     estimatedItemSize={130}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={{padding: screenPadding, paddingBottom: screenPadding*3}}
+                    refreshControl={ <RefreshControl refreshing={loading} onRefresh={refresh}/> }
                     renderItem={
                         ({item}) => (
-                            <TouchableOpacity style={{marginBottom: screenPadding}}>
+                            <TouchableOpacity activeOpacity={1}
+                                onLongPress={
+                                    () => {
+                                        setItemId(item.id)
+                                        setItemTitle(item.title)
+                                        setItemDescription(item.description)
+                                        setModalMore(true)
+                                    }
+                                }
+                                onPress={
+                                    () => {
+                                        setItemId(item.id)
+                                        setItemTitle(item.title)
+                                        setItemDescription(item.description)
+                                        setModalEdit(true);
+                                    }
+                                }
+                                style={{marginBottom: screenPadding}}
+                            >
                                 <Note
                                     id={item.id}
                                     title={item.title}
@@ -127,42 +167,75 @@ const Notes = () => {
                                 />
                             </TouchableOpacity>
                         )
-                    }
+                        }
                 />
             }
 
-            <View style={[StylesButtons.buttonFooter, modalVisible ? {display: 'none'} : {display: 'flex'}]}>
-                <TouchableOpacity
-                    activeOpacity={ 0.5 }
-                    style={StylesButtons.addButton}
-                    onPress={() => setModalVisible(true)}
-                >
-                    <IconPlus size={30} color={'black'}/>
-                    <Text style={StylesTexts.small}> Add </Text>
-                </TouchableOpacity>
-            </View>
-
+            {/* Modal More */}
             <Modal
-                visible={modalVisible}
+                visible={modalMore}
+                animationType='fade'
+                transparent={true}
+                statusBarTranslucent={true}
+            >
+                <View style={[{flex: 1, justifyContent: 'center'}, StylesContainers.modalBackground]}>
+                    <View style={[StylesContainers.modal, { gap: 20 }]}>
+                        <TouchableOpacity activeOpacity={ 0.5 }
+                            onPress={() => { deleteNote(itemId); setModalMore(false); }}
+                            style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.delete]}
+                            >
+                            <Text style={StylesTexts.default}> Удалить </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={ 0.5 }
+                            onPress={() => { setModalEdit(true); setModalMore(false); }}
+                            style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.edit]}
+                        >
+                            <Text style={StylesTexts.default}> Изменить </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={ 0.5 }
+                            onPress={() => setModalMore(false)}
+                            style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.cancel]}
+                        >
+                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Закрыть </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+
+            </Modal>
+
+            {/* Modal Edit */}
+            {
+                !modalEdit ? null :
+                <ModalEdit show={() => setModalEdit(false)}
+                    title={itemTitle} description={itemDescription}
+                    saveInputs={(t, d) => saveInputs(t, d)}
+                />
+            }
+
+            
+            {/* Modal Add */}
+            <Modal
+                visible={modalAdd}
                 animationType='slide'
                 transparent={true}
                 statusBarTranslucent={true}
             >
                 <KeyboardAvoidingView
                     behavior='padding'
-                    style={StylesContainers.modalContainer}
+                    style={[StylesContainers.modalContainer, StylesContainers.modalBackground]}
                     enabled
                 >
                     <ScrollView>
                         <View style={[StylesContainers.modal, { gap: 30 }]}>
                             <Text style={StylesTexts.big}>
-                                Create new note
+                                Создание новой заметки
                             </Text>
                             <View style={{ gap: 20 }}>
                                 <TextInput
                                     autoFocus={true}
                                     inputMode="text"
-                                    placeholder="Title"
+                                    placeholder="Заголовок"
                                     blurOnSubmit={false}
                                     onSubmitEditing={() => inputSecond.current.focus()}
                                     returnKeyType={'next'}
@@ -176,7 +249,7 @@ const Notes = () => {
                                     ref={inputSecond}
                                     blurOnSubmit={false}
                                     inputMode="text"
-                                    placeholder="Description"
+                                    placeholder="Описание"
                                     value={inputDescription}
                                     onChangeText={(v) => setInputDescription(v)}
                                     style={[StylesTexts.input, StylesTexts.inputMulti]}
@@ -190,24 +263,47 @@ const Notes = () => {
 
                                 <TouchableOpacity
                                     activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, { flex: 0.5, backgroundColor: 'black' }]}
-                                    onPress={() => setModalVisible(false)}
+                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.cancel, { flex: 0.5 }]}
+                                    onPress={() => setModalAdd(false)}
                                 >
-                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
+                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Отменить </Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
                                     activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, { flex: 0.5, backgroundColor: '#B2F7C1' }]}
+                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.accept, { flex: 0.5 }]}
                                     onPress={() => addNote()}
                                 >
-                                    <Text style={[StylesTexts.default]}> Add </Text>
+                                    <Text style={[StylesTexts.default]}> Добавить </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
             </Modal>
+
+            {/* Button Add */}
+            <View style={[StylesButtons.buttonFooter, modalAdd ? {display: 'none'} : {display: 'flex'}]}>
+                <TouchableOpacity
+                    activeOpacity={ 0.5 }
+                    style={StylesButtons.addButton}
+                    onPress={() => setModalAdd(true)}
+                >
+                    <IconPlus size={30} color={'black'}/>
+                    <Text style={StylesTexts.small}> Добавить новую заметку </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                 onPress={
+                    () => {
+                        console.log(notes)
+                    }
+                 }
+                >
+                    <Text>
+                        getNote
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };

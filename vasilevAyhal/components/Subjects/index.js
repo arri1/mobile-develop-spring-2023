@@ -31,8 +31,8 @@ const SubjectStack = () => {
 
             headerStyle: { backgroundColor: NavigationTheme.colors.headerBackground },
         }}>
-            <Stack.Screen name="SubjectsScreen" component={SubjectsScreen} options={{title: 'Subjects'}}  />
-            <Stack.Screen name="SubjectScreen" component={SubjectScreen} options={{title: 'Subject'}}  />
+            <Stack.Screen name="SubjectsScreen" component={SubjectsScreen} options={{title: 'Предметы'}}  />
+            <Stack.Screen name="SubjectScreen" component={SubjectScreen} options={{title: 'Предмет'}}  />
         </Stack.Navigator>
     );
 };

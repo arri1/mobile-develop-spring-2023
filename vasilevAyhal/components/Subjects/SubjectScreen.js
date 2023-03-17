@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SQLite from 'expo-sqlite'
 import 'react-native-gesture-handler';
 import { View, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
@@ -11,42 +11,36 @@ import Tasks from "./Tasks";
 import Report from "./Report";
 
 const SubjectScreen = ({ route, navigation }) => {
-    const storage = route.params.subjectId
+    const table = 'subjects'
+    const db = SQLite.openDatabase(`${table}.db`)
+    const subjectId = route.params.subjectId
     const screens = {
         index: 0,
         routes: [
-            { key: 'first', title: ' Report ' },
-            { key: 'second', title: ' Tasks ' },
+            { key: 'first', title: ' Задачи ' },
+            { key: 'second', title: ' Отчёт ' },
         ],
     };
 
     useEffect(
         () => {
-            var promise = getItem(route.params.subjectId)
-            promise.then(item => {
-                navigation.setOptions({ headerTitle: item.title })
-            })
+            db.transaction(tx => 
+                tx.executeSql(`SELECT * FROM ${table} WHERE id = ?`, [subjectId],
+                    (_, res) => {
+                        navigation.setOptions({ headerTitle: res.rows.item(0).title })
+                    },
+                    (_, error) => console.log(error)
+                )
+            );
         }, []
     )
-
-    const getItem = async (key) => {
-        try {
-            const itemValues = await AsyncStorage.getItem(key)
-            if (itemValues !== null) {
-                return JSON.parse(itemValues)
-            }
-            return alert('ERROR: Item null');
-        } catch (e) {
-            return alert('ERROR: getItem');
-        }
-    }
 
     return (
         <TabView
             navigationState={screens}
             renderScene={SceneMap({
-                first: () => <Report subjectId={storage}/>,
-                second: () => <Tasks subjectId={storage}/>,
+                first: () => <Tasks subjectId={subjectId}/>,
+                second: () => <Report subjectId={subjectId}/>,
             })}
             initialLayout={{ width: Dimensions.get('window').width }}
             onIndexChange={ index => screens.index = index}

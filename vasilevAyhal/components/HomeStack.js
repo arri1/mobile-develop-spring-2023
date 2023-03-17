@@ -35,9 +35,9 @@ const HomeStack = () => {
 
             headerStyle: { backgroundColor: NavigationTheme.colors.headerBackground },
         })}>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Home'}} />
-            <Stack.Screen name="Notes" component={Notes} options={{title: 'Notes'}}  />
-            <Stack.Screen name="SubjectsStack" component={SubjectsStack} options={{title: 'Subjects'}}  />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Главная'}} />
+            <Stack.Screen name="Notes" component={Notes} options={{title: 'Заметки'}}  />
+            <Stack.Screen name="SubjectsStack" component={SubjectsStack} options={{title: 'Предметы'}}  />
         </Stack.Navigator>
     );
 };

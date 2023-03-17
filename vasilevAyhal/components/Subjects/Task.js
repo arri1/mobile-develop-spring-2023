@@ -4,6 +4,7 @@ import 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import StylesContainers from '../style/containers'
+import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
 import StylesSubject from './styles/subject'
 
@@ -39,7 +40,7 @@ const Task = (props) => {
             <View
                 style={[
                     StylesSubject.subjectSwipe,
-                    props.isComplete ? {backgroundColor: '#F7F19E'} : {backgroundColor: '#B2F7C1'}
+                    props.isComplete ? StylesButtons.edit : StylesButtons.accept
                 ]}>
                 {
                     props.isComplete ?
@@ -62,7 +63,7 @@ const Task = (props) => {
             <TouchableOpacity onPress={() => animStart()}
                 style={[
                     StylesSubject.subjectSwipe,
-                    {backgroundColor: '#FFA9A1'}
+                    StylesButtons.delete
                 ]}>
                 <View style={{ alignItems: 'center' }}>
                     <IconDelete size={iconSize}/>
@@ -95,7 +96,7 @@ const Task = (props) => {
                 <View style={[StylesSubject.subject, {flexDirection: 'row', height: 100}]}>
                     <View style={{justifyContent: 'center'}}>
                         <TouchableOpacity
-                            style={[{width: 30, height: 30}, props.isComplete ? StylesSubject.taskCheck : StylesSubject.taskUnCheck]}
+                            style={[{width: 30, height: 30}, props.isComplete ? [StylesSubject.taskCheck, StylesButtons.accept] : StylesSubject.taskUnCheck]}
                             onPress={() => props.setComplete()}
                         >
                             { props.isComplete ? <IconCheck color={'#000000'} size={'100%'}/> : null }
@@ -107,10 +108,11 @@ const Task = (props) => {
                                 {props.title}
                             </Text>
                             {
-                                props.grade.length === 0 ? null :
-                                <Text style={[StylesTexts.small, StylesTexts.fadeColor]} numberOfLines={1}>
-                                    {props.grade} баллов
-                                </Text>
+                                !props.grade ? null :
+                                <View style={{alignItems: 'flex-end'}}>
+                                    <Text style={[StylesTexts.default, StylesTexts.fadeColor]}> {props.grade} </Text>
+                                    <Text style={[StylesTexts.small, StylesTexts.fadeColor]}> баллов </Text>
+                                </View>
                             }
                         </View>
 

@@ -1,127 +1,138 @@
 import React, { useState, useEffect } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator, Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import * as SQLite from 'expo-sqlite'
+import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, RefreshControl } from 'react-native';
 import { FlashList } from "@shopify/flash-list";
-import uuid from 'react-native-uuid';
 
 import StylesContainers from '../style/containers'
 import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
 
 import Subject from './Subject'
+import ModalEdit from './ModalEdit'
 
 import IconPlus from '../../assets/svg/plus'
 
 const SubjectsScreen = ({ navigation }) => {
-    const storage = 'subjects'
+    const table = 'subjects'
+    const db = SQLite.openDatabase(`${table}.db`)
     const screenPadding = StylesContainers.screen.padding
-    const [modalVisible, setModalVisible] = useState(false)
     const [subjects, setSubjects] = useState([])
     const [loading, setLoading] = useState(true)
+    
+    const [modalMore, setModalMore] = useState(false)
+    const [modalEdit, setModalEdit] = useState(false)
+    const [modalAdd, setModalAdd] = useState(false)
+    
+    const [itemId, setItemId] = useState('')
+    const [itemTitle, setItemTitle] = useState('')
 
     const [inputTitle, setInputTitle] = useState('')
 
-    useEffect(() => {
+    const refresh = React.useCallback(() => {
         getAllSubjects()
         setTimeout(() => {
             setLoading(false)
         }, 500)
-    }, [])
+    }, []);
 
-    const getAllSubjects = async () => {
-        try {
-            let keys = []
-            keys = await AsyncStorage.getAllKeys()
-            if (keys !== null) {
-                keys.map(
-                    (key) => {
-                        var promise = getItem(key)
-                        promise.then(item => {
-                            if(item.storage === storage) {
-                                setSubjects(
-                                    subjects => [
-                                        ...subjects,
-                                        { id: key, title: item.title },
-                                    ]
-                                )
-                            }
-                        })
-                    }
+    useEffect(
+        () => {
+            db.transaction(tx => 
+                tx.executeSql(`CREATE TABLE IF NOT EXISTS ${table}
+                    (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        title TEXT
+                    )`
                 )
-            }
-        } catch (e) {
-            alert('ERROR: getAllSubjects');
-        }
+            )
+            refresh()
+        }, []
+    )
+    
+    const getAllSubjects = () => {
+        setSubjects([])
+        db.transaction(tx =>
+            tx.executeSql(`SELECT * FROM ${table} ORDER BY id DESC`, [],
+                (_, res) => {
+                    var rows = []
+                    for (let i = 0; i < res.rows.length; i++) {
+                        rows.push(res.rows.item(i))
+                    }
+                    setSubjects(rows)
+                },
+                (_, error) => console.log(error)
+            )
+        )
     }
 
-    const getItem = async (key) => {
-        try {
-            const itemValues = await AsyncStorage.getItem(key)
-            if (itemValues !== null) {
-                return JSON.parse(itemValues)
-            }
-            return alert('ERROR: Item null');
-        } catch (e) {
-            return alert('ERROR: getItem');
-        }
-    }
-
-    const addSubject = async () => {
+    const addSubject = () => {
         if(inputTitle.length > 0) {
-            try {
-                const key = `${storage}_${inputTitle}`
-                const keys = await AsyncStorage.getAllKeys()
-                if (keys.find(v => v === key)) {
-                    alert("Subject exists!")
-                }
-                else {
-                    await AsyncStorage.setItem(key, JSON.stringify({ title: inputTitle, storage: storage }))
-                    setSubjects(
-                        subjects => [
-                            { id: key, title: inputTitle },
-                            ...subjects
-                        ]
-                    )
-                    setInputTitle('')
-                    setModalVisible(false)
-                }
-            } catch (e) {
-                console.log('ERROR: addSubject')
-            }
+            db.transaction(tx => {
+                tx.executeSql(
+                    `INSERT INTO ${table} (title) VALUES (?)`, [inputTitle],
+                    (_, res) => {
+                        setSubjects(
+                            item => [
+                                {id: res.insertId, title: inputTitle},
+                                ...item
+                            ]
+                        )
+                    },
+                    (_, error) => console.log(error)
+                );
+            });
+            setInputTitle('')
+            setModalAdd(false)
         } else {
-            alert("Title empty!")
+            alert("Заголовок пустой!")
         }
     }
 
-    const deleteSubject = async (key) => {
-        try {
-            let keys = []
-            keys = await AsyncStorage.getAllKeys()
-            if (keys !== null) {
-                keys.map(
-                    (_key) => {
-                        var promise = getItem(_key)
-                        promise.then(async item => {
-                            if(item.storage === key) await AsyncStorage.removeItem(_key)
-                        })
+    const deleteSubject = (id) => {
+        db.transaction(tx => {
+            tx.executeSql(`DELETE FROM ${table} WHERE id = ?`, [id],
+                (_, res) => {
+                    if (res.rowsAffected > 0) {
+                        let items = [...subjects]
+                        items.splice(subjects.findIndex((item) => { return item.id === id }), 1)
+                        setSubjects(items)
                     }
-                )
-            }
-            await AsyncStorage.removeItem(key)
-            let items = [...subjects]
-            items.splice(subjects.findIndex((item) => { return item.id === key }), 1)
-            setSubjects(items)
-        } catch (e) {
-            return alert('ERROR: deleteSubject');
-        }
-        
+                },
+                (_, error) => console.log(error)
+            );
+        })
+        const dbChild = SQLite.openDatabase(`subject.db`)
+        dbChild.transaction(tx => {
+            tx.executeSql(`DELETE FROM subject WHERE subject_id = ?`, [id],
+                (_, res) => {
+                    if(res.rowsAffected > 0) console.log('deleted')
+                },
+                (_, error) => console.log(error)
+            )
+        })
+    }
+    
+    const saveInputs = (title) => {
+        db.transaction(tx =>
+            tx.executeSql(
+                `UPDATE ${table} SET title = ? WHERE id = ?`, [title, itemId],
+                (_, res) => {
+                    if (res.rowsAffected > 0) {
+                        var rows = [...subjects];
+                        const indexToUpdate = rows.findIndex(item => item.id === itemId);
+                        rows[indexToUpdate].title = title;
+                        setSubjects(rows);
+                    }
+                },
+                (_, error) => console.log(error)
+            )
+        )
     }
 
     return (
         <View style={{flex: 1}}>
             {
-                loading ? <ActivityIndicator size="large" color="#00000050" style={{flex: 1}}/> :
-                subjects.length === 0 ?
+                !subjects ? null : subjects.length === 0 ?
                 <View style={[StylesContainers.screen, StylesContainers.default]}>
                     <Text style={[StylesTexts.default, StylesContainers.alert]}> Нет записей </Text>
                 </View>
@@ -131,18 +142,24 @@ const SubjectsScreen = ({ navigation }) => {
                     estimatedItemSize={80}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={{padding: screenPadding, paddingBottom: screenPadding*3}}
+                    refreshControl={ <RefreshControl refreshing={loading} onRefresh={refresh}/> }
                     renderItem={
                         ({item}) => (
-                            <TouchableOpacity
+                            <TouchableOpacity activeOpacity={1}
+                                onLongPress={
+                                    () => {
+                                        setModalMore(true)
+                                        setItemId(item.id)
+                                        setItemTitle(item.title)
+                                    }
+                                }
                                 onPress={
                                     () => { navigation.navigate('SubjectScreen', { subjectId: item.id }) }
                                 }
-                                activeOpacity={ 0.5 }
                                 style={{marginBottom: screenPadding}}
                             >
                                 <Subject
                                     title={item.title}
-                                    countTask={item.countTask}
                                     setDelete={() => deleteSubject(item.id)}
                                 />
                             </TouchableOpacity>
@@ -151,38 +168,69 @@ const SubjectsScreen = ({ navigation }) => {
                 />
             }
 
-            <View style={[StylesButtons.buttonFooter, modalVisible ? {display: 'none'} : {display: 'flex'}]}>
-                <TouchableOpacity
-                    activeOpacity={ 0.5 }
-                    style={StylesButtons.addButton}
-                    onPress={() => setModalVisible(true)}
-                >
-                    <IconPlus size={30} color={'black'}/>
-                    <Text style={StylesTexts.small}> Add </Text>
-                </TouchableOpacity>
-            </View>
-
+            {/* Modal More */}
             <Modal
-                visible={modalVisible}
+                visible={modalMore}
+                animationType='fade'
+                transparent={true}
+                statusBarTranslucent={true}
+            >
+                <View style={[{flex: 1, justifyContent: 'center'}, StylesContainers.modalBackground]}>
+                    <View style={[StylesContainers.modal, { gap: 20 }]}>
+                        <TouchableOpacity activeOpacity={ 0.5 }
+                            onPress={() => { deleteSubject(itemId); setModalMore(false); }}
+                            style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.delete]}
+                            >
+                            <Text style={StylesTexts.default}> Удалить </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={ 0.5 }
+                            onPress={() => { setModalEdit(true); setModalMore(false); }}
+                            style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.edit]}
+                        >
+                            <Text style={StylesTexts.default}> Изменить </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={ 0.5 }
+                            onPress={() => setModalMore(false)}
+                            style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.cancel]}
+                        >
+                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Закрыть </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+            </Modal>
+
+            {/* Modal Edit */}
+            {
+                !modalEdit ? null :
+                <ModalEdit show={() => setModalEdit(false)}
+                    title={itemTitle}
+                    saveInputs={(t) => saveInputs(t)}
+                />
+            }
+
+            {/* Modal Add */}
+            <Modal
+                visible={modalAdd}
                 animationType='slide'
                 transparent={true}
                 statusBarTranslucent={true}
             >
                 <KeyboardAvoidingView
                     behavior='padding'
-                    style={StylesContainers.modalContainer}
+                    style={[StylesContainers.modalContainer, StylesContainers.modalBackground]}
                     enabled
                 >
                     <ScrollView>
                         <View style={[StylesContainers.modal, { gap: 30 }]}>
                             <Text style={StylesTexts.big}>
-                                Create new subject
+                                Добавить предмет
                             </Text>
                             <View>
                                 <TextInput
                                     autoFocus={true}
                                     inputMode="text"
-                                    placeholder="Title"
+                                    placeholder="Заголовок"
                                     returnKeyType={'done'}
                                     value={inputTitle}
                                     onChangeText={(v) => setInputTitle(v)}
@@ -196,24 +244,36 @@ const SubjectsScreen = ({ navigation }) => {
 
                                 <TouchableOpacity
                                     activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, { flex: 0.5, backgroundColor: 'black' }]}
-                                    onPress={() => setModalVisible(false)}
+                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.cancel, { flex: 0.5 }]}
+                                    onPress={() => setModalAdd(false)}
                                 >
-                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Cancel </Text>
+                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Отменить </Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
                                     activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, { flex: 0.5, backgroundColor: '#B2F7C1' }]}
+                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.accept, { flex: 0.5 }]}
                                     onPress={() => addSubject()}
                                 >
-                                    <Text style={[StylesTexts.default]}> Add </Text>
+                                    <Text style={[StylesTexts.default]}> Добавить </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
             </Modal>
+
+            {/* Button Add */}
+            <View style={[StylesButtons.buttonFooter, modalAdd ? {display: 'none'} : {display: 'flex'}]}>
+                <TouchableOpacity
+                    activeOpacity={ 0.5 }
+                    style={StylesButtons.addButton}
+                    onPress={() => setModalAdd(true)}
+                >
+                    <IconPlus size={30} color={'black'}/>
+                    <Text style={StylesTexts.small}> Добавить предмет </Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };

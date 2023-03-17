@@ -3,6 +3,7 @@ import { Animated, View, Text, Easing, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
+import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
 import StylesSubject from './styles/subject'
 
@@ -33,7 +34,7 @@ const Subject = (props) => {
             <TouchableOpacity onPress={() => animStart()}
                 style={[
                     StylesSubject.subjectSwipe,
-                    {backgroundColor: '#FFA9A1'}
+                    StylesButtons.delete
                 ]}>
                 <View style={{ alignItems: 'center' }}>
                     <IconDelete size={iconSize}/>

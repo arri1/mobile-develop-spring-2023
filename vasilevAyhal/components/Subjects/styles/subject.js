@@ -17,8 +17,9 @@ export default StyleSheet.create({
         backgroundColor: '#ffffff',
     },
     subjectSwipe: { justifyContent: 'center', alignItems: 'center', width: '30%', paddingHorizontal: 10 },
+    editField: { padding: 30, color: '#000000', },
     textField: { color: '#00000080' },
     taskUnCheck: { borderColor: '#B3B3B3', borderWidth: 2, borderRadius: 100 },
-    taskCheck: { backgroundColor: '#B2F7C1', borderRadius: 100 },
+    taskCheck: { borderRadius: 100 },
     
 });

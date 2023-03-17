@@ -31,7 +31,10 @@ export default StyleSheet.create({
         // elevation: 6, // shadow for android
         backgroundColor: '#fff',
     },
-    bottom: {
-        height: 45
-    }
+    bottom: { height: 45 },
+    
+    delete: {backgroundColor: '#FF9898'},
+    cancel: { backgroundColor: '#000000'},
+    accept: { backgroundColor: '#9DFF94'},
+    edit: { backgroundColor: '#E0E2FF'},
 });
