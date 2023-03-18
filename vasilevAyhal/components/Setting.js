@@ -10,14 +10,10 @@ import StylesTexts from './style/texts';
 const Setting = () => {
     const [showAlertDropTable, setShowAlertDropTable] = useState(false)
     
-    const table = 'notes'
-    const db = SQLite.openDatabase(`${table}.db`)
-    
-    const table2 = 'subjects'
-    const db2 = SQLite.openDatabase(`${table2}.db`)
-    
-    const table3 = 'subject'
-    const db3 = SQLite.openDatabase(`${table3}.db`)
+    const tableNotes = 'notes'
+    const tableSubjects = 'subjects'
+    const tableSubject = 'subject'
+    const tableUsers = 'users'
     
     // const [count, setCount] = useState(0)
     // const [count2, setCount2] = useState(0)
@@ -34,11 +30,12 @@ const Setting = () => {
     //     }, [count]
     // )
 
-    const getTable = () => {
+    const getTable = (t) => {
+        var db = SQLite.openDatabase(`${t}.db`)
         db.transaction(tx =>
-            tx.executeSql(`SELECT * FROM ${table} ORDER BY id`, [],
+            tx.executeSql(`SELECT * FROM ${t} ORDER BY id`, [],
                 (_, res) => {
-                    console.log(table)
+                    console.log(t)
                     for (let i = 0; i < res.rows.length; i++) {
                         console.log(res.rows.item(i))
                     }
@@ -48,46 +45,11 @@ const Setting = () => {
         );
     }
 
-    const getTable2 = () => {
-        db2.transaction(tx =>
-            tx.executeSql(`SELECT * FROM ${table2} ORDER BY id`, [],
-                (_, res) => {
-                    console.log(table2)
-                    for (let i = 0; i < res.rows.length; i++) {
-                        console.log(res.rows.item(i))
-                    }
-                },
-                (_, error) => console.log(error)
-            )
-        );
-    }
-
-    const getTable3 = () => {
-        db3.transaction(tx =>
-            tx.executeSql(`SELECT * FROM ${table3} ORDER BY id`, [],
-                (_, res) => {
-                    console.log(table3)
-                    for (let i = 0; i < res.rows.length; i++) {
-                        console.log(res.rows.item(i))
-                    }
-                },
-                (_, error) => console.log(error)
-            )
-        );
-    }
-
-    const dropTable = () => {
+    const dropTable = (t) => {
+        var db = SQLite.openDatabase(`${t}.db`)
         db.transaction(tx =>
-            tx.executeSql(`DROP TABLE ${table}`, [],
-                (_, res) => { alert('Table dropped') }
-            )
-        )
-    }
-
-    const dropTable3 = () => {
-        db3.transaction(tx =>
-            tx.executeSql(`DROP TABLE ${table3}`, [],
-                (_, res) => { alert('Table dropped') }
+            tx.executeSql(`DROP TABLE ${t}`, [],
+                (_, res) => { alert(`${t} dropped`) }
             )
         )
     }
@@ -106,28 +68,39 @@ const Setting = () => {
                     <Button title='+' onPress={() => setCount2(count2+1)}/>
                 </View>
             </View> */}
-
+            
             <View style={{alignItems: 'center', gap: 20}}>
                 
+                {/* SELECT TABLE */}
                 <TouchableOpacity
                     style={[StylesButtons.default, StylesButtons.buttonsDefault]}
-                    onPress={() => getTable()}
+                    onPress={() => getTable(tableNotes)}
                 >
                     <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Get table notes </Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                     style={[StylesButtons.default, StylesButtons.buttonsDefault]}
-                    onPress={() => getTable2()}
+                    onPress={() => getTable(tableSubjects)}
                 >
                     <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Get table subjects </Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                     style={[StylesButtons.default, StylesButtons.buttonsDefault]}
-                    onPress={() => getTable3()}
+                    onPress={() => getTable(tableSubject)}
                 >
                     <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Get table subject </Text>
                 </TouchableOpacity>
+                
+                <TouchableOpacity
+                    style={[StylesButtons.default, StylesButtons.buttonsDefault]}
+                    onPress={() => getTable(tableUsers)}
+                >
+                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Get table users </Text>
+                </TouchableOpacity>
 
+                {/* DROP TABLE */}
                 <TouchableOpacity
                     style={[StylesButtons.default, StylesButtons.buttonsDefault]}
                     onPress={() => setShowAlertDropTable(true)}
@@ -137,9 +110,16 @@ const Setting = () => {
 
                 <TouchableOpacity
                     style={[StylesButtons.default, StylesButtons.buttonsDefault]}
-                    onPress={() => dropTable3(true)}
+                    onPress={() => dropTable(tableSubject)}
                 >
                     <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Drop table subject </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[StylesButtons.default, StylesButtons.buttonsDefault]}
+                    onPress={() => dropTable(tableUsers)}
+                >
+                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Drop table users </Text>
                 </TouchableOpacity>
 
             </View>
@@ -162,7 +142,7 @@ const Setting = () => {
                     setShowAlertDropTable(false)
                 }}
                 onConfirmPressed={() => {
-                    dropTable()
+                    dropTable(tableNotes)
                     setShowAlertDropTable(false)
                 }}
             />

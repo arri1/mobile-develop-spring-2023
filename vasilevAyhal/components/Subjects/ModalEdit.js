@@ -24,7 +24,7 @@ const ModalEdit = (props) => {
                 style={[StylesContainers.default, StylesContainers.modalBackground]}
                 enabled
             >
-                <View style={[{ justifyContent: 'center', width: '90%', maxHeight: '90%', gap: 30 }]}>
+                <View style={[{ width: '90%', maxHeight: '90%', gap: 30 }]}>
                     <View style={{ borderBottomWidth: 2, borderBottomColor: edit ? '#B3B3B3' : 'transparent' }}>
                         <TextInput
                             inputMode="text"
@@ -36,7 +36,7 @@ const ModalEdit = (props) => {
                             editable={edit}
                             style={[StylesTexts.big, {color: '#ffffff'}]}
                             placeholderTextColor={StylesTexts.placeholder.color}
-                            maxLength={100}
+                            maxLength={50}
                         />
                     </View>
                     { !props.gradeShow ? null :
@@ -51,7 +51,7 @@ const ModalEdit = (props) => {
                                 editable={edit}
                                 style={[StylesTexts.default, {color: '#ffffff', borderBottomWidth: 2, borderBottomColor: edit ? '#B3B3B3' : 'transparent'}]}
                                 placeholderTextColor={StylesTexts.placeholder.color}
-                                maxLength={100}
+                                maxLength={10}
                             />
                             <Text style={[StylesTexts.small, {color: '#ffffff'}]}>баллов </Text>
                         </View>

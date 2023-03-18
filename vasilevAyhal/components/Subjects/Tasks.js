@@ -240,7 +240,7 @@ const Tasks = (props) => {
                 !modalEdit ? null :
                 <ModalEdit show={() => setModalEdit(false)}
                     title={itemTitle}
-                    grade={itemGrade}
+                    grade={itemGrade.toString()}
                     description={itemDescription}
                     gradeShow={true} descriptionShow={true}
                     saveInputs={(t, g, d) => saveInputs(t, g, d)}
@@ -276,7 +276,7 @@ const Tasks = (props) => {
                                     onSubmitEditing={() => inputSecond.current.focus()}
                                     style={StylesTexts.input}
                                     placeholderTextColor={StylesTexts.placeholder.color}
-                                    maxLength={100}
+                                    maxLength={50}
                                 />
                                 <TextInput
                                     ref={inputSecond}
@@ -290,7 +290,7 @@ const Tasks = (props) => {
                                     style={StylesTexts.input}
                                     placeholderTextColor={StylesTexts.placeholder.color}
                                     numberOfLines={1}
-                                    maxLength={100}
+                                    maxLength={10}
                                 />
                                 <TextInput
                                     ref={inputThird}
@@ -336,14 +336,6 @@ const Tasks = (props) => {
                 >
                     <IconPlus size={30} color={'black'}/>
                     <Text style={StylesTexts.small}> Создать новое задание </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={ 0.5 }
-                    style={StylesButtons.addButton}
-                    onPress={() => refresh()}
-                >
-                    <IconPlus size={30} color={'black'}/>
-                    <Text style={StylesTexts.small}> ref </Text>
                 </TouchableOpacity>
             </View>
         </View>

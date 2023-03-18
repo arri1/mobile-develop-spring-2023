@@ -243,7 +243,7 @@ const Notes = () => {
                                     onChangeText={(v) => setInputTitle(v)}
                                     style={StylesTexts.input}
                                     placeholderTextColor={StylesTexts.placeholder.color}
-                                    maxLength={100}
+                                    maxLength={50}
                                 />
                                 <TextInput
                                     ref={inputSecond}
@@ -291,17 +291,6 @@ const Notes = () => {
                 >
                     <IconPlus size={30} color={'black'}/>
                     <Text style={StylesTexts.small}> Добавить новую заметку </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                 onPress={
-                    () => {
-                        console.log(notes)
-                    }
-                 }
-                >
-                    <Text>
-                        getNote
-                    </Text>
                 </TouchableOpacity>
             </View>
         </View>

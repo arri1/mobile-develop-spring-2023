@@ -9,10 +9,14 @@ import StylesTexts from './style/texts';
 
 import HomeStack from './HomeStack';
 import Setting from './Setting';
+import Profile from './Profile';
+import CalendarScreen from './CalendarScreen';
 
 import IconInbox from '../assets/svg/inbox';
 import IconHome from '../assets/svg/home';
+import IconCalendar from '../assets/svg/calendar';
 import IconWrench from '../assets/svg/wrench';
+import IconUser from '../assets/svg/user';
 
 const Tab = createBottomTabNavigator();
 
@@ -69,8 +73,12 @@ const App = () => {
                                         <IconHome size={size} color={color}/>
                                         // : (route.name == 'Notification') ?
                                         // <IconInbox size={size} color={color}/>
+                                        : (route.name == 'Calendar') ?
+                                        <IconCalendar size={size} color={color}/>
                                         : (route.name == 'Setting') ?
                                         <IconWrench size={size} color={color}/>
+                                        : (route.name == 'Profile') ?
+                                        <IconUser size={size} color={color}/>
                                         : "null"
                                     }
                                 </View>
@@ -89,8 +97,15 @@ const App = () => {
                     options={{ tabBarBadge: likeCount > 0 ? likeCount : null, }}
                 /> */}
                 
-                <Tab.Screen name='Setting'
+                <Tab.Screen name='Calendar' options={{title: 'Календарь'}}
+                    children={() => <CalendarScreen />}
+                />
+                
+                <Tab.Screen name='Setting' options={{title: 'Настройки'}}
                     children={() => <Setting />}
+                />
+                <Tab.Screen name='Profile' options={{title: 'Профиль'}}
+                    children={() => <Profile />}
                 />
 
             </Tab.Navigator> 

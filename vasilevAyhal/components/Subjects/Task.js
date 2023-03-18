@@ -102,28 +102,25 @@ const Task = (props) => {
                             { props.isComplete ? <IconCheck color={'#000000'} size={'100%'}/> : null }
                         </TouchableOpacity>
                     </View>
-                    <View style={{flex: 1, justifyContent: 'center'}}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={[StylesTexts.big]} numberOfLines={1}>
-                                {props.title}
-                            </Text>
-                            {
-                                !props.grade ? null :
-                                <View style={{alignItems: 'flex-end'}}>
-                                    <Text style={[StylesTexts.default, StylesTexts.fadeColor]}> {props.grade} </Text>
-                                    <Text style={[StylesTexts.small, StylesTexts.fadeColor]}> баллов </Text>
-                                </View>
-                            }
-                        </View>
-
+                    
+                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
+                        <Text style={[StylesTexts.big]} numberOfLines={1}>
+                            {props.title}
+                        </Text>
                         {
                             props.description.length === 0 ? null :
                             <Text style={[StylesSubject.textField, StylesTexts.small]} numberOfLines={2}>
                                 {props.description}
                             </Text>
                         }
+                        {/* {
+                            !props.grade ? null :
+                            <View style={{alignItems: 'flex-end', maxWidth: '20%', overflow: 'hidden'}}>
+                                <Text style={[StylesTexts.default, StylesTexts.fadeColor]}> {props.grade} </Text>
+                                <Text style={[StylesTexts.small, StylesTexts.fadeColor]}> баллов </Text>
+                            </View>
+                        } */}
                     </View>
-                    
                 </View>
             </Swipeable>
         </Animated.View>

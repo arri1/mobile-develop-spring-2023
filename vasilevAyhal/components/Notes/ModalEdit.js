@@ -35,7 +35,7 @@ const ModalEdit = (props) => {
                             editable={edit}
                             style={[StylesTexts.big, {color: '#ffffff'}]}
                             placeholderTextColor={StylesTexts.placeholder.color}
-                            maxLength={100}
+                            maxLength={50}
                         />
                     </View>
                     <View style={{ maxHeight: '70%', borderRadius: 10, backgroundColor: edit ? '#FFF2E3' : '#ffffff', overflow: 'hidden' }}>

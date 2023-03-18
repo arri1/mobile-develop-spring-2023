@@ -17,15 +17,10 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: '400',
     },
-    lightColor: {
-        color: "#ffffff"
-    },
-    fadeColor: {
-        color: "#00000075"
-    },
-    placeholder: {
-        color: "#a9a9a9"
-    },
+    lightColor: { color: "#ffffff" },
+    linkColor: { color: '#6E7AFF' },
+    fadeColor: { color: "#00000075" },
+    placeholder: { color: "#B3B3B3" },
     input: {
         paddingHorizontal: 10,
         paddingVertical: 5,

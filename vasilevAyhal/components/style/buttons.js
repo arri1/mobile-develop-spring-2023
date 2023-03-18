@@ -33,8 +33,12 @@ export default StyleSheet.create({
     },
     bottom: { height: 45 },
     
-    delete: {backgroundColor: '#FF9898'},
-    cancel: { backgroundColor: '#000000'},
-    accept: { backgroundColor: '#9DFF94'},
-    edit: { backgroundColor: '#E0E2FF'},
+    edit: { backgroundColor: '#E0E2FF' },
+    delete: { backgroundColor: '#FF9898' },
+    cancel: { backgroundColor: '#00000075' },
+    accept: { backgroundColor: '#88F799' },
+    inactiveBack: { backgroundColor: '#B3B3B3' },
+    activeBack: { backgroundColor: '#A2A2D0' },
+    inactive: { backgroundColor: '#F0F0F0' },
+    active: { backgroundColor: '#E6E6FA' },
 });
