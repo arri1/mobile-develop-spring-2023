@@ -75,8 +75,8 @@ const Lab3 = () => {
           setFilmCount(text);
         }}
       />
-      <ScrollView style={{marginBottom: 200}}>
-        {filmsData.map((film: Film) => (
+      <ScrollView style={styles.scroll}>
+        {films.map((film: Film) => (
           <FilmCard
             key={film.id}
             director={film.director}
@@ -92,6 +92,9 @@ const Lab3 = () => {
 const styles = StyleSheet.create({
   buttonContainer: {
     marginBottom: 5,
+  },
+  scroll: {
+    marginBottom: 200,
   },
 });
 
