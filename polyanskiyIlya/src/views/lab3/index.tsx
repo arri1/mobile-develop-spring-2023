@@ -14,6 +14,9 @@ const Lab3 = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [_, setDummy] = useState(0);
 
+  const dispatch = useAppDispatch();
+  const films = useAppSelector(state => state.film.films);
+
   const getData: () => Promise<Film[] | undefined> = async () => {
     setLoading(true);
 
