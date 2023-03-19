@@ -12,7 +12,7 @@ const Lab1 = () => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "black",
+        backgroundColor: "#1e2140",
       }}
     >
       <TouchableOpacity
@@ -26,7 +26,7 @@ const Lab1 = () => {
           width: size,
           height: size,
           borderRadius: size / 2,
-          backgroundColor: "#004524",
+          backgroundColor: "#556097",
         }}
       />
     </View>

@@ -10,9 +10,7 @@ import {
 import axios from "axios";
 
 const Lab3 = () => {
-  const colors = ["red", "white", "blue", "orange", "darkgreen"];
   const [advice, setAdvice] = useState("click that button!");
-  const [backgroundColor, setBackgroundColor] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
@@ -26,19 +24,35 @@ const Lab3 = () => {
     return Math.floor(Math.random() * 200) + 1;
   };
 
-  const getAdvice = useMemo(() => {
+  const getAdvice = () => {
     axios
       .get("http://api.adviceslip.com/advice/" + getRandomId().toString())
       .then((response) => {
         setAdvice(response.data.slip.advice);
       });
-  }, [backgroundColor]);
+  };
 
+  const expensiveFunc = () => {
+    for (let i = 0; i < 1000000000; i++) {}
+  };
+
+  const withMemo = useMemo(() => {
+    alert("работает");
+    expensiveFunc();
+  }, []);
+
+  // const withMemo = useCallback(() => {
+  //   expensiveFunc();
+  // }, []);
+
+  const withoutMemo = () => {
+    expensiveFunc();
+  };
   return (
     <ScrollView
       contentContainerStyle={{
         flex: 1,
-        backgroundColor: colors[backgroundColor],
+        backgroundColor: "#1e2140",
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -58,21 +72,24 @@ const Lab3 = () => {
           style={styles.buttons}
           title="Change Color"
           onPress={() => {
-            getAdvice;
-            setBackgroundColor((backgroundColor + 1) % colors.length);
+            withMemo;
+            getAdvice();
           }}
           color="green"
         >
-          <Text style={styles.buttonsText}>CHANGE COLOR</Text>
+          <Text style={styles.buttonsText}>with memo</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttons}
           title="Get Advice"
-          onPress={getAdvice}
+          onPress={() => {
+            withoutMemo();
+            getAdvice();
+          }}
           color="green"
         >
-          <Text style={styles.buttonsText}>GET ADVICE</Text>
+          <Text style={styles.buttonsText}>without memo</Text>
         </TouchableOpacity>
       </View>
       <Text
@@ -80,11 +97,12 @@ const Lab3 = () => {
           marginTop: 10,
           fontWeight: "bold",
           fontStyle: "italic",
-          color: "black",
+          color: "white",
           display: "flex",
           alignItems: "center",
           textAlign: "center",
           maxWidth: 250,
+          fontSize: 16,
         }}
       >
         advice:
@@ -100,7 +118,7 @@ var styles = StyleSheet.create({
     justifyContent: "center",
     width: 100,
     height: 50,
-    backgroundColor: "#007FFF",
+    backgroundColor: "#556097",
     borderRadius: 100,
     marginTop: 10,
   },
@@ -111,12 +129,13 @@ var styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     maxWidth: 250,
+    fontSize: 12,
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#1e2140",
   },
 });
 

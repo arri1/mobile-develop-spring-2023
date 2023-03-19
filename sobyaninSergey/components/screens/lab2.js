@@ -8,7 +8,7 @@ var styles = StyleSheet.create({
     justifyContent: "center",
     width: 100,
     height: 50,
-    backgroundColor: "#007FFF",
+    backgroundColor: "#556097",
     borderRadius: 100,
     marginTop: 10,
   },
@@ -19,12 +19,13 @@ var styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     maxWidth: 250,
+    fontSize: 12,
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#1e2140",
   },
   text: {
     marginTop: 10,
@@ -35,6 +36,7 @@ var styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     maxWidth: 250,
+    font: 16,
   },
 });
 
