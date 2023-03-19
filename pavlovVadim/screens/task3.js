@@ -7,24 +7,26 @@ import {
   Button,
   Style,
   TextInput,
+  Image,
 } from 'react-native';
 import axios from 'axios';
-import {set} from 'react-native-reanimated';
+import {interpolate, set} from 'react-native-reanimated';
 
-function factirual(n) {
-  if (n < 0) {
-    console.error('Попробуйте с числом больше нуля');
-  } else if (n === 0) {
-    return 1;
-  } else {
-    return Math.sin(Math.sin(n)) * factirual(n - 1);
+const sum = n => {
+  let s = 1;
+  for (let i = 0; i < 10000; i++) {
+    for (let j = 0; j < 1000; j++) {
+      s = Math.sin(s);
+    }
   }
-}
-
+  return -20;
+};
+const first_number = 1;
+const second_number = 2;
 const task3 = () => {
-  const [fact, setFact] = useState(0);
-  const [result, setResult] = useState(0);
-  const memoResult = useMemo(() => setResult(), [fact]);
+  const result2 = useMemo(() => sum(second_number), [second_number]);
+  const [first, setFirst] = useState(350);
+  const [second, setSecond] = useState(248);
   return (
     <SafeAreaView
       style={{
@@ -33,52 +35,57 @@ const task3 = () => {
         alignItems: 'center',
         backgroundColor: 'white',
       }}>
-      <TextInput
-        style={{
-          color: 'black',
-          fontSize: 30,
-          textAlign: 'center',
-          backgroundColor: '#555555',
-        }}
-        multiline
-        textAlign="center"
-        editable
-        value={fact}
-        onChangeText={text => {
-          setFact(text);
-        }}
+      <Image
+        style={{top:first, left: -120, width: 58, height: 102}}
+        source={require('../assets/yellow_car.png')}
+      />
+      <Image
+        style={{top:second, left:120, width: 58, height: 102}}
+        source={require('../assets/red_car.png')}
       />
       <TouchableOpacity
         style={{
           marginTop: 10,
           borderRadius: 10,
+          width: 120,
           height: 40,
-          width: 220,
           backgroundColor: '#2C98F0',
-        }}
-        onPress={() => {
-          setResult(factirual(fact));
         }}>
         <Text
+          onPress={() => {
+            setFirst(first + sum(first_number));
+          }}
           style={{
             color: 'black',
             fontSize: 20,
             fontWeight: '800',
             textAlign: 'center',
           }}>
-          Найти факториал
+          Вперед
         </Text>
       </TouchableOpacity>
-      <Text
+
+      <TouchableOpacity
         style={{
-          color: 'black',
-          fontSize: 20,
-          fontWeight: '800',
-          textAlign: 'center',
+          marginTop: 10,
+          borderRadius: 10,
+          width: 120,
+          height: 40,
+          backgroundColor: '#2C98F0',
         }}>
-        Ответ:
-        {result}
-      </Text>
+        <Text
+          onPress={() => {
+            setSecond(second + result2);
+          }}
+          style={{
+            color: 'black',
+            fontSize: 20,
+            fontWeight: '800',
+            textAlign: 'center',
+          }}>
+          Вперед
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
