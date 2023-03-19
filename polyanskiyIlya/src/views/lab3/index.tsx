@@ -1,16 +1,14 @@
-import axios, {AxiosResponse} from 'axios';
 import React, {useEffect, useMemo, useState} from 'react';
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
 import {Film} from '../../models/film.model';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import FilmCard from '../../components/FilmCard';
-import {FilmResponse} from '../../models/film-response.model';
+import {getFilms, useAppDispatch, useAppSelector} from '../../redux/store';
 
 const Lab3 = () => {
   const [filmCount, setFilmCount] = useState<string>('1');
   const [filmCountForRequest, setFilmCountForRequest] = useState<string>('1');
-  const [filmsData, setFilmsData] = useState<Film[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [_, setDummy] = useState(0);
 
@@ -22,35 +20,15 @@ const Lab3 = () => {
 
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
-    let result: AxiosResponse<FilmResponse> | undefined;
+    const res = await dispatch(getFilms(filmCountForRequest));
 
-    try {
-      result = await axios.post(
-        `https://swapi-graphql.netlify.app/.netlify/functions/index`,
-        `query {
-          allFilms(first: ${filmCountForRequest}) {
-            films {
-              id
-              title
-              director
-              releaseDate
-            }
-          }
-        }
-        `,
-        {
-          headers: {
-            'Content-Type': 'application/graphql',
-          },
-        },
-      );
-    } catch (error) {
-      result = undefined;
+    if (res.meta.requestStatus === 'fulfilled') {
+      return res.payload as Film[];
+    } else {
+      return [] as Film[];
     }
-
-    return result?.data.data.allFilms.films;
   };
 
   useEffect(() => {
@@ -60,7 +38,6 @@ const Lab3 = () => {
 
   useMemo(async () => {
     const result = await getData();
-    setFilmsData(result || []);
     return result;
   }, [filmCountForRequest]);
 
