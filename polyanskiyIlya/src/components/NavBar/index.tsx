@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Lab1 from '../../views/lab1';
 import Lab2 from '../../views/lab2';
 import Lab3 from '../../views/lab3';
+import scalePixels from '../../helper/pixel-scale.helper';
+import {Text} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,8 +22,24 @@ const NavBar = () => {
             elevation: 0,
             shadowOpacity: 0,
           },
+          headerTitleStyle: {
+            fontSize: scalePixels(20),
+          },
           tabBarStyle: {
             borderTopColor: '#2A3443',
+          },
+          tabBarLabel: ({focused, children}) => {
+            return (
+              <Text
+                style={{
+                  color: focused
+                    ? navBarItemColorActive
+                    : navBarItemColorDefault,
+                  fontSize: scalePixels(6),
+                }}>
+                {children}
+              </Text>
+            );
           },
         }}>
         <Tab.Screen
