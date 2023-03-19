@@ -1,18 +1,22 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import Lab1 from './src/views/lab1';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/AntDesign';
-import EvilIcon from 'react-native-vector-icons/EvilIcons';
-import Lab2 from './src/views/lab2';
-import Lab3 from './src/views/lab3';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 
-const Tab = createBottomTabNavigator();
+import NavBar from './src/components/NavBar';
+
+const AppTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#FFFFFF',
+    background: '#1E2632',
+    card: '#1E2632',
+    text: '#FFFFFF',
+  },
+};
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={AppTheme}>
       <NavBar />
     </NavigationContainer>
   );
