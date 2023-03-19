@@ -1,16 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as SQLite from 'expo-sqlite'
-import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, RefreshControl } from 'react-native';
 import { FlashList } from "@shopify/flash-list";
+import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, RefreshControl, Switch } from 'react-native';
 
 import StylesContainers from '../style/containers'
 import StylesTexts from '../style/texts'
 import StylesButtons from '../style/buttons'
 
 import Task from "./Task";
-import ModalEdit from './ModalEdit'
+import ModalEdit from '../Modals/ModalEdit'
+import ModalAdd from '../Modals/ModalAdd'
 
 import IconPlus from '../../assets/svg/plus'
+
 
 const Tasks = (props) => {
     const table = 'subject'
@@ -29,12 +31,6 @@ const Tasks = (props) => {
     const [itemGrade, setItemGrade] = useState('')
     const [itemDescription, setItemDescription] = useState("")
 
-    const inputSecond = useRef(null)
-    const inputThird = useRef(null)
-    const [inputTitle, setInputTitle] = useState('')
-    const [inputDescription, setInputDescription] = useState("")
-    const [inputGrade, setInputGrade] = useState("")
-
     const refresh = React.useCallback(() => {
         getAllSubjectTask()
         setTimeout(() => {
@@ -50,8 +46,8 @@ const Tasks = (props) => {
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         subject_id INTEGER REFERENCES subjects(id),
                         title TEXT,
-                        grade INTEGER,
                         description TEXT,
+                        grade INTEGER,
                         isComplete INTEGER
                     )`
                 )
@@ -76,29 +72,22 @@ const Tasks = (props) => {
         )
     }
 
-    const addSubjectTask = () => {
-        if(inputTitle.length > 0) {
-            db.transaction(tx => {
-                tx.executeSql(
-                    `INSERT INTO ${table} (subject_id, title, grade, description, isComplete) VALUES (?, ?, ?, ?, ?)`, [subject_id, inputTitle, inputGrade, inputDescription, 0],
-                    (_, res) => {
-                        setSubjectTask(
-                            item => [
-                                {id: res.insertId, title: inputTitle, grade: inputGrade, description: inputDescription, isComplete: 0},
-                                ...item
-                            ]
-                        )
-                    },
-                    (_, error) => console.log(error)
-                );
-            });
-            setInputTitle('')
-            setInputGrade('')
-            setInputDescription('')
-            setModalAdd(false)
-        } else {
-            alert("Заголовок пустой!")
-        }
+    const addSubjectTask = (title, description, grade) => {
+        db.transaction(tx => {
+            tx.executeSql(
+                `INSERT INTO ${table} (subject_id, title, description, grade, isComplete) VALUES (?, ?, ?, ?, ?)`, [subject_id, title, description, grade, 0],
+                (_, res) => {
+                    setSubjectTask(
+                        item => [
+                            {id: res.insertId, title: title, description: description, grade: grade, isComplete: 0},
+                            ...item
+                        ]
+                    )
+                },
+                (_, error) => console.log(error)
+            );
+        });
+        setModalAdd(false)
     }
 
     const deleteSubjectTask = (id) => {
@@ -116,17 +105,17 @@ const Tasks = (props) => {
         )
     }
     
-    const saveInputs = (title, grade, description) => {
+    const saveInputs = (title, description, grade) => {
         db.transaction(tx =>
             tx.executeSql(
-                `UPDATE ${table} SET title = ?, grade = ?, description = ? WHERE id = ? AND subject_id = ?`, [title, grade, description, itemId, subject_id],
+                `UPDATE ${table} SET title = ?, description = ?, grade = ? WHERE id = ? AND subject_id = ?`, [title, description, grade, itemId, subject_id],
                 (_, res) => {
                     if (res.rowsAffected > 0) {
                         var rows = [...subjectTask];
                         const indexToUpdate = rows.findIndex(item => item.id === itemId);
                         rows[indexToUpdate].title = title;
-                        rows[indexToUpdate].grade = grade;
                         rows[indexToUpdate].description = description;
+                        rows[indexToUpdate].grade = grade;
                         setSubjectTask(rows);
                     }
                 },
@@ -242,90 +231,20 @@ const Tasks = (props) => {
                     title={itemTitle}
                     grade={itemGrade.toString()}
                     description={itemDescription}
-                    gradeShow={true} descriptionShow={true}
-                    saveInputs={(t, g, d) => saveInputs(t, g, d)}
+                    descriptionShow={true} extraShow={true}
+                    saveInputs={(t, d, g) => saveInputs(t, d, g)}
                 />
             }
 
             {/* Modal Add */}
-            <Modal
-                visible={modalAdd}
-                animationType='slide'
-                transparent={true}
-                statusBarTranslucent={true}
-            >
-                <KeyboardAvoidingView
-                    behavior='padding'
-                    style={[StylesContainers.modalContainer, StylesContainers.modalBackground]}
-                    enabled
-                >
-                    <ScrollView>
-                        <View style={[StylesContainers.modal, { gap: 30 }]}>
-                            <Text style={StylesTexts.big}>
-                                Создание нового задания
-                            </Text>
-                            <View style={{ gap: 20 }}>
-                                <TextInput
-                                    autoFocus={true}
-                                    blurOnSubmit={false}
-                                    inputMode="text"
-                                    placeholder="Заголовок"
-                                    returnKeyType='next'
-                                    value={inputTitle}
-                                    onChangeText={(v) => setInputTitle(v)}
-                                    onSubmitEditing={() => inputSecond.current.focus()}
-                                    style={StylesTexts.input}
-                                    placeholderTextColor={StylesTexts.placeholder.color}
-                                    maxLength={50}
-                                />
-                                <TextInput
-                                    ref={inputSecond}
-                                    blurOnSubmit={false}
-                                    inputMode="numeric"
-                                    placeholder="Балл"
-                                    returnKeyType='next'
-                                    value={inputGrade}
-                                    onChangeText={(v) => setInputGrade(v)}
-                                    onSubmitEditing={() => inputThird.current.focus()}
-                                    style={StylesTexts.input}
-                                    placeholderTextColor={StylesTexts.placeholder.color}
-                                    numberOfLines={1}
-                                    maxLength={10}
-                                />
-                                <TextInput
-                                    ref={inputThird}
-                                    blurOnSubmit={false}
-                                    inputMode="text"
-                                    placeholder="Описание"
-                                    value={inputDescription}
-                                    onChangeText={(v) => setInputDescription(v)}
-                                    style={[StylesTexts.input, StylesTexts.inputMulti]}
-                                    placeholderTextColor={StylesTexts.placeholder.color}
-                                    multiline={true}
-                                    numberOfLines={5}
-                                />
-                            </View>
-                            <View style={{ flexDirection: 'row', width: '100%', gap: 10 }}>
-                                <TouchableOpacity
-                                    activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.cancel, { flex: 0.5 }]}
-                                    onPress={() => setModalAdd(false)}
-                                >
-                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Закрыть </Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.accept, { flex: 0.5 }]}
-                                    onPress={() => addSubjectTask()}
-                                >
-                                    <Text style={[StylesTexts.default]}> Создать </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </ScrollView>
-                </KeyboardAvoidingView>
-            </Modal>
+            {
+                !modalAdd ? null :
+                <ModalAdd show={() => setModalAdd(false)}
+                    descriptionShow={true} extraShow={true}
+                    addInputs={(t, d, g) => addSubjectTask(t, d, g)}
+                />
+            }
+            
 
             {/* Button Add */}
             <View style={[StylesButtons.buttonFooter, modalAdd ? {display: 'none'} : {display: 'flex'}]}>

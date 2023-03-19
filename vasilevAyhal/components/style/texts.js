@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     default: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '600',
     },
     header: {
@@ -21,21 +21,14 @@ export default StyleSheet.create({
     linkColor: { color: '#6E7AFF' },
     fadeColor: { color: "#00000075" },
     placeholder: { color: "#B3B3B3" },
+    
     input: {
+        minHeight: 45,
+        justifyContent: 'center',
         paddingHorizontal: 10,
         paddingVertical: 5,
-        backgroundColor: '#ffffff',
-        // borderStyle: 'solid',
-        // borderColor: '#000000',
-        // borderBottomWidth: 2,
-        borderRadius: 10,
-        shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 6,
-        elevation: 6, // shadow for android
+        backgroundColor: '#F0F0F0',
+        borderRadius: 10
     },
-    inputMulti: {
-        maxHeight: 150,
-        paddingVertical: 5,
-        textAlignVertical: 'top',
-        // borderRightWidth: 2,
-    },
+    inputMulti: { textAlignVertical: 'top' },
 });

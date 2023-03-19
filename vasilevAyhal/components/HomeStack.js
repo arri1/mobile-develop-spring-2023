@@ -26,7 +26,7 @@ const HomeStack = () => {
             headerShown: route.name != 'SubjectsStack' ? true : false,
             gestureEnabled: true,
             gestureDirection: 'horizontal',
-
+            
             transitionSpec: {
                 open: transitionSpecConfig,
                 close: transitionSpecConfig,

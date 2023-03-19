@@ -8,9 +8,11 @@ import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
 
 import Subject from './Subject'
-import ModalEdit from './ModalEdit'
+import ModalEdit from '../Modals/ModalEdit'
+import ModalAdd from '../Modals/ModalAdd'
 
 import IconPlus from '../../assets/svg/plus'
+
 
 const SubjectsScreen = ({ navigation }) => {
     const table = 'subjects'
@@ -25,8 +27,6 @@ const SubjectsScreen = ({ navigation }) => {
     
     const [itemId, setItemId] = useState('')
     const [itemTitle, setItemTitle] = useState('')
-
-    const [inputTitle, setInputTitle] = useState('')
 
     const refresh = React.useCallback(() => {
         getAllSubjects()
@@ -65,27 +65,22 @@ const SubjectsScreen = ({ navigation }) => {
         )
     }
 
-    const addSubject = () => {
-        if(inputTitle.length > 0) {
-            db.transaction(tx => {
-                tx.executeSql(
-                    `INSERT INTO ${table} (title) VALUES (?)`, [inputTitle],
-                    (_, res) => {
-                        setSubjects(
-                            item => [
-                                {id: res.insertId, title: inputTitle},
-                                ...item
-                            ]
-                        )
-                    },
-                    (_, error) => console.log(error)
-                );
-            });
-            setInputTitle('')
-            setModalAdd(false)
-        } else {
-            alert("Заголовок пустой!")
-        }
+    const addSubject = (title) => {
+        db.transaction(tx => {
+            tx.executeSql(
+                `INSERT INTO ${table} (title) VALUES (?)`, [title],
+                (_, res) => {
+                    setSubjects(
+                        item => [
+                            {id: res.insertId, title: title},
+                            ...item
+                        ]
+                    )
+                },
+                (_, error) => console.log(error)
+            );
+        });
+        setModalAdd(false)
     }
 
     const deleteSubject = (id) => {
@@ -210,58 +205,12 @@ const SubjectsScreen = ({ navigation }) => {
             }
 
             {/* Modal Add */}
-            <Modal
-                visible={modalAdd}
-                animationType='slide'
-                transparent={true}
-                statusBarTranslucent={true}
-            >
-                <KeyboardAvoidingView
-                    behavior='padding'
-                    style={[StylesContainers.modalContainer, StylesContainers.modalBackground]}
-                    enabled
-                >
-                    <ScrollView>
-                        <View style={[StylesContainers.modal, { gap: 30 }]}>
-                            <Text style={StylesTexts.big}>
-                                Добавить предмет
-                            </Text>
-                            <View>
-                                <TextInput
-                                    autoFocus={true}
-                                    inputMode="text"
-                                    placeholder="Заголовок"
-                                    returnKeyType={'done'}
-                                    value={inputTitle}
-                                    onChangeText={(v) => setInputTitle(v)}
-                                    onSubmitEditing={() => addSubject()}
-                                    style={StylesTexts.input}
-                                    placeholderTextColor={StylesTexts.placeholder.color}
-                                />
-                            </View>
-
-                            <View style={{ flexDirection: 'row', width: '100%', gap: 10 }}>
-
-                                <TouchableOpacity
-                                    activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.cancel, { flex: 0.5 }]}
-                                    onPress={() => setModalAdd(false)}
-                                >
-                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Отменить </Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.accept, { flex: 0.5 }]}
-                                    onPress={() => addSubject()}
-                                >
-                                    <Text style={[StylesTexts.default]}> Добавить </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </ScrollView>
-                </KeyboardAvoidingView>
-            </Modal>
+            {
+                !modalAdd ? null :
+                <ModalAdd show={() => setModalAdd(false)}
+                    addInputs={(t) => addSubject(t)}
+                />
+            }
 
             {/* Button Add */}
             <View style={[StylesButtons.buttonFooter, modalAdd ? {display: 'none'} : {display: 'flex'}]}>

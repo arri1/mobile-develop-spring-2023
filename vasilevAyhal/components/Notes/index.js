@@ -8,7 +8,8 @@ import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
 
 import Note from './Note'
-import ModalEdit from './ModalEdit'
+import ModalEdit from '../Modals/ModalEdit'
+import ModalAdd from '../Modals/ModalAdd'
 
 import IconPlus from '../../assets/svg/plus'
 
@@ -26,10 +27,6 @@ const Notes = () => {
     const [itemId, setItemId] = useState('')
     const [itemTitle, setItemTitle] = useState('')
     const [itemDescription, setItemDescription] = useState("")
-
-    const inputSecond = useRef(null)
-    const [inputTitle, setInputTitle] = useState('')
-    const [inputDescription, setInputDescription] = useState("")
 
     const refresh = React.useCallback(() => {
         getAllNote()
@@ -67,28 +64,22 @@ const Notes = () => {
         )
     }
 
-    const addNote = () => {
-        if(inputTitle.length > 0) {
-            db.transaction(tx => {
-                tx.executeSql(
-                    `INSERT INTO ${table} (title, description) VALUES (?, ?)`, [inputTitle, inputDescription],
-                    (_, res) => {
-                        setNotes(
-                            item => [
-                                {id: res.insertId, title: inputTitle, description: inputDescription},
-                                ...item
-                            ]
-                        )
-                    },
-                    (_, error) => console.log(error)
-                );
-            });
-            setInputTitle('')
-            setInputDescription('')
-            setModalAdd(false)
-        } else {
-            alert("Заголовок пустой!")
-        }
+    const addNote = (title, description) => {
+        db.transaction(tx => {
+            tx.executeSql(
+                `INSERT INTO ${table} (title, description) VALUES (?, ?)`, [title, description],
+                (_, res) => {
+                    setNotes(
+                        item => [
+                            {id: res.insertId, title: title, description: description},
+                            ...item
+                        ]
+                    )
+                },
+                (_, error) => console.log(error)
+            );
+        });
+        setModalAdd(false)
     }
 
     const deleteNote = (id) => {
@@ -209,78 +200,20 @@ const Notes = () => {
                 !modalEdit ? null :
                 <ModalEdit show={() => setModalEdit(false)}
                     title={itemTitle} description={itemDescription}
+                    descriptionShow={true}
                     saveInputs={(t, d) => saveInputs(t, d)}
                 />
             }
 
             
             {/* Modal Add */}
-            <Modal
-                visible={modalAdd}
-                animationType='slide'
-                transparent={true}
-                statusBarTranslucent={true}
-            >
-                <KeyboardAvoidingView
-                    behavior='padding'
-                    style={[StylesContainers.modalContainer, StylesContainers.modalBackground]}
-                    enabled
-                >
-                    <ScrollView>
-                        <View style={[StylesContainers.modal, { gap: 30 }]}>
-                            <Text style={StylesTexts.big}>
-                                Создание новой заметки
-                            </Text>
-                            <View style={{ gap: 20 }}>
-                                <TextInput
-                                    autoFocus={true}
-                                    inputMode="text"
-                                    placeholder="Заголовок"
-                                    blurOnSubmit={false}
-                                    onSubmitEditing={() => inputSecond.current.focus()}
-                                    returnKeyType={'next'}
-                                    value={inputTitle}
-                                    onChangeText={(v) => setInputTitle(v)}
-                                    style={StylesTexts.input}
-                                    placeholderTextColor={StylesTexts.placeholder.color}
-                                    maxLength={50}
-                                />
-                                <TextInput
-                                    ref={inputSecond}
-                                    blurOnSubmit={false}
-                                    inputMode="text"
-                                    placeholder="Описание"
-                                    value={inputDescription}
-                                    onChangeText={(v) => setInputDescription(v)}
-                                    style={[StylesTexts.input, StylesTexts.inputMulti]}
-                                    placeholderTextColor={StylesTexts.placeholder.color}
-                                    multiline={true}
-                                    numberOfLines={5}
-                                />
-                            </View>
-
-                            <View style={{ flexDirection: 'row', width: '100%', gap: 10 }}>
-
-                                <TouchableOpacity
-                                    activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.cancel, { flex: 0.5 }]}
-                                    onPress={() => setModalAdd(false)}
-                                >
-                                    <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Отменить </Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    activeOpacity={ 0.5 }
-                                    style={[StylesButtons.default, StylesButtons.bottom, StylesButtons.accept, { flex: 0.5 }]}
-                                    onPress={() => addNote()}
-                                >
-                                    <Text style={[StylesTexts.default]}> Добавить </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </ScrollView>
-                </KeyboardAvoidingView>
-            </Modal>
+            {
+                !modalAdd ? null :
+                <ModalAdd show={() => setModalAdd(false)}
+                    descriptionShow={true}
+                    addInputs={(t, d) => addNote(t, d)}
+                />
+            }
 
             {/* Button Add */}
             <View style={[StylesButtons.buttonFooter, modalAdd ? {display: 'none'} : {display: 'flex'}]}>
