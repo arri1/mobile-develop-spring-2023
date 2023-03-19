@@ -1,18 +1,21 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import scalePixels from '../../helper/pixel-scale.helper';
+import {Film} from '../../models/film.model';
 
-type Props = {
-  text?: string;
-  title?: string;
-};
+interface Props extends Omit<Film, 'id'> {}
 
-const Comment = ({text, title}: Props) => {
+const FilmCard = ({director, title, releaseDate}: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title || 'Нет данных'}</Text>
       <View style={styles.bodyContainer}>
-        <Text style={styles.body}>{text || 'Нет данных'}</Text>
+        <Text style={styles.producer}>
+          Режиссер: {director || 'Нет данных'}
+        </Text>
+        <Text style={styles.release}>
+          Дата выпуска: {releaseDate || 'Нет данных'}
+        </Text>
       </View>
     </View>
   );
@@ -32,17 +35,22 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginLeft: 10,
     marginTop: 10,
-    marginBottom: 4,
+    marginBottom: 6,
   },
   bodyContainer: {
     maxHeight: scalePixels(40),
     marginLeft: 10,
     marginBottom: 10,
   },
-  body: {
+  producer: {
+    color: '#FFFFFF',
+    fontSize: scalePixels(10),
+    marginBottom: 4,
+  },
+  release: {
     color: '#FFFFFF',
     fontSize: scalePixels(10),
   },
 });
 
-export default Comment;
+export default FilmCard;
