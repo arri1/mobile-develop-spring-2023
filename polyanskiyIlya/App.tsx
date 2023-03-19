@@ -13,40 +13,7 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="FirstLab"
-          component={Lab1}
-          options={{
-            tabBarIcon: ({color, size}) => (
-              <Icon name="profile" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="SecondLab"
-          component={Lab2}
-          options={{
-            tabBarIcon: ({color}) => (
-              <EvilIcon
-                name="sc-github"
-                color={color}
-                size={42}
-                style={{marginLeft: -9}} // без отступа текст наезжает на иконку
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ThirdLab"
-          component={Lab3}
-          options={{
-            tabBarIcon: ({color, size}) => (
-              <Icon name="profile" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      <NavBar />
     </NavigationContainer>
   );
 };
