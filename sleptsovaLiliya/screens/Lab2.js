@@ -1,43 +1,40 @@
-import { Text, View, TouchableOpacity, SafeAreaView, Image } from 'react-native'
-import {useState,useEffect} from 'react'
-import {styles} from '../compot/Styles'
-import { ScrollView } from 'react-native-web'
+import { Text, View, SafeAreaView, Image, Button} from 'react-native'
+import {useState, useEffect, useRef} from 'react'
+import {styles} from '../compot/StylesLab2'
 
 const Lab2 = () => {
+  const intervalRef = useRef()
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    intervalRef.current = setInterval(
+      () => setCount((count) => count + 1),
+      1000
+    )
+
+    return () => {
+      clearInterval(intervalRef.current)
+    }
+  }, [])
     
     return(
         <SafeAreaView >
-        <View style={styles.main2}>
-        <View style={{
-        elevation:16,
-        backgroundColor:"orange",
-        height:"60%",
-        borderBottomLeftRadius:0,
-        borderBottomRightRadius:300,
-        paddingHorizontal:20
-      }}>
-        <View style={{
-          flexDirection:"row",
-          alignItems:"center",
-          marginTop:65,
-          with:"100%"
-        }}>
+        <View style={styles.main}>
+        <View style={styles.header}>
           <View style={{width:"50%"}}>
-            <Text style={{
-              top:200,
-              fontSize:28,
-              color:"white",
-              fontWeight:"bold"
-            }}>Lab Two</Text>
+            <Text style={styles.text}>Lab Two</Text>
           </View>
           <View style={{width:"50%",alignItems:"flex-end"}}>
-            <Image
-            source={require('../assets/at.png')}
-            style={{left:-50,height:295,width:310}}
-             />
+            <Image source={require('../assets/at.png')}
+            style={{left:-50,height:295,width:310}}/>
           </View>
-       </View>
-     </View>
+        </View>
+        <Text style={{ fontSize: 100 }}>{count}</Text>
+        <Button
+          title="Stop"
+          onPress={() => {
+            clearInterval(intervalRef.current)
+        }}/>
         </View>
         </SafeAreaView>
     )

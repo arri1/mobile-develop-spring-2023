@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet,Image } from 'react-native'
 import {useState} from 'react'
-import {styles} from '../compot/Styles'
+import {styles} from '../compot/StylesLab1'
 
 const colours = ['#FDAD25', '#2BB140',  '#531A50', '#D71868']
 const emojis = ["🍵","👽","🍀","🐢","🌺","🛸","🍱"]
@@ -23,40 +23,19 @@ const Lab1 = () => {
   return (
     <SafeAreaView >
        <View style={styles.main}> 
-      <View style={{
-        elevation:16,
-        backgroundColor:"white",
-        height:"50%",
-        borderBottomLeftRadius:80,
-        borderBottomRightRadius:80,
-        paddingHorizontal:0
-      }}>
-        <View style={{
-          flexDirection:"row",
-          alignItems:"center",
-          marginTop:220,
-          with:"100%"
-        }}>
+       <View style={styles.header}>
           <View style={{width:"40%"}}>
-            <Text style={{
-              left:45,
-              fontSize:28,
-              color:"black",
-              fontWeight:"normal"
-            }}>Lab One</Text>
+            <Text style={styles.text}>Lab One</Text>
           </View>
           <View style={{width:"50%",alignItems:"flex-end"}}>
-            <Image
-            source={require('../assets/kk.jpg')}
-            style={{left:10,height:130,width:150}}
-             />
+            <Image source={require('../assets/kk.jpg')}
+            style={{left:-20,height:130,width:150,top:100}}/>
           </View>
-       </View>
      </View>
         <View style={
-        showSquare ? styles2.Square :
-        showCircle ? styles2.Circle :
-        showTriangle ? styles2.Triangle : ''
+        showSquare ? styles.Square :
+        showCircle ? styles.Circle :
+        showTriangle ? styles.Triangle : ''
         }
         />
           <View style={styles.container}>
@@ -79,72 +58,24 @@ const Lab1 = () => {
 
         <View style={styles.container}>
           <TouchableOpacity style={styles.button1}
-          onPress={() => {
-            setCurrentColourIndex((currentColourIndex + 1) % colours.length)
-          }}
-          >
+          onPress={() => {setCurrentColourIndex((currentColourIndex + 1) % colours.length)}}>
             <Text style={styles.buttonText}>-</Text>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.button1}
-            onPress={() => {
-              setcurrentEmojiIndex((currentEmojiIndex + 1) % emojis.length)
-            }}
-          >
+            onPress={() => {setcurrentEmojiIndex((currentEmojiIndex + 1) % emojis.length)}}>
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{
-          backgroundColor:colours[currentColourIndex],
-          top:-115,
-          elevation:6,
-          borderRadius: 25,
-          height:'90%',
-          width: '30%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 0
-          }}
-          onPress={() => {
-            }}
-          >
+
+          <TouchableOpacity style={[styles.colorbutton,
+          {backgroundColor:colours[currentColourIndex]}]}>
             <Text style={{top:0, fontSize:30}}>{emojis[currentEmojiIndex]}</Text>
         </TouchableOpacity>
+
           </View>
       </View>
     </SafeAreaView>
   )
 }
-
-const styles2 = StyleSheet.create({
-  Square:{
-    right:50,
-    top: 250,
-  width: 90,
-  height:90,
-  backgroundColor: '#2E8B57'
-  },
-  Circle:{
-    right:50,
-    top: 250,
-    width:90,
-    height:90,
-    borderRadius: 180/2,
-    backgroundColor: '#536872'
-  },
-  Triangle:{
-    right:50,
-    top: 250,
-    width: 0,
-    height: 0,
-    borderLeftWidth:45,
-    borderRightWidth:45,
-    borderBottomWidth:90,
-    borderStyle:'solid',
-    backgroundColor: 'transparent',
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'orange'
-  }
-}) 
 
 export default Lab1;
