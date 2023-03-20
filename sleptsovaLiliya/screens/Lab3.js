@@ -16,7 +16,7 @@ const Lab3 = () => {
         <View style={styles.main}>
         <View style={styles.header}>
           <View style={{width:"50%"}}>
-            <Text style={styles.text}>Lab Two</Text>
+            <Text style={styles.text}>Lab Three</Text>
           </View>
         </View>
         <ScrollView horizontal>
