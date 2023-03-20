@@ -15,24 +15,6 @@ const task1 = () => {
         justifyContent: 'center',
       }}>
       <View style={{margin: 15}}>
-        <View style={{alignItems: 'center'}}>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            {fisrstCount}
-          </Text>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            {signMassive[sign]}
-          </Text>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            {secondCount}
-          </Text>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            =
-          </Text>
-          <Text style={{color: 'black', fontSize: 20, fontWeight: '800'}}>
-            {result}
-          </Text>
-        </View>
-
         <TouchableOpacity
           onPress={() => {
             setFisrstCount(fisrstCount + 1);
@@ -41,7 +23,7 @@ const task1 = () => {
             marginTop: 10,
             borderRadius: 10,
             height: 40,
-            backgroundColor: 'red',
+            backgroundColor: '#2C98F0',
           }}>
           <Text
             style={{
@@ -50,7 +32,7 @@ const task1 = () => {
               fontWeight: '800',
               textAlign: 'center',
             }}>
-            1 Число
+            {fisrstCount}
           </Text>
         </TouchableOpacity>
 
@@ -62,7 +44,7 @@ const task1 = () => {
             marginTop: 10,
             borderRadius: 10,
             height: 40,
-            backgroundColor: 'red',
+            backgroundColor: '#2C98F0',
           }}>
           <Text
             style={{
@@ -71,7 +53,7 @@ const task1 = () => {
               fontWeight: '800',
               textAlign: 'center',
             }}>
-            Знак
+            {signMassive[sign]}
           </Text>
         </TouchableOpacity>
 
@@ -83,7 +65,7 @@ const task1 = () => {
             marginTop: 10,
             borderRadius: 10,
             height: 40,
-            backgroundColor: 'red',
+            backgroundColor: '#2C98F0',
           }}>
           <Text
             style={{
@@ -92,7 +74,7 @@ const task1 = () => {
               fontWeight: '800',
               textAlign: 'center',
             }}>
-            2 Число
+            {secondCount}
           </Text>
         </TouchableOpacity>
 
@@ -115,7 +97,7 @@ const task1 = () => {
             marginTop: 10,
             borderRadius: 10,
             height: 40,
-            backgroundColor: 'red',
+            backgroundColor: '#2C98F0',
           }}>
           <Text
             style={{
@@ -124,12 +106,11 @@ const task1 = () => {
               fontWeight: '800',
               textAlign: 'center',
             }}>
-            Результат
+            {result}
           </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
-
 export default task1;
