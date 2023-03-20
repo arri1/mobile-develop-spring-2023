@@ -1,0 +1,47 @@
+import React from "react";
+import { Image, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import sqrt from "./assets/sqrt.png";
+import sqrtMath from "./assets/sqrtMath.png";
+
+import Lab1 from './components/Lab1';
+import Lab2 from './components/Lab2';
+
+const Tab = createBottomTabNavigator();
+
+const Navigate = () => {
+    return <NavigationContainer>
+        <Tab.Navigator>
+            <Tab.Screen
+                name = "lab1"
+                component={Lab1}
+                options={{
+                    tabBarLabel: 'lab1',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image style = {styles.logo} source={sqrt}/>
+                    ) 
+                }}
+                />
+            <Tab.Screen
+                name = "lab2"
+                component={Lab2}
+                options={{
+                    tabBarLabel: 'lab2',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image style = {styles.logo} source={sqrtMath}/>
+                    )
+                }}
+                />
+        </Tab.Navigator>
+    </NavigationContainer>;
+}
+
+const styles = StyleSheet.create({
+    logo: {
+        width: 40,
+        height: 40
+    }
+})
+
+export default Navigate;

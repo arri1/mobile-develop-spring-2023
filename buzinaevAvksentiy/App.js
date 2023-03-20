@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, styleSheet } from "react";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView } from "react-native";
-import Lab1 from "./components/lab1";
+import Navigate from "./Navigate";
 
 
 const App = () => {
-  return <Lab1/>
+  return <Navigate/>
 }; 
 
 

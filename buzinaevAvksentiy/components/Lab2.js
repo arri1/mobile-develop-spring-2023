@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-const Lab1 = () => {
+const Lab2 = () => {
   const [number, setNumber] = useState(0);
 
   return (
@@ -114,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Lab1;
+export default Lab2;
