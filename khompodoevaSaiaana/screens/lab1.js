@@ -1,13 +1,6 @@
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Image, View } from 'react-native';
 import React, { useState } from 'react';
-
-TouchableOpacity.defaultProps = { activeOpacity: 0.6 };
-
-const AppButton = ({ onPress, title }) => (
-  <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
-    <Text style={styles.appButtonText}>{title}</Text>
-  </TouchableOpacity>
-);
+import AppButton from '../components/appButton';
 
 const Lab1 = () => {
     const [pokemon, setPokemon] = useState(1000);
@@ -49,19 +42,6 @@ const Lab1 = () => {
         width: 350,
         height: 350,
         resizeMode: 'contain',
-    },
-    appButtonContainer: {
-        backgroundColor: '#A3E4D7',
-        borderRadius: 20,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        margin: 5,
-    },
-    appButtonText: {
-        fontSize: 20,
-        color: '#21618C',
-        fontWeight: 'bold',
-        alignSelf: 'center',
     },
 });
 

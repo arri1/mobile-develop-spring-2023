@@ -1,14 +1,7 @@
 import React, { useState, useMemo } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import Pokemon from "./pokemon";
- 
-TouchableOpacity.defaultProps = { activeOpacity: 0.6 };
-
-const AppButton = ({ onPress, title }) => (
-  <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
-    <Text style={styles.appButtonText}>{title}</Text>
-  </TouchableOpacity>
-);
+import { View, StyleSheet } from "react-native";
+import Pokemon from "../components/pokemon";
+import AppButton from "../components/appButton";
 
 const Lab3 = () => {
     const [number, setNumber] = useState(1);
@@ -39,19 +32,6 @@ const styles = StyleSheet.create({
         width: 350,
         height: 350,
         resizeMode: 'contain',
-    },
-    appButtonContainer: {
-        backgroundColor: '#A3E4D7',
-        borderRadius: 20,
-        paddingVertical: 8,
-        marginHorizontal: 40,
-        marginVertical: 5,
-    },
-    appButtonText: {
-        fontSize: 16,
-        color: '#21618C',
-        fontWeight: 'bold',
-        alignSelf: 'center',
     },
 });
 
