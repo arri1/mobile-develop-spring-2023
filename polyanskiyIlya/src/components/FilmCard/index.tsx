@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: scalePixels(14),
-    fontFamily: 'Roboto-Medium',
     color: '#FFFFFF',
     marginLeft: 10,
     marginTop: 10,

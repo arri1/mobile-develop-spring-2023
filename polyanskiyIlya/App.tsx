@@ -4,6 +4,8 @@ import store from './src/redux/store';
 
 import NavBar from './src/components/NavBar';
 import {Provider} from 'react-redux';
+import {ApolloProvider} from '@apollo/client';
+import {client} from './src/apollo';
 
 const AppTheme = {
   ...DefaultTheme,
@@ -18,11 +20,13 @@ const AppTheme = {
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <NavigationContainer theme={AppTheme}>
-        <NavBar />
-      </NavigationContainer>
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <NavigationContainer theme={AppTheme}>
+          <NavBar />
+        </NavigationContainer>
+      </Provider>
+    </ApolloProvider>
   );
 };
 

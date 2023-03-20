@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: scalePixels(14),
     color: '#FFFFFF',
-    fontFamily: 'Roboto-Medium',
   },
 });
 

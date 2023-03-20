@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/AntDesign';
 import Lab1 from '../../views/lab1';
 import Lab2 from '../../views/lab2';
 import Lab3 from '../../views/lab3';
 import scalePixels from '../../helper/pixel-scale.helper';
 import {Text} from 'react-native';
 import Lab5 from '../../views/lab5';
+import ApolloExample from '../../views/apolloExample';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,57 +43,26 @@ const NavBar = () => {
             );
           },
         }}>
+        <Tab.Screen name="Apollo" component={ApolloExample} />
         <Tab.Screen
           name="First lab"
           component={Lab1}
-          options={{
-            tabBarIcon: ({focused, size}) => (
-              <Icon
-                name="profile"
-                color={focused ? navBarItemColorActive : navBarItemColorDefault}
-                size={size}
-              />
-            ),
-          }}
+
         />
         <Tab.Screen
           name="Second lab"
           component={Lab2}
-          options={{
-            tabBarIcon: ({focused, size}) => (
-              <Icon
-                name="profile"
-                color={focused ? navBarItemColorActive : navBarItemColorDefault}
-                size={size}
-              />
-            ),
-          }}
+
         />
         <Tab.Screen
           name="Third lab"
           component={Lab3}
-          options={{
-            tabBarIcon: ({focused, size}) => (
-              <Icon
-                name="profile"
-                color={focused ? navBarItemColorActive : navBarItemColorDefault}
-                size={size}
-              />
-            ),
-          }}
+
         />
         <Tab.Screen
           name="Fifth lab"
           component={Lab5}
-          options={{
-            tabBarIcon: ({focused, size}) => (
-              <Icon
-                name="profile"
-                color={focused ? navBarItemColorActive : navBarItemColorDefault}
-                size={size}
-              />
-            ),
-          }}
+
         />
       </Tab.Navigator>
     </>

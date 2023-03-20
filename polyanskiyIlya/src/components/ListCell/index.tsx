@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 8,
     fontSize: scalePixels(12),
-    fontFamily: 'Roboto-Regular',
     color: '#FFFFFF',
     flex: 1,
     verticalAlign: 'middle',
