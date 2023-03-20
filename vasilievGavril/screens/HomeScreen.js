@@ -13,7 +13,7 @@ import {
 
 const Separator = () => <View style={styles.separator} />;
 
-function complexCompure(num) {
+const complexCompure = (num) => {
   console.log("complexCompute");
   let i = 0;
   while (i < 100000000) i++;
@@ -23,6 +23,7 @@ function complexCompure(num) {
 const HomeScreen = (props) => {
   const [number, setNumber] = useState(42);
   const [colored, setColored] = useState(false);
+  const [data, setData] = useState(null);
 
   const styles2 = useMemo(
     () => ({
@@ -36,8 +37,14 @@ const HomeScreen = (props) => {
   }, [number]);
 
   useEffect(() => {
-    console.log("Styles changed");
-  }, [styles2]);
+    const fetchData = async () => {
+      const response = await fetch('https://641589129a2dc94afe642419.mockapi.io/post/1');
+      const json = await response.json();
+      setData(json);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,6 +73,9 @@ const HomeScreen = (props) => {
         <Button title="Убрать" onPress={() => setNumber((prev) => prev - 1)} />
 
         <Button title="Изменить" onPress={() => setColored((prev) => !prev)} />
+
+        <Text>{data ? data.title : 'Loading...'}</Text>
+
       </View>
     </SafeAreaView>
   );
