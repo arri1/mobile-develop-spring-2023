@@ -12,7 +12,6 @@ const Task1 = () => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
 
-
   const plusClick = () => {
     setCount(count + 1);
   };
