@@ -7,6 +7,7 @@
 2. Установить [React Navigation](https://reactnavigation.org/docs/getting-started/), добавить [Tab Navigation](https://reactnavigation.org/docs/tab-based-navigation/), показать использование хука [useEffect](https://beta.reactjs.org/reference/react/useEffect). Поэкспериментировать с библиотекой [Axios](https://axios-http.com/docs/intro) (будет плюсом)
 3. Показать использование хука [useMemo](https://beta.reactjs.org/reference/react/useMemo) или хука [useCallback](https://beta.reactjs.org/reference/react/useCallback)
 4. Создать дизайн интерфейса приложения в редакторе [Figma](https://www.figma.com), сверстать приложение в соответствие созданным макетам, прикрепить ссылку на дизайн в README.md файле своей папки
+5. Установить и показать использование менеджера состояний [Redux](https://redux.js.org)
 
 ## Памятка
 
