@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, TextInput, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
+import Input from '../../components/Input';
 
 const Lab2 = () => {
   const [catPhrase, setCatPhrase] = useState('Hellow World!');
@@ -22,10 +23,10 @@ const Lab2 = () => {
 
   return (
     <View>
-      <TextInput
-        editable
+      <Input
+        placeholder="Введите текст"
         value={catPhrase}
-        onChangeText={(text: string) => {
+        onChange={(text: string) => {
           setCatPhrase(text);
         }}
       />
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     resizeMode: 'stretch',
-    padding: 5,
+    margin: 18,
   },
 });
 

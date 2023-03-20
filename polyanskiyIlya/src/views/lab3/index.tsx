@@ -1,17 +1,14 @@
 import axios, {AxiosResponse} from 'axios';
-import React, {useMemo, useState} from 'react';
-import {
-  ActivityIndicator,
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
-import {Post} from './post.model';
+import React, {useEffect, useMemo, useState} from 'react';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {Post} from '../../models/post.model';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import Comment from '../../components/Comment';
 
 const Lab3 = () => {
   const [postId, setPostId] = useState<string>('1');
+  const [postIdForRequest, setPostIdForRequest] = useState<string>('1');
   const [postData, setPostData] = useState<Partial<Post>>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [_, setDummy] = useState(0);
@@ -27,7 +24,7 @@ const Lab3 = () => {
 
     try {
       result = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts/${postId}`,
+        `https://jsonplaceholder.typicode.com/posts/${postIdForRequest}`,
       );
     } catch {
       result = undefined;
@@ -36,12 +33,17 @@ const Lab3 = () => {
     return result;
   };
 
+  useEffect(() => {
+    const timeOutId = setTimeout(() => setPostIdForRequest(postId), 1000);
+    return () => clearTimeout(timeOutId);
+  }, [postId]);
+
   useMemo(async () => {
     const result = await getData();
     setPostData(result?.data || {});
 
     return result;
-  }, [postId]);
+  }, [postIdForRequest]);
 
   if (loading) {
     return (
@@ -69,15 +71,15 @@ const Lab3 = () => {
           }}
         />
       </View>
-      <TextInput
-        editable
+      <Input
         inputMode="decimal"
+        placeholder="Введите номер поста"
         value={postId}
-        onChangeText={(text: string) => {
+        onChange={(text: string) => {
           setPostId(text);
         }}
       />
-      <Text>{postData.body || 'Нет данных'}</Text>
+      <Comment text={postData.body} title={postData.title} />
     </View>
   );
 };
