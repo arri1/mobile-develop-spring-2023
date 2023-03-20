@@ -35,21 +35,16 @@ export const filmSlice = createSlice({
   name: 'film',
   initialState: {
     films: [],
-    filmsLoading: false,
   },
   reducers: {},
   extraReducers: {
     [getFilms.fulfilled.type]: (state, {payload}) => {
       state.films = payload;
-      state.filmsLoading = false;
     },
     [getFilms.rejected.type]: state => {
       state.films = [];
-      state.filmsLoading = false;
     },
-    [getFilms.pending.type]: state => {
-      state.filmsLoading = true;
-    },
+    [getFilms.pending.type]: () => {},
   },
 });
 
