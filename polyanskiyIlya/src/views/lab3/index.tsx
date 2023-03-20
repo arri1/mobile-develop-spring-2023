@@ -1,49 +1,45 @@
-import axios, {AxiosResponse} from 'axios';
 import React, {useEffect, useMemo, useState} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {Post} from '../../models/post.model';
+import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
+import {Film} from '../../models/film.model';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import Comment from '../../components/Comment';
+import FilmCard from '../../components/FilmCard';
+import {getFilms, useAppDispatch, useAppSelector} from '../../redux/store';
 
 const Lab3 = () => {
-  const [postId, setPostId] = useState<string>('1');
-  const [postIdForRequest, setPostIdForRequest] = useState<string>('1');
-  const [postData, setPostData] = useState<Partial<Post>>({});
+  const [filmCount, setFilmCount] = useState<string>('1');
+  const [filmCountForRequest, setFilmCountForRequest] = useState<string>('1');
   const [loading, setLoading] = useState<boolean>(false);
   const [_, setDummy] = useState(0);
 
-  const getData: () => Promise<AxiosResponse<Post> | undefined> = async () => {
+  const dispatch = useAppDispatch();
+  const films = useAppSelector(state => state.film.films);
+
+  const getData: () => Promise<Film[] | undefined> = async () => {
     setLoading(true);
 
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
-    let result: AxiosResponse<Post> | undefined;
+    const res = await dispatch(getFilms(filmCountForRequest));
 
-    try {
-      result = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts/${postIdForRequest}`,
-      );
-    } catch {
-      result = undefined;
+    if (res.meta.requestStatus === 'fulfilled') {
+      return res.payload as Film[];
+    } else {
+      return [] as Film[];
     }
-
-    return result;
   };
 
   useEffect(() => {
-    const timeOutId = setTimeout(() => setPostIdForRequest(postId), 1000);
+    const timeOutId = setTimeout(() => setFilmCountForRequest(filmCount), 1000);
     return () => clearTimeout(timeOutId);
-  }, [postId]);
+  }, [filmCount]);
 
   useMemo(async () => {
     const result = await getData();
-    setPostData(result?.data || {});
-
     return result;
-  }, [postIdForRequest]);
+  }, [filmCountForRequest]);
 
   if (loading) {
     return (
@@ -73,13 +69,22 @@ const Lab3 = () => {
       </View>
       <Input
         inputMode="decimal"
-        placeholder="Введите номер поста"
-        value={postId}
+        placeholder="Количество фильмов"
+        value={filmCount}
         onChange={(text: string) => {
-          setPostId(text);
+          setFilmCount(text);
         }}
       />
-      <Comment text={postData.body} title={postData.title} />
+      <ScrollView style={styles.scroll}>
+        {films.map((film: Film) => (
+          <FilmCard
+            key={film.id}
+            director={film.director}
+            title={film.title}
+            releaseDate={film.releaseDate}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -87,6 +92,9 @@ const Lab3 = () => {
 const styles = StyleSheet.create({
   buttonContainer: {
     marginBottom: 5,
+  },
+  scroll: {
+    marginBottom: 200,
   },
 });
 
