@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { TouchableOpacity, View, Dimensions } from "react-native";
+import { useDispatch } from "react-redux";
+import { sizeSlice } from "../../store";
 
 const Lab1 = () => {
   const [size, setSize] = useState(100);
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
+  const dispatch = useDispatch();
 
   return (
     <View
@@ -18,8 +21,10 @@ const Lab1 = () => {
       <TouchableOpacity
         onPress={() => {
           if (size > windowWidth || size > windowHeight) {
+            dispatch(sizeSlice.actions.decrement());
             return setSize(100);
           }
+          dispatch(sizeSlice.actions.increment());
           return setSize(size + 50);
         }}
         style={{
