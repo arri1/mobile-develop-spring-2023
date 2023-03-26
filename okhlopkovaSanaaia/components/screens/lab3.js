@@ -3,7 +3,7 @@ import {
   SafeAreaView,
   View,
   Text,
-  Button,
+  TouchableOpacity,
   Switch,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -47,9 +47,9 @@ const Lab3 = () => {
       <Text style={styles.text}>
         Left until {selectedDate.toLocaleString()}
       </Text>
-      <View style={styles.text}>
-        <Button title="Change the date" onPress={showDatePicker} />
-      </View>
+      <TouchableOpacity style={styles.button} onPress={showDatePicker}>
+        <Text style={styles.buttonTitle}>Change the date</Text>
+      </TouchableOpacity>
       <DateTimePickerModal
         date={selectedDate}
         isVisible={datePickerVisible}
@@ -78,10 +78,23 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    marginBottom: 15,
+    marginBottom: 20,
   },
   picker: {
     marginHorizontal: 15,
+  },
+  button: {
+    width: 150,
+    height: 30,
+    backgroundColor: "#1785e5",
+    borderRadius: 10,
+    marginBottom: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonTitle: {
+    color: "#fff",
+    fontSize: 18,
   },
 });
 
