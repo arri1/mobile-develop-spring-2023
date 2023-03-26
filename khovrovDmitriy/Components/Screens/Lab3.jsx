@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   containerDark:{
     flex: 1,
-    backgroundColor: "black"
+    backgroundColor: "#1B1B1D"
   },
   todos: {
     flex: 2,
@@ -93,17 +93,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginBottom: 40,
-  },
-  input: {
-    backgroundColor: "white",
-    margin: 20,
-    padding: 10,
-    borderColor: "black",
-    width: "90%",
-    height: 40,
-    textAlign: "center",
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "silver",
-  },
+  }
 });
