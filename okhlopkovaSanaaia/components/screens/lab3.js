@@ -37,6 +37,9 @@ const Lab3 = () => {
 
   return (
     <SafeAreaView style={styles.main}>
+      <Text style={[styles.text, { marginBottom: 0 }]}>
+        {isSelected ? "With useMemo" : "Without useMemo"}
+      </Text>
       <View>
         {isSelected ? (
           <DateTimeWithMemo selectedDate={selectedDate} />
