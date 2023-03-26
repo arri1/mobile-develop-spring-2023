@@ -1,7 +1,15 @@
-import { StyleSheet, SafeAreaView, View, Text, Button } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  View,
+  Text,
+  Button,
+  Switch,
+} from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useState } from "react";
 import DateTimeWithMemo from "../custom/dateTimeWithMemo";
+import DateTimeNoMemo from "../custom/dateTimeNoMemo";
 
 const Lab3 = () => {
   const [selectedDate, setSelectedDate] = useState(
@@ -31,7 +39,11 @@ const Lab3 = () => {
   return (
     <SafeAreaView style={styles.main}>
       <View>
-        <DateTimeWithMemo selectedDate={selectedDate} />
+        {isSelected ? (
+          <DateTimeWithMemo selectedDate={selectedDate} />
+        ) : (
+          <DateTimeNoMemo selectedDate={selectedDate} />
+        )}
       </View>
       <Text style={styles.text}>
         Left until {selectedDate.toLocaleString()}
@@ -49,6 +61,11 @@ const Lab3 = () => {
         minimumDate={new Date()}
         locale="ru-RU"
         pickerStyleIOS={styles.picker}
+      />
+      <Switch
+        trackColor={{ true: "#1785e5" }}
+        onValueChange={toggleSwitch}
+        value={isSelected}
       />
     </SafeAreaView>
   );

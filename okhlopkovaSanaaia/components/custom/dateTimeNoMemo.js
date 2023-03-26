@@ -39,11 +39,6 @@ const DateTimeNoMemo = ({ selectedDate }) => {
 };
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    color: "red",
-    alignSelf: "center",
-  },
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
