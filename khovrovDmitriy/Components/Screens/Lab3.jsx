@@ -1,10 +1,5 @@
 import { useMemo, useState } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Dimensions,
-} from "react-native";
+import { ScrollView, StyleSheet, View, Dimensions } from "react-native";
 import Todo from "../Lab1/Todo";
 import AddButton from "../Lab1/AddButton";
 import DeleteButton from "../Lab1/DeleteButton";
@@ -12,7 +7,7 @@ import TodoModal from "../ModalWindows/TodoModal";
 import TitleList from "../Lab4/TitleList";
 import MainTextInput from "../Lab1/MainTextInput";
 import { useSelector } from "react-redux";
-import {DEFAULT_MODE, DARK_MODE} from '../../Components/Lab5/DarkModeConstStates'
+import { DEFAULT_MODE } from "../../Components/Lab5/DarkModeConstStates";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -23,7 +18,7 @@ const TodoUseState = () => {
   const [text, setText] = useState("");
   const [activeModal, SetActiveModal] = useState(false);
   const [choosedTodo, SetChoosedTodo] = useState({});
-  const darkModeState = useSelector(state=>state.darkMode.value)
+  const darkModeState = useSelector((state) => state.darkMode.value);
 
   const TouchTodo = (todo) => {
     SetActiveModal(true);
@@ -40,7 +35,11 @@ const TodoUseState = () => {
   }, [todos]);
 
   return (
-    <View style={darkModeState==DEFAULT_MODE ? styles.container: styles.containerDark }>
+    <View
+      style={
+        darkModeState == DEFAULT_MODE ? styles.container : styles.containerDark
+      }
+    >
       <TodoModal
         activeModal={activeModal}
         SetActiveModal={SetActiveModal}
@@ -77,9 +76,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  containerDark:{
+  containerDark: {
     flex: 1,
-    backgroundColor: "#1B1B1D"
+    backgroundColor: "#1B1B1D",
   },
   todos: {
     flex: 2,
@@ -93,5 +92,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginBottom: 40,
-  }
+  },
 });

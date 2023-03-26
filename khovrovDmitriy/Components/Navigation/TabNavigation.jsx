@@ -5,15 +5,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Lab5 from "../Screens/Lab5";
 import { useSelector } from "react-redux";
-import {
-  DEFAULT_MODE,
-  DARK_MODE,
-} from "../../Components/Lab5/DarkModeConstStates";
+import { DARK_MODE } from "../../Components/Lab5/DarkModeConstStates";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
-  const darkModeState = useSelector((state) => state.darkMode.value)
+  const darkModeState = useSelector((state) => state.darkMode.value);
   const darkModeBackground = {
     title: "Todo",
     headerStyle: { backgroundColor: "#242526" },
@@ -36,13 +33,14 @@ const TabNavigation = () => {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            let iconName = "flask-outline";
-
-            // You can return any component that you like here!
+            let iconName =
+              route.name == "Lab5" ? "contrast-outline" : "flask-outline";
+            iconName = route.name == "Lab3" ? "funnel-outline" : iconName;
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: darkModeState == DARK_MODE?"white":"black",
+          tabBarInactiveTintColor:
+            darkModeState == DARK_MODE ? "white" : "black",
         })}
       >
         <Tab.Screen
