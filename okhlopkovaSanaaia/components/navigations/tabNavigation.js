@@ -35,7 +35,7 @@ const TabNavigation = () => {
       <Tab.Screen
         name="Lab 2"
         component={Lab2}
-        options={{ tabBarBadge: counter }}
+        options={{ tabBarBadge: counter > 0 ? counter : null }}
       />
       <Tab.Screen name="Lab 3" component={Lab3} />
     </Tab.Navigator>
