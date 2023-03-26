@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -36,14 +36,9 @@ const Lab3 = () => {
     for (let i = 0; i < 1000000000; i++) {}
   };
 
-  const withMemo = useMemo(() => {
-    alert("работает");
+  const withMemo = useCallback(() => {
     expensiveFunc();
   }, []);
-
-  // const withMemo = useCallback(() => {
-  //   expensiveFunc();
-  // }, []);
 
   const withoutMemo = () => {
     expensiveFunc();
@@ -72,7 +67,7 @@ const Lab3 = () => {
           style={styles.buttons}
           title="Change Color"
           onPress={() => {
-            withMemo;
+            withMemo();
             getAdvice();
           }}
           color="green"
