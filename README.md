@@ -8,6 +8,7 @@
 3. Показать использование хука [useMemo](https://beta.reactjs.org/reference/react/useMemo) или хука [useCallback](https://beta.reactjs.org/reference/react/useCallback)
 4. Создать дизайн интерфейса приложения в редакторе [Figma](https://www.figma.com), сверстать приложение в соответствие созданным макетам, прикрепить ссылку на дизайн в README.md файле своей папки
 5. Установить и показать использование менеджера состояний [Redux](https://redux.js.org)
+6. Показать использование языка запросов [GraphQL](https://graphql.org/code/#javascript) с помощью библиотеки [Apollo Client](https://www.apollographql.com/docs/react/)
 
 ## Памятка
 
