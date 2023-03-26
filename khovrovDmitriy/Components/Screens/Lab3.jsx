@@ -11,6 +11,8 @@ import DeleteButton from "../Lab1/DeleteButton";
 import TodoModal from "../ModalWindows/TodoModal";
 import TitleList from "../Lab4/TitleList";
 import MainTextInput from "../Lab1/MainTextInput";
+import { useSelector } from "react-redux";
+import {DEFAULT_MODE, DARK_MODE} from '../../Components/Lab5/DarkModeConstStates'
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -21,6 +23,7 @@ const TodoUseState = () => {
   const [text, setText] = useState("");
   const [activeModal, SetActiveModal] = useState(false);
   const [choosedTodo, SetChoosedTodo] = useState({});
+  const darkModeState = useSelector(state=>state.darkMode.value)
 
   const TouchTodo = (todo) => {
     SetActiveModal(true);
@@ -37,7 +40,7 @@ const TodoUseState = () => {
   }, [todos]);
 
   return (
-    <View style={styles.container}>
+    <View style={darkModeState==DEFAULT_MODE ? styles.container: styles.containerDark }>
       <TodoModal
         activeModal={activeModal}
         SetActiveModal={SetActiveModal}
@@ -72,7 +75,11 @@ export default TodoUseState;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f3f7",
+    backgroundColor: "white",
+  },
+  containerDark:{
+    flex: 1,
+    backgroundColor: "black"
   },
   todos: {
     flex: 2,

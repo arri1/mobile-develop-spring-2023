@@ -64,7 +64,7 @@ export default TodoUseState;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f3f7",
+    backgroundColor: "white",
   },
   todos: {
     flex: 2,
