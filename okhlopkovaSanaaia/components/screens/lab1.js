@@ -68,9 +68,11 @@ const styles = StyleSheet.create({
     height: 375,
   },
   button: {
+    width: 230,
+    height: 50,
     marginTop: 20,
     padding: 10,
-    backgroundColor: "green",
+    backgroundColor: "#1785e5",
     borderRadius: 10,
   },
 });
