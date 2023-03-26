@@ -13,7 +13,7 @@ import {
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
-  const darkModeState = useSelector((state) => state.darkMode.value);
+  const darkModeState = useSelector((state) => state.darkMode.value)
   const darkModeBackground = {
     title: "Todo",
     headerStyle: { backgroundColor: "#242526" },
