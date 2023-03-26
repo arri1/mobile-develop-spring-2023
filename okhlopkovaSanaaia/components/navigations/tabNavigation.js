@@ -3,9 +3,12 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
+  const counter = useSelector((state) => state.counter.value);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -29,7 +32,11 @@ const TabNavigation = () => {
       })}
     >
       <Tab.Screen name="Lab 1" component={Lab1} />
-      <Tab.Screen name="Lab 2" component={Lab2} />
+      <Tab.Screen
+        name="Lab 2"
+        component={Lab2}
+        options={{ tabBarBadge: counter }}
+      />
       <Tab.Screen name="Lab 3" component={Lab3} />
     </Tab.Navigator>
   );
