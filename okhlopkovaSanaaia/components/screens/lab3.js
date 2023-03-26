@@ -1,6 +1,7 @@
 import { StyleSheet, SafeAreaView, View, Text, Button } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
+import DateTimeWithMemo from "../custom/dateTimeWithMemo";
 
 const Lab3 = () => {
   const [selectedDate, setSelectedDate] = useState(
@@ -8,32 +9,7 @@ const Lab3 = () => {
   );
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
-  const parsedDate = useMemo(() => {
-    return Date.parse(selectedDate);
-  }, [selectedDate]);
-
-  const [time, setTime] = useState(parsedDate - Date.now());
-  const [over, setOver] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const difference = parsedDate - Date.now();
-      if (difference > 0) {
-        setTime(difference);
-      }
-      if (difference <= 0) {
-        setOver(true);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [parsedDate]);
-
-  const timeData = {
-    Days: Math.floor(time / (1000 * 60 * 60 * 24)),
-    Hours: Math.floor((time / (1000 * 60 * 60)) % 24),
-    Minutes: Math.floor((time / 1000 / 60) % 60),
-    Seconds: Math.floor((time / 1000) % 60),
-  };
+  const [isSelected, setSelected] = useState(true);
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
@@ -45,19 +21,17 @@ const Lab3 = () => {
 
   const handleConfirm = (date) => {
     setSelectedDate(date);
-    setOver(false);
     hideDatePicker();
+  };
+
+  const toggleSwitch = () => {
+    setSelected(!isSelected);
   };
 
   return (
     <SafeAreaView style={styles.main}>
-      <View style={styles.container}>
-        {Object.entries(timeData).map(([label, value]) => (
-          <View key={label} style={styles.box}>
-            <Text style={styles.time}>{value}</Text>
-            <Text style={styles.time}>{label}</Text>
-          </View>
-        ))}
+      <View>
+        <DateTimeWithMemo selectedDate={selectedDate} />
       </View>
       <Text style={styles.text}>
         Left until {selectedDate.toLocaleString()}
@@ -76,9 +50,6 @@ const Lab3 = () => {
         locale="ru-RU"
         pickerStyleIOS={styles.picker}
       />
-      <Text style={[styles.text, { color: "red" }]}>
-        {over ? "Time's up!" : ""}
-      </Text>
     </SafeAreaView>
   );
 };
