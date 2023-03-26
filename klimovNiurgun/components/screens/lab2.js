@@ -10,7 +10,7 @@ import Constants from "expo-constants";
 import { useEffect, useState } from "react";
 
 const Lab2 = () => {
-    const [word, setWord] = useState("");
+    const [word, setWord] = useState("Lorem ipsum");
     const [secondWord, setSecondWord] = useState("");
 
     useEffect(() => {
@@ -24,16 +24,20 @@ const Lab2 = () => {
     return (
         <SafeAreaView style={styles.safeAreaContainer}>
             <View style={styles.mainContainer}>
-                <Text style={styles.greenText}>{secondWord}</Text>
-                <TextInput style={styles.blackText}
-                    multiline
-                    textAlign="center"
-                    editable
-                    value={word}
-                    onChangeText={(text) => {
-                        setWord(text);
-                    }}
-                />
+                <View style={styles.firstContainer}>
+                    <Text style={styles.greenText}>{secondWord}</Text>
+                </View>
+                <View style={styles.secondContainer}>
+                    <TextInput style={styles.blackText}
+                        multiline
+                        textAlign="center"
+                        editable
+                        value={word}
+                        onChangeText={(text) => {
+                            setWord(text);
+                        }}
+                    />
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -42,22 +46,31 @@ const Lab2 = () => {
 const styles = StyleSheet.create({
     safeAreaContainer: {
         flex: 1,
-        backgroundColor: "#787878",
+        backgroundColor: "white",
         paddingTop: Constants.statusBarHeight,
     },
     mainContainer: {
         flex: 1,
         paddingBottom: 20,
         alignItems: "center",
+        justifyContent: "center"
+    },
+    firstContainer: {
+        marginLeft: 20,
+        marginRight: 20,
+    },
+    secondContainer: {
+        marginLeft: 20,
+        marginRight: 20,
     },
     greenText: {
-        color: "#4caf50",
-        fontSize: 30,
+        color: "black",
+        fontSize: 20,
         textAlign: "center",
     },
     blackText: {
-        color: "#000000",
-        fontSize: 30,
+        color: "black",
+        fontSize: 20,
         textAlign: "center",
         backgroundColor:"#ffffff"
     },

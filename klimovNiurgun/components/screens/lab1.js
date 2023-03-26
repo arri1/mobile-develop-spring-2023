@@ -12,14 +12,14 @@ const Lab1 = () => {
             id="safe"
             style={{
                 flex: 1,
-                justifyContent: justify[justifyContent]
+                justifyContent: justify[justifyContent],
+                backgroundColor: "white",
             }}>
-            <View style={{ margin: 15 }}>
+            <View style={{ backgroundColor: "white" }}>
                 <View style={{ alignItems: "center" }}>
                     <Text style={{
-                        color: "green",
+                        color: "black",
                         fontSize: 20,
-                        fontWeight: "800"
                     }}>
                         {count}
                     </Text>
@@ -31,11 +31,22 @@ const Lab1 = () => {
                     }}
                     style={{
                         marginTop: 10,
-                        borderRadius: 10,
-                        height: 40,
-                        backgroundColor: "blue"
+                        borderRadius: 40,
+                        height: 44,
+                        marginLeft: 20,
+                        marginRight: 20,
+                        backgroundColor: "#DDD0C8",
+                        alignItems: "center",
+                        justifyContent: "center",
                     }}
-                />
+                >
+                    <Text style={{ 
+                        fontSize: 20,
+                        color: "black"
+                    }}>
+                        Tap
+                    </Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );

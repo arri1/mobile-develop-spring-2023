@@ -2,7 +2,7 @@ import { View, Text } from "react-native"
 import { useEffect, useMemo, useState } from "react";
 
 const FirstSquare = () => {
-    const [position, setPosition] = useState({ x: 0, y: 100 });
+    const [position, setPosition] = useState({ x: 0, y: 150 });
     const [direction, setDirection] = useState(10);
 
     const importantCalculation = () => {
@@ -29,7 +29,7 @@ const FirstSquare = () => {
             style={{
                 width: 50,
                 height: 50,
-                backgroundColor: "purple",
+                backgroundColor: "#C8DDDB",
                 position: "absolute",
                 left: position.x,
                 top: position.y,
