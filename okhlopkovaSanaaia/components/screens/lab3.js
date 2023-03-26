@@ -16,7 +16,6 @@ const Lab3 = () => {
     new Date("2024-01-01T00:00:00")
   );
   const [datePickerVisible, setDatePickerVisible] = useState(false);
-
   const [isSelected, setSelected] = useState(true);
 
   const showDatePicker = () => {
@@ -83,24 +82,6 @@ const styles = StyleSheet.create({
   },
   picker: {
     marginHorizontal: 15,
-  },
-  container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginVertical: 30,
-  },
-  box: {
-    padding: 10,
-    borderRadius: 10,
-    marginHorizontal: 5,
-    minWidth: "20%",
-    backgroundColor: "white",
-    alignSelf: "center",
-    justifyContent: "space-evenly",
-  },
-  time: {
-    textAlign: "center",
-    fontSize: 16,
   },
 });
 
