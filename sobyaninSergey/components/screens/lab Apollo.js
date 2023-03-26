@@ -53,7 +53,7 @@ const ApolloExample = () => {
         backgroundColor: "#1e2140",
       }}
     >
-      <Text style={styles.header}>Список версий Морти из "Рик и Морти":</Text>
+      <Text style={styles.header}>Список версий Рика из "Рик и Морти":</Text>
       {data.characters.results.map((item) => (
         <Text key={item} style={styles.text}>
           {item.name}
