@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import sqrt from "./assets/sqrt.png";
+import squareMath from "./assets/squareMath.png";
 import sqrtMath from "./assets/sqrtMath.png";
 
 import Lab1 from './components/Lab1';
@@ -19,7 +19,7 @@ const Navigate = () => {
                 options={{
                     tabBarLabel: 'lab1',
                     tabBarIcon: ({ color, size }) => (
-                        <Image style = {styles.logo} source={sqrt}/>
+                        <Image style = {styles.logo} source={squareMath}/>
                     ) 
                 }}
                 />

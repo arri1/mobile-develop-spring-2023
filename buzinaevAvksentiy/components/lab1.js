@@ -33,13 +33,7 @@ const Lab1 = () => {
             <Text style={styles.commonText}> квадрат </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.commonButton}
-            onPress={() => {
-              setNumber(Math.sqrt(number));
-            }}>
-            <Text style={styles.commonText}> корень </Text>
-          </TouchableOpacity>
+        
         </View>
       </View>
     </SafeAreaView>
@@ -69,7 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: -50,
-    marginLeft: 50,
+    marginLeft: 140,
     borderRadius: 4,
     backgroundColor: '#216bff',
     width: 120,

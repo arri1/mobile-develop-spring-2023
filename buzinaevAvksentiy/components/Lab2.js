@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,10 @@ import {
 
 const Lab2 = () => {
   const [number, setNumber] = useState(0);
+
+  useEffect(() => {
+    if (number < 0) alert("Число должно быть больше нуля!");
+  });
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -25,13 +29,6 @@ const Lab2 = () => {
           Результат: {Math.round(number * 100) / 100}
         </Text>
         <View style={styles.buttonGroup}>
-          <TouchableOpacity
-            style={styles.commonButton}
-            onPress={() => {
-              setNumber(number * number);
-            }}>
-            <Text style={styles.commonText}> квадрат </Text>
-          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.commonButton}
@@ -69,7 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: -50,
-    marginLeft: 50,
+    marginLeft: 140,
     borderRadius: 4,
     backgroundColor: '#216bff',
     width: 120,
