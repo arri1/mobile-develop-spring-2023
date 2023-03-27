@@ -30,6 +30,7 @@ const ApolloExample = () => {
     query {
       characters(page: 1, filter: { name: "Rick" }) {
         results {
+          id
           name
         }
       }
@@ -55,7 +56,7 @@ const ApolloExample = () => {
     >
       <Text style={styles.header}>Список версий Рика из "Рик и Морти":</Text>
       {data.characters.results.map((item) => (
-        <Text key={item} style={styles.text}>
+        <Text key={item.id} style={styles.text}>
           {item.name}
         </Text>
       ))}
