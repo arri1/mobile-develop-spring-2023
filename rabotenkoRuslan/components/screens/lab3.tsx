@@ -1,23 +1,35 @@
-import React, {useMemo} from 'react';
+import React, { useState, } from 'react';
+import { View, Text, TextInput } from 'react-native';
 
-const Lab3: React.FC = () => {
+type User = {
+  id: number;
+  name: string;
+  age: number;
+}
 
+const users: User[] = [
+  { id: 1, name: 'John', age: 20 },
+  { id: 2, name: 'Jane', age: 30 },
+  { id: 3, name: 'Bob', age: 25 },
+  { id: 4, name: 'Alice', age: 22 },
+];
 
-  const expensiveOperation = (data) => {
-    console.log('Running expensive operation...');
-    // Долгая операция, например, сортировка массива:
-    return data.sort((a, b) => a - b);
-  };
+const Lab3 = () => {
+  const [filter, setFilter] = useState('');
 
-  const sortedItems = useMemo(() => expensiveOperation(items), [items]);
+  const filteredUsers = users.filter(user => user.name.includes(filter));
 
   return (
-    <ul>
-      {sortedItems.map((item) => (
-        <li key={item}>{item}</li>
+    <View>
+      <TextInput value={filter} onChangeText={setFilter} />
+      {filteredUsers.map(user => (
+        <View key={user.id}>
+          <Text>{user.name}</Text>
+          <Text>{user.age}</Text>
+        </View>
       ))}
-    </ul>
+    </View>
   );
-}
+};
 
 export default Lab3;
