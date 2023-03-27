@@ -17,7 +17,9 @@ const users: User[] = [
 const Lab3 = () => {
   const [filter, setFilter] = useState('');
 
-  const filteredUsers = users.filter(user => user.name.includes(filter));
+  const filteredUsers = useMemo(() => {
+    return users.filter(user => user.name.includes(filter));
+  }, [filter]);
 
   return (
     <View>
