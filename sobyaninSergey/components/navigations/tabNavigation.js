@@ -5,6 +5,7 @@ import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
 import ApolloLab from "../screens/lab Apollo";
+import ReduxLab from "../screens/lab1 Redux";
 
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
@@ -59,6 +60,16 @@ const TabNavigation = () => {
           tabBarLabel: "LAB 3",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="memory" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="LAB REDUX"
+        component={ReduxLab}
+        options={{
+          tabBarLabel: "REDUX LAB",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="store" color={color} size={26} />
           ),
         }}
       />
