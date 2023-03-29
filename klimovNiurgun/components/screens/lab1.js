@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { increment } from '../../redux/lab1Slice';
 
-const colors = ["#DDD0C8", "#C8DDDB", "#C8CBDD"]
+const colors = ["#DDD0C8", "#C8DDDB", "#C8CBDD"];
 
 const Lab1 = () => {
-    const [count, setCount] = useState(0);
-    const [colorIndex, setColorIndex] = useState(0);
+    const value = useSelector((state) => state.lab1.value);
+
+    const dispatch = useDispatch();
 
     return (
         <SafeAreaView
@@ -21,13 +24,12 @@ const Lab1 = () => {
                         color: "black",
                         fontSize: 20,
                     }}>
-                        {count}
+                        {value}
                     </Text>
                 </View>
                 <TouchableOpacity
                     onPress={() => {
-                        setCount(count + 1);
-                        setColorIndex((colorIndex + 1) % colors.length);
+                        dispatch(increment());
                     }}
                     style={{
                         marginTop: 10,
@@ -35,16 +37,16 @@ const Lab1 = () => {
                         height: 44,
                         marginLeft: 20,
                         marginRight: 20,
-                        backgroundColor: colors[colorIndex],
+                        backgroundColor: colors[value % 3],
                         alignItems: "center",
                         justifyContent: "center",
                     }}
                 >
                     <Text style={{ 
-                        fontSize: 20,
+                        fontSize: 16,
                         color: "black"
                     }}>
-                        Tap
+                        Lorem ipsum dolor sit amet
                     </Text>
                 </TouchableOpacity>
             </View>
