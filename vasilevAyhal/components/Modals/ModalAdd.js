@@ -9,9 +9,6 @@ import StylesButtons from '../style/buttons'
 import StylesTexts from '../style/texts'
 
 const ModalAdd = (props) => {
-    const windowDimensions = Dimensions.get('window');
-    const windowWidth = windowDimensions.width
-    
     const inputSecond = useRef(null)
     const inputThird = useRef(null)
     const [inputTitle, setInputTitle] = useState('')
@@ -20,11 +17,19 @@ const ModalAdd = (props) => {
     
     const [modalDate, setModalDate] = useState(false)
     const [date, setDate] = useState('')
+    const [modalTime, setModalTime] = useState(false)
+    const [time, setTime] = useState('')
 
 
     const checkTitle = () => {
         if(inputTitle.length === 0) alert('Заголовок пустой!')
-        else props.addInputs(inputTitle, inputDescription, inputGrade)
+        else {
+            let datetime = null
+            if(date) {
+                datetime = `${!date ? '' : moment(date).format('YYYY-MM-DD')} ${!time ? '00:00:00' : moment(time).format('HH:mm:ss')}`
+            }
+            props.addInputs(inputTitle, inputDescription, inputGrade, datetime)
+        }
     }
 
     return (
@@ -58,25 +63,49 @@ const ModalAdd = (props) => {
                                 </View>
                                 
                                 { !props.extraShow ? null :
-                                    <View style={windowWidth >= 350 ? StylesContainers.rowSpace : StylesContainers.column}>
-                                        <TouchableOpacity onPress={() => {setModalDate(true)}}
-                                            style={[StylesTexts.input, {width: 180}]}
-                                        >
-                                            <Text style={[!date ? StylesTexts.placeholder : null]}>
-                                                {!date ? 'Без срока сдачи' : `Срок сдачи: ${moment(date).locale('ru').format('D MMMM')}`}
-                                            </Text>
-                                        </TouchableOpacity>
+                                    <View style={StylesContainers.column}>
+                                        <View style={StylesContainers.rowSpace}>
+                                            <TouchableOpacity onPress={() => {setModalDate(true)}}
+                                                style={[StylesTexts.input, {flex: 0.5}]}
+                                            >
+                                                <Text style={[!date ? StylesTexts.placeholder : null]}>
+                                                    {!date ? 'Без срока сдачи' : `Срок сдачи: ${moment(date).locale('ru').format('D MMMM')}`}
+                                                </Text>
+                                            </TouchableOpacity>
 
-                                        <DateTimePickerModal
-                                            isVisible={modalDate}
-                                            mode='date'
-                                            onHide={() => setModalDate(false)}
-                                            onConfirm={(d) => {
-                                                setDate(d)
-                                                setModalDate(false)
-                                            }}
-                                            onCancel={() => { setDate(''); setModalDate(false) }}
-                                        />
+                                            <DateTimePickerModal
+                                                isVisible={modalDate}
+                                                mode='date'
+                                                onHide={() => setModalDate(false)}
+                                                onConfirm={(d) => {
+                                                    setDate(d)
+                                                    setModalDate(false)
+                                                }}
+                                                onCancel={() => { setDate(''); setModalDate(false) }}
+                                            />
+
+                                            {
+                                                !date ? null :
+                                                <TouchableOpacity onPress={() => {setModalTime(true)}}
+                                                    style={[StylesTexts.input, {flex: 0.4}]}
+                                                >
+                                                    <Text style={[!time ? StylesTexts.placeholder : null]}>
+                                                        {!time ? 'Время' : `Время: ${moment(time).format('HH:mm')}`}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            }
+
+                                            <DateTimePickerModal
+                                                isVisible={modalTime}
+                                                mode='time'
+                                                onHide={() => setModalTime(false)}
+                                                onConfirm={(d) => {
+                                                    setTime(d)
+                                                    setModalTime(false)
+                                                }}
+                                                onCancel={() => { setTime(''); setModalTime(false) }}
+                                            />
+                                        </View>
 
                                         <TextInput
                                             ref={inputThird}
@@ -87,7 +116,7 @@ const ModalAdd = (props) => {
                                             value={inputGrade}
                                             onChangeText={(v) => setInputGrade(v)}
                                             onSubmitEditing={() => inputSecond.current.focus()}
-                                            style={[StylesTexts.input, {textAlign: 'center', width: 100}]}
+                                            style={[StylesTexts.input, {width: 100}]}
                                             placeholderTextColor={StylesTexts.placeholder.color}
                                             numberOfLines={1}
                                             maxLength={10}

@@ -6,8 +6,8 @@ import NavigationTheme from './style/navigation';
 import StylesTexts from './style/texts';
 
 import HomeScreen from './HomeScreen';
-import Notes from './Notes';
-import SubjectsStack from './Subjects'
+import Screen1 from './Screen1';
+import Screen2 from './Screen2';
 
 const Stack = createStackNavigator();
 
@@ -35,9 +35,9 @@ const HomeStack = () => {
 
             headerStyle: { backgroundColor: NavigationTheme.colors.headerBackground },
         })}>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Главная'}} />
-            <Stack.Screen name="Notes" component={Notes} options={{title: 'Заметки'}}  />
-            <Stack.Screen name="SubjectsStack" component={SubjectsStack} options={{title: 'Предметы'}}  />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Home'}} />
+            <Stack.Screen name="Screen1" component={Screen1} options={{title: 'Screen 1'}}  />
+            <Stack.Screen name="Screen2" component={Screen2} options={{title: 'Screen 2'}}  />
         </Stack.Navigator>
     );
 };

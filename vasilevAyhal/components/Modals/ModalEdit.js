@@ -16,9 +16,12 @@ const ModalEdit = (props) => {
     const [inputTitle, setInputTitle] = useState(props.title)
     const [inputGrade, setInputGrade] = useState(props.grade)
     const [inputDescription, setInputDescription] = useState(props.description)
+    const [inputDeadline, setInputDeadline] = useState(props.deadline)
 
     const [modalDate, setModalDate] = useState(false)
-    const [date, setDate] = useState('')
+    const [date, setDate] = useState(inputDeadline)
+    const [modalTime, setModalTime] = useState(false)
+    const [time, setTime] = useState(inputDeadline)
 
     return (
         <Modal visible={true} animationType='slide' transparent={true} >
@@ -47,26 +50,51 @@ const ModalEdit = (props) => {
                                 </View>
 
                                 { !props.extraShow ? null :
-                                    <View style={windowWidth >= 350 ? StylesContainers.rowSpace : StylesContainers.column}>
-                                        <TouchableOpacity onPress={() => {setModalDate(true)}}
-                                            disabled={!edit}
-                                            style={[StylesTexts.input, {width: 180}]}
-                                        >
-                                            <Text style={[!date ? StylesTexts.placeholder : null]}>
-                                                {!date ? 'Без срока сдачи' : `Срок сдачи: ${moment(date).locale('ru').format('D MMMM')}`}
-                                            </Text>
-                                        </TouchableOpacity>
+                                    <View style={StylesContainers.column}>
+                                        <View style={StylesContainers.rowSpace}>
+                                            <TouchableOpacity onPress={() => {setModalDate(true)}}
+                                                disabled={!edit}
+                                                style={[StylesTexts.input, {flex: 0.5}]}
+                                            >
+                                                <Text style={[!date ? StylesTexts.placeholder : null]}>
+                                                    {!date ? 'Без срока сдачи' : `Срок сдачи: ${moment(date).locale('ru').format('D MMMM')}`}
+                                                </Text>
+                                            </TouchableOpacity>
 
-                                        <DateTimePickerModal
-                                            isVisible={modalDate}
-                                            mode='date'
-                                            onHide={() => setModalDate(false)}
-                                            onConfirm={(d) => {
-                                                setDate(d)
-                                                setModalDate(false)
-                                            }}
-                                            onCancel={() => { setDate(''); setModalDate(false) }}
-                                        />
+                                            <DateTimePickerModal
+                                                isVisible={modalDate}
+                                                mode='date'
+                                                onHide={() => setModalDate(false)}
+                                                onConfirm={(d) => {
+                                                    setDate(d)
+                                                    setModalDate(false)
+                                                }}
+                                                onCancel={() => { setDate(''); setModalDate(false) }}
+                                            />
+
+                                            {
+                                                !date ? null :
+                                                <TouchableOpacity onPress={() => {setModalTime(true)}}
+                                                    disabled={!edit}
+                                                    style={[StylesTexts.input, {flex: 0.4}]}
+                                                >
+                                                    <Text style={[!time ? StylesTexts.placeholder : null]}>
+                                                        {!time ? 'Время' : `Время: ${moment(time).format('HH:mm')}`}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            }
+
+                                            <DateTimePickerModal
+                                                isVisible={modalTime}
+                                                mode='time'
+                                                onHide={() => setModalTime(false)}
+                                                onConfirm={(d) => {
+                                                    setTime(d)
+                                                    setModalTime(false)
+                                                }}
+                                                onCancel={() => { setTime(''); setModalTime(false) }}
+                                            />
+                                        </View>
 
                                         <TextInput
                                             blurOnSubmit={false}
@@ -77,7 +105,7 @@ const ModalEdit = (props) => {
                                             value={inputGrade}
                                             onChangeText={(v) => setInputGrade(v)}
                                             onSubmitEditing={() => Keyboard.dismiss()}
-                                            style={[StylesTexts.input, {textAlign: 'center', width: 100}]}
+                                            style={[StylesTexts.input, StylesTexts.small, {width: 100}]}
                                             placeholderTextColor={StylesTexts.placeholder.color}
                                             numberOfLines={1}
                                             maxLength={10}
@@ -114,7 +142,11 @@ const ModalEdit = (props) => {
                                         if(edit) {
                                             if(inputTitle.length === 0) alert('Заголовок пустой!')
                                             else {
-                                                props.saveInputs(inputTitle, inputDescription, inputGrade)
+                                                let datetime = null
+                                                if(date) {
+                                                    datetime = `${!date ? '' : moment(date).format('YYYY-MM-DD')} ${!time ? '00:00:00' : moment(time).format('HH:mm:ss')}`
+                                                }
+                                                props.saveInputs(inputTitle, inputDescription, inputGrade, datetime)
                                                 setEdit(!edit)
                                             }
                                         } else { setEdit(!edit) }

@@ -10,7 +10,7 @@ import StylesTexts from './style/texts';
 import HomeStack from './HomeStack';
 import Setting from './Setting';
 import Profile from './Profile';
-import CalendarScreen from './CalendarScreen';
+import Notification from './Notification';
 
 import IconInbox from '../assets/svg/inbox';
 import IconHome from '../assets/svg/home';
@@ -71,10 +71,8 @@ const App = () => {
                                     {
                                         route.name == 'Home' ?
                                         <IconHome size={size} color={color}/>
-                                        // : (route.name == 'Notification') ?
-                                        // <IconInbox size={size} color={color}/>
-                                        : (route.name == 'Calendar') ?
-                                        <IconCalendar size={size} color={color}/>
+                                        : (route.name == 'Notification') ?
+                                        <IconInbox size={size} color={color}/>
                                         : (route.name == 'Setting') ?
                                         <IconWrench size={size} color={color}/>
                                         : (route.name == 'Profile') ?
@@ -92,13 +90,8 @@ const App = () => {
                     children={() => <HomeStack />}
                 />
 
-                {/* <Tab.Screen name='Notification'
-                    children={() => <Notification removeBarBadge={removeBarBadge}/>}
-                    options={{ tabBarBadge: likeCount > 0 ? likeCount : null, }}
-                /> */}
-                
-                <Tab.Screen name='Calendar' options={{title: 'Календарь'}}
-                    children={() => <CalendarScreen />}
+                <Tab.Screen name='Notification' options={{title: 'Уведомления'}}
+                    children={() => <Notification/>}
                 />
                 
                 <Tab.Screen name='Setting' options={{title: 'Настройки'}}

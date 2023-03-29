@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import * as SQLite from 'expo-sqlite'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Modal, View, TextInput, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, RefreshControl } from 'react-native';
 
@@ -10,8 +9,6 @@ import StylesTexts from '../style/texts';
 import Auth from './Auth';
 
 const Profile = () => {
-    const table = 'users'
-    const db = SQLite.openDatabase(`${table}.db`)
     const [isAuth, setIsAuth] = useState('')
 
     useEffect(() => {

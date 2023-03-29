@@ -17,7 +17,8 @@ export default StyleSheet.create({
     rowSpace: {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'},
     column: {flexDirection: 'column', gap: 10},
     alert: {
-        padding: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#ffffff90',
         borderRadius: 10,
     }

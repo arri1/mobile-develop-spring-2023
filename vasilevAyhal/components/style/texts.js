@@ -19,10 +19,11 @@ export default StyleSheet.create({
     },
     lightColor: { color: "#ffffff" },
     linkColor: { color: '#6E7AFF' },
-    fadeColor: { color: "#00000075" },
+    fadeColor: { color: "#00000080" },
     placeholder: { color: "#B3B3B3" },
     
     input: {
+        color: '#000000',
         minHeight: 45,
         justifyContent: 'center',
         paddingHorizontal: 10,
@@ -31,4 +32,8 @@ export default StyleSheet.create({
         borderRadius: 10
     },
     inputMulti: { textAlignVertical: 'top' },
+    borderBottom: {
+        width: '100%',
+        borderBottomWidth: 2,
+    }
 });

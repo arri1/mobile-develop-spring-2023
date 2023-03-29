@@ -19,22 +19,6 @@ const Auth = (props) => {
     const inputThird = useRef(null)
     const [securityPassword, setSecurityPassword] = useState(true)
 
-    useEffect(() => {
-        db.transaction(tx => 
-            tx.executeSql(`CREATE TABLE IF NOT EXISTS ${table}
-                (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    login TEXT,
-                    password TEXT,
-                    firstname TEXT,
-                    lastname TEXT,
-                    email TEXT,
-                    birthday DATE
-                )`
-            )
-        )
-    }, [])
-
     const setAuth = async (login) => {
         try {
             await AsyncStorage.setItem('auth', login)
@@ -74,6 +58,7 @@ const Auth = (props) => {
                             );
                             setInputLogin('')
                             setInputPassword('')
+                            setInputPasswordSecond('')
                         }
                     });
                 }
