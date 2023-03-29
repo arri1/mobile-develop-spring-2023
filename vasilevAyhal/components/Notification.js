@@ -5,7 +5,7 @@ const Notification = (props) => {
 
     return ( 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <TouchableOpacity onPress={() => alert('ok')}
+            <TouchableOpacity onPress={() => alert('hello world')}
                 style={[styles.btn, styles.btnNotPressed]}>
                     <Text style={{textAlign: 'center', fontSize: 20}}> ok? </Text>
             </TouchableOpacity>
