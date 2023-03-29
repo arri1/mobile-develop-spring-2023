@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 
-const justify = ['center', 'flex-end', 'flex-start']
+const colors = ["#DDD0C8", "#C8DDDB", "#C8CBDD"]
 
 const Lab1 = () => {
     const [count, setCount] = useState(0);
-    const [justifyContent, setJustifyContent] = useState(0);
+    const [colorIndex, setColorIndex] = useState(0);
 
     return (
         <SafeAreaView
             id="safe"
             style={{
                 flex: 1,
-                justifyContent: justify[justifyContent],
                 backgroundColor: "white",
+                justifyContent: "center",
             }}>
             <View style={{ backgroundColor: "white" }}>
                 <View style={{ alignItems: "center" }}>
@@ -26,8 +26,8 @@ const Lab1 = () => {
                 </View>
                 <TouchableOpacity
                     onPress={() => {
-                        setCount(count + 1)
-                        setJustifyContent((justifyContent + 1) % justify.length);
+                        setCount(count + 1);
+                        setColorIndex((colorIndex + 1) % colors.length);
                     }}
                     style={{
                         marginTop: 10,
@@ -35,7 +35,7 @@ const Lab1 = () => {
                         height: 44,
                         marginLeft: 20,
                         marginRight: 20,
-                        backgroundColor: "#DDD0C8",
+                        backgroundColor: colors[colorIndex],
                         alignItems: "center",
                         justifyContent: "center",
                     }}
