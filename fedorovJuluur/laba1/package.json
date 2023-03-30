@@ -6,7 +6,10 @@
   "dependencies": {
     "expo": "^47.0.13",
     "metro-core": "^0.76.0",
-    "react-native": "^0.70.5"
+    "react-native": "^0.70.5",
+    "react-native-web": "~0.18.9",
+    "react-dom": "18.1.0",
+    "@expo/webpack-config": "^0.17.2"
   },
   "devDependencies": {},
   "scripts": {
