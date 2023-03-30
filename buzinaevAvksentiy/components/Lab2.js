@@ -12,16 +12,15 @@ const Lab2 = () => {
   const [number, setNumber] = useState(0);
 
   useEffect(() => {
-    if (number < 0) alert("Число должно быть больше нуля!");
-  });
+    if (number < 0) alert('Число должно быть больше нуля!');
+  },[number]);
 
   return (
     <SafeAreaView style={styles.wrapper}>
       <View>
-        <Text style={styles.title}></Text>
         <TextInput
           placeholder="Число"
-          onChangeText={number => setNumber(parseInt(number))}
+          onChangeText={number => setNumber(parseInt(~~number))}
           keyboardType="numeric"
           style={styles.input}
         />
@@ -29,7 +28,6 @@ const Lab2 = () => {
           Результат: {Math.round(number * 100) / 100}
         </Text>
         <View style={styles.buttonGroup}>
-
           <TouchableOpacity
             style={styles.commonButton}
             onPress={() => {
