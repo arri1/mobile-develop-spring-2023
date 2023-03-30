@@ -2,49 +2,29 @@ import React, { useState, useMemo, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 const ThirdTask = () => {
-  const [check, setcheck] = useState(1);
-  const [number, setnumber] = useState(3);
-  const factorial = useMemo(() => factorialOf(number), [check]);
+  const [number, setnumber] = useState(0);
+  const [number2, setnumber2] = useState(0);
+  useMemo(() => expensiveSum(number2), [number2]);
   return (
     <View>
       <Text style={styles.number}>{number}</Text>
-      <Text style={styles.number}>{factorial}</Text>
+      <Text style={styles.number}>{number2}</Text>
       <View style={styles.buttonGroup}>
         <TouchableOpacity
           style={styles.commonButton}
           onPress={() => {
-            setcheck(check + 1);
+            setnumber(number + 10);
           }}
         >
-          <Text style={styles.commonText}>Получить факториал</Text>
+          <Text style={styles.commonText}>+10</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.commonButton}
           onPress={() => {
-            if (number != 100) {
-                setnumber(number + 1);
-            }
+            setnumber2(number2 + 10);
           }}
         >
-          <Text style={styles.commonText}>+1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.commonButton}
-          onPress={() => {
-            setnumber(0);
-          }}
-        >
-          <Text style={styles.commonText}>Очистить</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.commonButton}
-          onPress={() => {
-            if (number != 0) {
-                setnumber(number - 1);
-            }
-          }}
-        >
-          <Text style={styles.commonText}>-1</Text>
+          <Text style={styles.commonText}>+10</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -89,7 +69,10 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-function factorialOf(n) {
-  return n <= 0 ? 1 : n * factorialOf(n - 1);
-}
+const expensiveSum = (n) => {
+  for (i = 0; i < 10000000; i++) {
+    n++;
+  }
+  return;
+};
 export default ThirdTask;
