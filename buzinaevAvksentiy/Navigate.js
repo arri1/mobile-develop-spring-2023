@@ -4,9 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import squareMath from "./assets/squareMath.png";
 import sqrtMath from "./assets/sqrtMath.png";
+import cube from "./assets/cube.png";
 
 import Lab1 from './components/Lab1';
 import Lab2 from './components/Lab2';
+import Lab3 from './components/Lab3';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +32,16 @@ const Navigate = () => {
                     tabBarLabel: 'lab2',
                     tabBarIcon: ({ color, size }) => (
                         <Image style = {styles.logo} source={sqrtMath}/>
+                    )
+                }}
+                />
+            <Tab.Screen
+                name = "lab3"
+                component={Lab3}
+                options={{
+                    tabBarLabel: 'lab3',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image style = {styles.logo} source={cube}/>
                     )
                 }}
                 />
