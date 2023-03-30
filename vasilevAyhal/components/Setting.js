@@ -12,7 +12,7 @@ const Setting = () => {
     useMemo(
         () => {
             console.log('useMemo', count)
-            let i = 100000000
+            let i = 10000000
             console.log(i)
             while(i >= 0) {
                 i-=1
