@@ -24,7 +24,7 @@ const App = () => {
         keyExtractor={item => item._id}
         renderItem={({ item }) => <Text style={styles.text}>{item.text}</Text>}
       />
-      <Cafe />
+      <Cafe/>
     </SafeAreaView>
         
 
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    marginBottom: 20,
-    fontSize: 16
+    marginBottom: 15,
+    fontSize: 10
   }
 });
 

@@ -1,20 +1,19 @@
 import React, {useState} from 'react';
 import {Button, Text, View} from 'react-native';
-
 const Cat = props => {
   const [isHungry, setIsHungry] = useState(true);
 
   return (
-    <View>
+    <View style={{ flex:2,padding:10, marginTop: 10,backgroundColor: 'rgba(500,600,247,800)'}}>
       <Text>
-        I am {props.name}, and I am {isHungry ? 'hungry' : 'full'}!
+        I am {props.name}, and I am {isHungry ? 'dying' : 'full'}!
       </Text>
       <Button
         onPress={() => {
           setIsHungry(false);
         }}
         disabled={!isHungry}
-        title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
+        title={isHungry ? 'Give me some food!' : 'Thank you very much!'}
       />
     </View>
   );
@@ -23,8 +22,8 @@ const Cat = props => {
 const Cafe = () => {
   return (
     <>
-      <Cat name="Munkustrap" />
-      <Cat name="Spot" />
+      <Cat name="Andrew" />
+      <Cat name="Spoke" />
     </>
   );
 };
