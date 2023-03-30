@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,Button } from 'react-native';
 import React , {useState} from 'react';
-import MainContainer from "../AwesomeProject/app/index";
+import MainContainer from "../laba2/app/index";
 
 
 export default function App() {
@@ -14,6 +14,7 @@ export default function App() {
   const [world,setUser] = useState('World')
   const clickHandler = () => {
     setUser('universe')
+    
   }
   
   return (
