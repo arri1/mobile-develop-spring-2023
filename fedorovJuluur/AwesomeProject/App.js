@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,Button } from 'react-native';
 import React , {useState} from 'react';
-import { View, Text } from "react-native";
 import MainContainer from "../AwesomeProject/app/index";
 
 

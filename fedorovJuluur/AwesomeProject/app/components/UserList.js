@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
-import User from "./User";
+import User from "./user";
 
 const loadUsers = async (users, setUsers) => {
   try {
