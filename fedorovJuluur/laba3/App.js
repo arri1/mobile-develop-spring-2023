@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button,Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Cafe from './Cafe'
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -35,6 +36,7 @@ function textmodal() {
         keyExtractor={item => item._id}
         renderItem={({ item }) => <Text style={styles.text}>{item.text}</Text>}
       />
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
     </View>
   );
 }
@@ -62,7 +64,7 @@ export default function App() {
             iconName = focused
             ? 'ios-information-circle'
             : 'ios-information-circle-outline';
-          } else if (route.name === 'Settings') {
+          } else if (route.name === 'textmodal') {
             iconName = focused ? 'ios-list' : 'ios-list-outline';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
