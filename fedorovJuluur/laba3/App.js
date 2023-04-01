@@ -1,7 +1,19 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Button,Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Button,Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Cafe from './Cafe'
-const App = () => {
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Cafe/>
+    </View>
+  );
+}
+
+function textmodal() {
   const [facts, setFacts] = useState([]);
 
   const handleFetchCatFacts = useCallback(async () => {
@@ -13,34 +25,55 @@ const App = () => {
   });
 
   useEffect(() => {
-     handleFetchCatFacts();
+    handleFetchCatFacts();
   }, []);
-
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ fontSize: 20, flex: 2, justifyContent: 'center', alignItems: 'center' }}>
       <FlatList
         style={styles.list}
         data={facts}
         keyExtractor={item => item._id}
         renderItem={({ item }) => <Text style={styles.text}>{item.text}</Text>}
       />
-      <Cafe/>
-    </SafeAreaView>
-        
-
+    </View>
   );
 }
-
+const Tab = createBottomTabNavigator();
 const styles = StyleSheet.create({
   list: {
-    marginTop: 40,
+    marginTop: 20,
     padding: 10,
     flex: 1,
   },
   text: {
-    marginBottom: 15,
-    fontSize: 10
+    marginBottom: 20,
+    fontSize: 20
   }
 });
 
-export default App;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'Home') {
+            iconName = focused
+            ? 'ios-information-circle'
+            : 'ios-information-circle-outline';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'ios-list' : 'ios-list-outline';
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'green',
+        tabBarInactiveTintColor: 'darkred',
+      })}
+      >
+        <Tab.Screen name="home" component={HomeScreen} />
+        <Tab.Screen name="textmodal" component={textmodal} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}

@@ -4,14 +4,12 @@ const Cat = props => {
   const [isHungry, setIsHungry] = useState(true);
 
   return (
-    <View style={{ flex:2,padding:10, marginTop: 10,backgroundColor: 'rgba(500,600,247,800)'}}>
+    <View style={{padding:20, marginTop: 0,backgroundColor: 'rgba(500,600,247,800)'}}>
       <Text>
-        I am {props.name}, and I am {isHungry ? 'dying' : 'full'}!
+        I am {props.name}, and I am {isHungry ? 'hungry' : 'full'}!
       </Text>
       <Button
-        onPress={() => {
-          setIsHungry(false);
-        }}
+        onPress={() => {setIsHungry(false);}}
         disabled={!isHungry}
         title={isHungry ? 'Give me some food!' : 'Thank you very much!'}
       />
@@ -23,7 +21,6 @@ const Cafe = () => {
   return (
     <>
       <Cat name="Andrew" />
-      <Cat name="Spoke" />
     </>
   );
 };
