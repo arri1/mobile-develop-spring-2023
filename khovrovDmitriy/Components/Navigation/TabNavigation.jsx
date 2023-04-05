@@ -6,6 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Lab5 from "../Screens/Lab5";
 import { useSelector } from "react-redux";
 import { DARK_MODE } from "../../Components/Lab5/DarkModeConstStates";
+import RickMortyCharacters from "../Screens/RickMortyCharacters";
 
 const Tab = createBottomTabNavigator();
 
@@ -69,6 +70,18 @@ const TabNavigation = () => {
               ? { ...darkModeBackground, title: "Lab5" }
               : { ...defaultModeBackground, title: "Lab5" }
           }
+        />
+        <Tab.Screen
+          name="Rick and morty characters"
+          component={RickMortyCharacters}
+          options={{
+            title: "Rick and morty characters",
+            headerStyle: { backgroundColor: "#FF834E" },
+            tabBarStyle: {
+              backgroundColor: "#FF834E",
+            },
+            headerTintColor: "#fff",
+          }}
         />
       </Tab.Navigator>
     </NavigationContainer>
