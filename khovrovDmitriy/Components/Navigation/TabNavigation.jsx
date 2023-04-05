@@ -76,9 +76,9 @@ const TabNavigation = () => {
           component={RickMortyCharacters}
           options={{
             title: "Rick and morty characters",
-            headerStyle: { backgroundColor: "#FF834E" },
+            headerStyle: { backgroundColor: "#6CEA79" },
             tabBarStyle: {
-              backgroundColor: "#FF834E",
+              backgroundColor: "#6CEA79",
             },
             headerTintColor: "#fff",
           }}

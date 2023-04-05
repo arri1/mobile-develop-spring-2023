@@ -1,12 +1,18 @@
 import TabNavigation from "./Components/Navigation/TabNavigation";
 import store from "./app/store";
 import { Provider } from "react-redux";
-import { StyleSheet, View } from "react-native";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
+const client = new ApolloClient({
+  uri: "https://rickandmortyapi.com/graphql/",
+  cache: new InMemoryCache(),
+});
 export default function App() {
   return (
-    <Provider store={store}>
-      <TabNavigation />
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <TabNavigation />
+      </Provider>
+    </ApolloProvider>
   );
 }
