@@ -1,9 +1,16 @@
 import { StyleSheet, View, Text } from "react-native";
+import { useSelector } from "react-redux";
+import { DARK_MODE } from "../Lab5/DarkModeConstStates";
 
 const TitleList = () => {
+  const darkModeState = useSelector((state) => state.darkMode.value);
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Список задач</Text>
+      <Text
+        style={darkModeState == DARK_MODE ? styles.textDarkMode : styles.text}
+      >
+        Список задач
+      </Text>
     </View>
   );
 };
@@ -24,5 +31,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 15,
     fontWeight: "bold",
+  },
+  textDarkMode: {
+    marginLeft: 10,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "white",
   },
 });
