@@ -11,6 +11,7 @@ import HomeStack from './HomeStack';
 import Setting from './Setting';
 import Profile from './Profile';
 import Notification from './Notification';
+import GraphQl from './GraphQl'
 
 import IconInbox from '../assets/svg/inbox';
 import IconHome from '../assets/svg/home';
@@ -77,6 +78,8 @@ const App = () => {
                                         <IconWrench size={size} color={color}/>
                                         : (route.name == 'Profile') ?
                                         <IconUser size={size} color={color}/>
+                                        : (route.name == 'Calendar') ?
+                                        <IconCalendar size={size} color={color}/>
                                         : "null"
                                     }
                                 </View>
@@ -90,15 +93,18 @@ const App = () => {
                     children={() => <HomeStack />}
                 />
 
-                <Tab.Screen name='Notification' options={{title: 'Уведомления'}}
+                <Tab.Screen name='Notification' options={{title: 'Redux'}}
                     children={() => <Notification/>}
                 />
                 
-                <Tab.Screen name='Setting' options={{title: 'Настройки'}}
+                <Tab.Screen name='Setting' options={{title: 'UseMemo'}}
                     children={() => <Setting />}
                 />
                 <Tab.Screen name='Profile' options={{title: 'Профиль'}}
                     children={() => <Profile />}
+                />
+                <Tab.Screen name='Calendar' options={{title: 'GraphQl'}}
+                    children={() => <GraphQl />}
                 />
 
             </Tab.Navigator> 

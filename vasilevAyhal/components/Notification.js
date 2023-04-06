@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-nativ
 import StylesTexts from './style/texts';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment, incrementByAmount, decrementByAmount } from './redux/counterSlice'
+import { decrement, increment, incrementByAmount, decrementByAmount } from './Redux/CounterSlice'
 
 
 const Notification = (props) => {
