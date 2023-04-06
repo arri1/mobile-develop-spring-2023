@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,28 +8,55 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-const Lab1 = () => {
-  const [number, setNumber] = useState(0);
+function slowFn(n) {
+  for (i = 0; i < 10000000; i++) {}
+  return n*n*n;
+}
 
+const Lab3 = () => {
+
+  const [number, setNumber] = useState(0);
+  const [count, setCount] = useState(0);
+
+  const double = useMemo(() => slowFn(number), [number]);
+  //const double = slowFn(number);
+  
   return (
     <SafeAreaView style={styles.wrapper}>
       <View>
+        <TextInput
+          placeholder="Число"
+          onChangeText={count => setCount(parseInt(count))}
+          keyboardType="numeric"
+          style={styles.input}
+        />
+        <Text style={styles.commonNumber}> useMemo: {~~count} </Text>
+        <View style={styles.buttonGroup}>
+          <TouchableOpacity
+            style={styles.commonButton}
+            onPress={() => {
+              setCount(count*count*count);
+            }}>
+            <Text style={styles.commonText}> куб </Text>
+          </TouchableOpacity>
+        </View>
+
         <TextInput
           placeholder="Число"
           onChangeText={number => setNumber(parseInt(number))}
           keyboardType="numeric"
           style={styles.input}
         />
-        <Text style={styles.commonNumber}>
-          Результат: {Math.round(number * 100) / 100}
-        </Text>
+
+        <Text style={styles.commonNumber}> no useMemo: {~~number} </Text>
+
         <View style={styles.buttonGroup}>
           <TouchableOpacity
             style={styles.commonButton}
             onPress={() => {
-              setNumber(number * number);
+              setNumber(slowFn(number));
             }}>
-            <Text style={styles.commonText}> квадрат </Text>
+            <Text style={styles.commonText}> куб </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -45,11 +72,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   buttonGroup: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
   },
   number: {
     fontSize: 60,
@@ -59,12 +84,12 @@ const styles = StyleSheet.create({
   commonButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: -50,
-    marginLeft: 140,
-    borderRadius: 4,
+    marginVertical: 0,
+    borderRadius: 50,
     backgroundColor: '#216bff',
     width: 120,
     height: 60,
+    bottom: 35,
   },
   commonText: {
     fontSize: 25,
@@ -95,7 +120,7 @@ const styles = StyleSheet.create({
   },
   commonNumber: {
     display: 'flex',
-    fontSize: 40,
+    fontSize: 25,
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: '#000',
@@ -105,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Lab1;
+export default Lab3;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,15 +8,19 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-const Lab1 = () => {
+const Lab2 = () => {
   const [number, setNumber] = useState(0);
+
+  useEffect(() => {
+    if (number < 0) alert('Число должно быть больше нуля!');
+  },[number]);
 
   return (
     <SafeAreaView style={styles.wrapper}>
       <View>
         <TextInput
           placeholder="Число"
-          onChangeText={number => setNumber(parseInt(number))}
+          onChangeText={number => setNumber(parseInt(~~number))}
           keyboardType="numeric"
           style={styles.input}
         />
@@ -27,9 +31,9 @@ const Lab1 = () => {
           <TouchableOpacity
             style={styles.commonButton}
             onPress={() => {
-              setNumber(number * number);
+              setNumber(Math.sqrt(number));
             }}>
-            <Text style={styles.commonText}> квадрат </Text>
+            <Text style={styles.commonText}> корень </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -105,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Lab1;
+export default Lab2;
