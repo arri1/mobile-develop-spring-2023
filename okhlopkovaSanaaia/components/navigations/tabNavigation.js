@@ -8,9 +8,20 @@ const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   return (
     <Tab.Navigator
-      screenOptions={() => ({
+      screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          const iconName = focused ? "note-text" : "note-text-outline";
+          let iconName;
+          if (route.name === "Lab 1") {
+            iconName = focused ? "note-text" : "note-text-outline";
+          } else if (route.name === "Lab 2") {
+            iconName = focused
+              ? "application-braces"
+              : "application-braces-outline";
+          } else if (route.name === "Lab 3") {
+            iconName = focused
+              ? "clock-time-eight"
+              : "clock-time-eight-outline";
+          }
           return (
             <MaterialCommunityIcons name={iconName} size={size} color={color} />
           );
