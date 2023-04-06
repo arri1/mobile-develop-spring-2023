@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Text, TouchableOpacity, View, StyleSheet, SafeAreaView, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { increment } from "../../redux/lab1Slice";
@@ -6,6 +7,8 @@ import { newText } from "../../redux/lab2Slice";
 const colors = ["#DDD0C8", "#C8DDDB", "#C8CBDD"];
 
 const Lab5 = () => {
+    const [text, setText] = useState("L")
+
     const lab1value = useSelector((state) => state.lab1.value);
 
     const lab2texts = useSelector((state) => state.lab2);
@@ -39,6 +42,7 @@ const Lab5 = () => {
                         value={lab2texts.text}
                         onChangeText={(text) => {
                             dispatch(newText(text));
+                            setText(text);
                         }}
                         autoCorrect={false}
                         autoCapitalize="none"

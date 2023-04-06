@@ -4,6 +4,7 @@ import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
 import Lab5 from "../screens/lab5";
+import Lab6 from "../screens/lab6";
 
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
@@ -21,6 +22,8 @@ const TabNavigation = () => {
                         iconName = focused ? "cloud-rain" : "cloud";
                     } else if (route.name === "Lab5") {
                         iconName = focused ? "cloud-sun" : "cloud";
+                    } else if (route.name === "Lab6") {
+                        iconName = focused ? "cloud-sun" : "cloud";
                     }
 
                     return <FontAwesome5 name={iconName} size={size} color={color} />;
@@ -31,6 +34,7 @@ const TabNavigation = () => {
             <Tab.Screen name="Lab2" component={Lab2} />
             <Tab.Screen name="Lab3" component={Lab3} />
             <Tab.Screen name="Lab5" component={Lab5} />
+            <Tab.Screen name="Lab6" component={Lab6} />
         </Tab.Navigator>
     );
 };
