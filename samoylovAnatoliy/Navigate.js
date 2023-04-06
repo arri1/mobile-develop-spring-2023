@@ -24,6 +24,7 @@ const Navigate = () => {
                 color: 'black', 
                 fontSize: 12,
                 tabBarLabelStyle: {fontSize: 12},
+                headerShown: false
             }}>
 
                 <Tab.Screen
@@ -33,7 +34,6 @@ const Navigate = () => {
                         tabBarLabel: 'Lab1',
                         tabBarIcon: ({ color, size }) => (
                             <Image style={styles.tinyLogo} source={spisok}/>
-                            
                         ) 
                     }}
                 />
