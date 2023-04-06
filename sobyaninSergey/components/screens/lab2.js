@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 var styles = StyleSheet.create({
   buttons: {
@@ -36,7 +36,7 @@ var styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     textAlign: "center",
-    maxWidth: 250,
+    maxWidth: 300,
     font: 16,
   },
 });
@@ -80,7 +80,7 @@ const Lab2 = () => {
       <Text style={styles.text}>
         {recourceType} title: {JSON.stringify(items["title"])}
       </Text>
-      <Text style={styles.text}>Размер круга из ЛР №1 равен: {size}</Text>
+      <Text style={styles.text}>Размер круга из REDUX LAB равен: {size}</Text>
     </View>
   );
 };
