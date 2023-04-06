@@ -6,7 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const Lab1 = () => {
 
-    const [todos, setTodos] = useState([])
+    const [todos, setTodos] = useState([''])
 
     const [countItem, setCountItem] = useState(todos.length)
 

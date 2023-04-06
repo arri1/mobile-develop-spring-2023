@@ -6,9 +6,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Lab1 from './components/Lab1';
 import Lab2 from './components/Lab2';
+import Lab3 from './components/Lab3';
 
 import spisok from './assets/spisok.png'
 import effect from './assets/effect.png'
+import cache from './assets/cache.png'
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +24,7 @@ const Navigate = () => {
                 color: 'black', 
                 fontSize: 12,
                 tabBarLabelStyle: {fontSize: 12},
+                headerShown: false
             }}>
 
                 <Tab.Screen
@@ -31,7 +34,6 @@ const Navigate = () => {
                         tabBarLabel: 'Lab1',
                         tabBarIcon: ({ color, size }) => (
                             <Image style={styles.tinyLogo} source={spisok}/>
-                            
                         ) 
                     }}
                 />
@@ -43,6 +45,18 @@ const Navigate = () => {
                         tabBarLabel: 'Lab2',
                         tabBarIcon: ({ color, size }) => (
                             <Image style={styles.tinyLogo} source={effect}/>
+                            
+                        ) 
+                    }}
+                />
+
+                <Tab.Screen
+                    name="UseMemo"
+                    component={Lab3}
+                    options={{
+                        tabBarLabel: 'Lab3',
+                        tabBarIcon: ({ color, size }) => (
+                            <Image style={styles.tinyLogo} source={cache}/>
                             
                         ) 
                     }}

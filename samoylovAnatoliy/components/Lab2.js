@@ -43,11 +43,17 @@ const Lab2 = () => {
     return (
         <SafeAreaView>
 
-            <View>
+            <View style={styles.container}>
                 <Text style={(color) ? styles.green : styles.red}>{text}</Text>
-                
-                <TextInput onChangeText={setText1} placeholder='Напишите...' style={styles.input}/>
-                <Button title='Сохранить' onPress={() => setText(text1)}/>
+  
+                <View style={{alignItems: 'center'}}>
+                    <View style={{flexDirection: 'row', marginBottom: 10}}>
+                        
+                        <TextInput onChangeText={setText1} placeholder='Write here...' style={styles.input}/>
+                        <Button title='Ok' onPress={() => setText(text1)}/>
+
+                    </View>
+                </View>
             </View>
 
         </SafeAreaView>
@@ -56,26 +62,33 @@ const Lab2 = () => {
 
 
 const styles = StyleSheet.create({
-
+    container: {
+        alignItems: 'center',
+        backgroundColor: 'silver',
+        marginTop: '50%',
+    },
     green: {
-        padding: 13,
+        padding: 10,
         textAlign: 'center',
         fontSize: 18,
         color: 'black',
-        borderRadius: 5,
+        borderRadius: 30,
         backgroundColor: 'green',
         borderWidth: 1,
-        marginTop: 20,
+        margin: 20,
     },
     red: {
-        padding: 13,
+        padding: 10,
         textAlign: 'center',
         fontSize: 18,
         color: 'black',
-        borderRadius: 5,
+        borderRadius: 30,
         backgroundColor: 'red',
         borderWidth: 1,
-        marginTop: 20,
+        margin: 20,
+    },
+    button: {
+        margin: 10
     },
     input: {
         fontSize: 16,
