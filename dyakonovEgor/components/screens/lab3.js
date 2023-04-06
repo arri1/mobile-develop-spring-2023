@@ -1,42 +1,39 @@
-import React, { useState, useMemo } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { format, isSameDay } from 'date-fns';
+import React, { useState, useMemo } from "react";
+import { View, Text, Button, StyleSheet } from "react-native";
+
+const calc = (a, b) => {
+  for (let i = 0; i < 10000000; i++) {}
+  return a + b;
+};
 
 const Lab3 = () => {
-  const [tasks, setTasks] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [newTask, setNewTask] = useState('');
+  const [numberOne, setNumberOne] = useState(0);
+  const [numberTwo, setNumberTwo] = useState(0);
 
-  const filteredTasks = useMemo(() => {
-    return tasks.filter(task => isSameDay(task.date, selectedDate));
-  }, [tasks, selectedDate]);
+  const resultWithoutMemo = calc(numberOne, numberTwo);
 
-  const handleAddTask = () => {
-    setTasks([
-      ...tasks,
-      { date: selectedDate, task: newTask },
-    ]);
-    setNewTask('');
-  };
+  const resultWithMemo = useMemo(
+    () => calc(numberOne, numberTwo),
+    [numberOne, numberTwo]
+  );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{format(selectedDate, 'MMMM do, yyyy')}</Text>
-      <TextInput
-        style={styles.input}
-        value={newTask}
-        onChangeText={setNewTask}
-        placeholder="Add task"
-      />
-      <TouchableOpacity style={styles.button} onPress={handleAddTask}>
-        <Text style={styles.buttonText}>Add Task</Text>
-      </TouchableOpacity>
-      <View style={styles.tasks}>
-        {filteredTasks.map(task => (
-          <View key={task.task} style={styles.task}>
-            <Text>{task.task}</Text>
-          </View>
-        ))}
+      <Text style={styles.label}>Number one: {numberOne}</Text>
+      <Text style={styles.label}>Number two: {numberTwo}</Text>
+      <Text style={styles.result}>
+        Result without useMemo: {resultWithoutMemo}
+      </Text>
+      <Text style={styles.result}>Result with useMemo: {resultWithMemo}</Text>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Increment number one"
+          onPress={() => setNumberOne(numberOne + 1)}
+        />
+        <Button
+          title="Increment number two"
+          onPress={() => setNumberTwo(numberTwo + 1)}
+        />
       </View>
     </View>
   );
@@ -45,44 +42,22 @@ const Lab3 = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 50,
-    backgroundColor: '#f5f5f5',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  label: {
+    fontSize: 20,
+    marginVertical: 10,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 20,
-    borderRadius: 5,
+  result: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginVertical: 20,
   },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  tasks: {
-    flex: 1,
-  },
-  task: {
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
+  buttonContainer: {
+    flexDirection: "row",
+    marginVertical: 20,
   },
 });
 
