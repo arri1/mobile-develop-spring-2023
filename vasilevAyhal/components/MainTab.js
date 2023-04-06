@@ -8,12 +8,16 @@ import StylesContainers from './style/containers';
 import StylesTexts from './style/texts';
 
 import HomeStack from './HomeStack';
-import Notification from './Notification';
 import Setting from './Setting';
+import Profile from './Profile';
+import Notification from './Notification';
+import GraphQl from './GraphQl'
 
 import IconInbox from '../assets/svg/inbox';
 import IconHome from '../assets/svg/home';
+import IconCalendar from '../assets/svg/calendar';
 import IconWrench from '../assets/svg/wrench';
+import IconUser from '../assets/svg/user';
 
 const Tab = createBottomTabNavigator();
 
@@ -58,6 +62,7 @@ const App = () => {
                                     focused ?
                                         <Animated.View style={[
                                             StylesContainers.default,
+                                            {position: 'absolute'},
                                             NavigationTheme.tabBarIconBackground,
                                             { width: size, height: size, transform: [{ scale: tabBarIconBackgroundAnim }] }
                                         ]}/>
@@ -67,10 +72,14 @@ const App = () => {
                                     {
                                         route.name == 'Home' ?
                                         <IconHome size={size} color={color}/>
-                                        // : (route.name == 'Notification') ?
-                                        // <IconInbox size={size} color={color}/>
+                                        : (route.name == 'Notification') ?
+                                        <IconInbox size={size} color={color}/>
                                         : (route.name == 'Setting') ?
                                         <IconWrench size={size} color={color}/>
+                                        : (route.name == 'Profile') ?
+                                        <IconUser size={size} color={color}/>
+                                        : (route.name == 'Calendar') ?
+                                        <IconCalendar size={size} color={color}/>
                                         : "null"
                                     }
                                 </View>
@@ -84,13 +93,18 @@ const App = () => {
                     children={() => <HomeStack />}
                 />
 
-                {/* <Tab.Screen name='Notification'
-                    children={() => <Notification removeBarBadge={removeBarBadge}/>}
-                    options={{ tabBarBadge: likeCount > 0 ? likeCount : null, }}
-                /> */}
+                <Tab.Screen name='Notification' options={{title: 'Redux'}}
+                    children={() => <Notification/>}
+                />
                 
-                <Tab.Screen name='Setting'
+                <Tab.Screen name='Setting' options={{title: 'UseMemo'}}
                     children={() => <Setting />}
+                />
+                <Tab.Screen name='Profile' options={{title: 'Профиль'}}
+                    children={() => <Profile />}
+                />
+                <Tab.Screen name='Calendar' options={{title: 'GraphQl'}}
+                    children={() => <GraphQl />}
                 />
 
             </Tab.Navigator> 

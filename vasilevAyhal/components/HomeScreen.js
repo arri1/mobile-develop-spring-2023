@@ -24,17 +24,17 @@ const HomeRoute = ({ navigation }) => {
                         <TouchableOpacity
                             activeOpacity={ 0.5 }
                             style={[StylesButtons.default, StylesButtons.buttonsDefault]}
-                            onPress={() => navigation.navigate("Notes")}
+                            onPress={() => navigation.navigate("Screen1")}
                         >
-                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Заметки </Text>
+                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> screen 1 </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             activeOpacity={ 0.5 }
                             style={[StylesButtons.default, StylesButtons.buttonsDefault]}
-                            onPress={() => navigation.navigate("SubjectsStack")}
+                            onPress={() => navigation.navigate("Screen2")}
                         >
-                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> Предметы </Text>
+                            <Text style={[StylesTexts.default, StylesTexts.lightColor]}> screen 2 </Text>
                         </TouchableOpacity>
                     </View>
                 </View>

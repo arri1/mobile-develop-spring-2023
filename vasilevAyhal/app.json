@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Diary",
-    "slug": "diary",
+    "name": "vasilevAyhal",
+    "slug": "vasilevAyhal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon_app.png",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive_icon_app.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.vas.diary"
+      "package": "com.vas"
     },
     "web": {
       "favicon": "./assets/icon_app_mini.png"
