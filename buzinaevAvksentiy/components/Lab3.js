@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-function slowFn(n) {
+const slowFn = n => {
   for (i = 0; i < 10000000; i++) {}
   return n*n*n;
 }
@@ -18,45 +18,36 @@ const Lab3 = () => {
   const [number, setNumber] = useState(0);
   const [count, setCount] = useState(0);
 
-  const double = useMemo(() => slowFn(number), [number]);
-  //const double = slowFn(number);
-  
+  const memo = useMemo(() => slowFn(number), [number]);
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <View>
-        <TextInput
-          placeholder="Число"
-          onChangeText={count => setCount(parseInt(count))}
-          keyboardType="numeric"
-          style={styles.input}
-        />
-        <Text style={styles.commonNumber}> useMemo: {~~count} </Text>
-        <View style={styles.buttonGroup}>
-          <TouchableOpacity
-            style={styles.commonButton}
-            onPress={() => {
-              setCount(count*count*count);
-            }}>
-            <Text style={styles.commonText}> куб </Text>
-          </TouchableOpacity>
-        </View>
-
         <TextInput
           placeholder="Число"
           onChangeText={number => setNumber(parseInt(number))}
           keyboardType="numeric"
           style={styles.input}
         />
-
         <Text style={styles.commonNumber}> no useMemo: {~~number} </Text>
-
         <View style={styles.buttonGroup}>
           <TouchableOpacity
             style={styles.commonButton}
             onPress={() => {
-              setNumber(slowFn(number));
+              setNumber(slowFn);
             }}>
             <Text style={styles.commonText}> куб </Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.commonNumber}> useMemo: {~~count} </Text>
+        <View style={styles.buttonGroup}>
+          <TouchableOpacity
+            style={styles.commonButton}
+            onPress={() => {
+              setCount(memo);
+            }}>
+            <Text style={styles.commonText}> куб(куб) </Text>
           </TouchableOpacity>
         </View>
       </View>
