@@ -10,14 +10,15 @@ const TabNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={() => ({
-        tabBarActiveTintColor: "white",
+        tabBarActiveTintColor: "#94a0e7",
+        tabBarInactiveTintColor: "#d0dded",
         headerShown: false,
         tabBarStyle: {
           height: 60,
           paddingHorizontal: 5,
           paddingTop: 10,
           paddingBottom: 5,
-          backgroundColor: "darkred",
+          backgroundColor: "black",
           position: "absolute",
         },
       })}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 var styles = StyleSheet.create({
   buttons: {
@@ -8,7 +9,7 @@ var styles = StyleSheet.create({
     justifyContent: "center",
     width: 100,
     height: 50,
-    backgroundColor: "#007FFF",
+    backgroundColor: "#556097",
     borderRadius: 100,
     marginTop: 10,
   },
@@ -19,12 +20,13 @@ var styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     maxWidth: 250,
+    fontSize: 12,
   },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#1e2140",
   },
   text: {
     marginTop: 10,
@@ -35,6 +37,7 @@ var styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     maxWidth: 250,
+    font: 16,
   },
 });
 
@@ -42,6 +45,7 @@ const Lab2 = () => {
   const [recourceType, setRecourceType] = useState("photos");
   const [index, setIndex] = useState("1");
   const [items, setItems] = useState("");
+  const size = useSelector((state) => state.size.value);
 
   useEffect(() => {
     fetch(`https://jsonplaceholder.typicode.com/${recourceType}/${index}`)
@@ -76,6 +80,7 @@ const Lab2 = () => {
       <Text style={styles.text}>
         {recourceType} title: {JSON.stringify(items["title"])}
       </Text>
+      <Text style={styles.text}>Размер круга из ЛР №1 равен: {size}</Text>
     </View>
   );
 };
