@@ -28,7 +28,7 @@ const Lab1: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Another Component</Text>
+        <Text>Another Component to change increment in Lab4</Text>
         <Button title="Increment" onPress={handleIncrement} />
         <Button title="Decrement" onPress={handleDecrement} />
       </View>
