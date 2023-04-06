@@ -9,8 +9,10 @@ import {
   TextInput,
   Image,
 } from 'react-native';
+import styles from '../style.js';
 import axios from 'axios';
 import {interpolate, set} from 'react-native-reanimated';
+import style from '../style.js';
 
 const sum = n => {
   let s = 1;
@@ -25,8 +27,8 @@ const first_number = 1;
 const second_number = 2;
 const task3 = () => {
   const result2 = useMemo(() => sum(second_number), [second_number]);
-  const [first, setFirst] = useState(350);
-  const [second, setSecond] = useState(248);
+  const [first, setFirst] = useState(400);
+  const [second, setSecond] = useState(400);
   return (
     <SafeAreaView
       style={{
@@ -34,59 +36,57 @@ const task3 = () => {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
+        flex: 1,
       }}>
+      <View style={{position: 'absolute', marginRight: '50%', top: 150}}>
+        <Text style={[styles.defaultText, styles.headerText1]}>Task 3</Text>
+      </View>
+
       <Image
-        style={{top:first, left: -120, width: 58, height: 102}}
+        style={{
+          position: 'absolute',
+          top: first,
+          left: 50,
+          width: 58,
+          height: 102,
+        }}
         source={require('../assets/yellow_car.png')}
       />
       <Image
-        style={{top:second, left:120, width: 58, height: 102}}
+        style={{
+          position: 'absolute',
+          top: second,
+          right: 50,
+          width: 58,
+          height: 102,
+        }}
         source={require('../assets/red_car.png')}
       />
-      <TouchableOpacity
-        style={{
-          marginTop: 10,
-          borderRadius: 10,
-          width: 120,
-          height: 40,
-          backgroundColor: '#2C98F0',
-        }}>
-        <Text
-          onPress={() => {
-            setFirst(first + sum(first_number));
-          }}
-          style={{
-            color: 'black',
-            fontSize: 20,
-            fontWeight: '800',
-            textAlign: 'center',
-          }}>
-          Вперед
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={{
-          marginTop: 10,
-          borderRadius: 10,
-          width: 120,
-          height: 40,
-          backgroundColor: '#2C98F0',
-        }}>
-        <Text
-          onPress={() => {
-            setSecond(second + result2);
-          }}
-          style={{
-            color: 'black',
-            fontSize: 20,
-            fontWeight: '800',
-            textAlign: 'center',
-          }}>
-          Вперед
-        </Text>
-      </TouchableOpacity>
+      <View style={{position: 'absolute', left: 35, top: 520}}>
+        <TouchableOpacity style={[styles.defaultButton, styles.borderButton]}>
+          <Text
+            onPress={() => {
+              setFirst(first + sum(first_number));
+            }}
+            style={styles.defaultText}>
+            Вперёд
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{position: 'absolute', right: 35, top: 520}}>
+        <TouchableOpacity style={[styles.defaultButton, styles.borderButton]}>
+          <Text
+            onPress={() => {
+              setSecond(second + result2);
+            }}
+            style={[styles.defaultText]}>
+            Вперёд
+          </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
 export default task3;
+
+
