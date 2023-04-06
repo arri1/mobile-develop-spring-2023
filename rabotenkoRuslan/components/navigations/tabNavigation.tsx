@@ -1,9 +1,13 @@
+import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
+import Counter from "../screens/lab4";
 import Calculator from "../screens/calculator";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -14,27 +18,33 @@ const TabNavigation = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'LabScreen1') {
-            iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline';
-          } else if (route.name === 'LabScreen2') {
-            iconName = focused ? 'ios-list' : 'ios-list-outline';
+          if (route.name === 'Lab1') {
+            iconName = focused ? 'ios-list-box' : 'ios-list';
+          } else if (route.name === 'Lab2') {
+            iconName = focused ? 'ios-list-box' : 'ios-list';
+          } else if (route.name === 'Lab3') {
+            iconName = focused ? 'ios-list-box' : 'ios-list';
           }
-            else if (route.name === 'CalculatorScreen') {
-            iconName = focused ? 'ios-list' : 'ios-list-outline';
+            else if (route.name === 'Calculator') {
+            iconName = focused ? 'ios-list-box' : 'ios-list';
+          }
+            else if (route.name === 'Lab4') {
+            iconName = focused ? 'ios-list-box' : 'ios-list';
           }
 
-          // You can return any component that you like here!
-          return <Ionicons  name={iconName} size={size} color={color} />;
+
+          return <Icon name={iconName} size={size} color={color} />;
         },
-         tabBarActiveTintColor: 'tomato',
-         tabBarInactiveTintColor: 'gray',
       })}
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+      }}
     >
       <Tab.Screen name="Lab1" component={Lab1} />
       <Tab.Screen name="Lab2" component={Lab2} />
       <Tab.Screen name="Lab3" component={Lab3} />
+      <Tab.Screen name="Lab4" component={Counter} />
       <Tab.Screen name="Calculator" component={Calculator} />
     </Tab.Navigator>
   );

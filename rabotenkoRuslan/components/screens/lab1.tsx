@@ -1,12 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {StyleSheet, Button, View, SafeAreaView, Text, Alert, BackHandler} from 'react-native';
+import { useDispatch } from 'react-redux';
+import { incrementCounter, decrementCounter } from '../store/actions';
+import { CounterActionTypes } from '../store/types';
+
 
 const Separator = () => <View style={styles.separator} />;
 
 const Lab1: React.FC = () => {
   // Создание state с помощью useState
   const [count, setCount] = useState<number>(0);
+  
+  const dispatch = useDispatch();
+  const handleIncrement: () => CounterActionTypes = () => {
+    dispatch(incrementCounter());
+  };
+  const handleDecrement: () => CounterActionTypes = () => {
+    dispatch(decrementCounter());
+  };
 
   // Обработчик нажатия на кнопку, который изменяет состояние count
   const onPress = () => {
@@ -15,6 +27,12 @@ const Lab1: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Another Component to change increment in Lab4</Text>
+        <Button title="Increment" onPress={handleIncrement} />
+        <Button title="Decrement" onPress={handleDecrement} />
+      </View>
+      <Separator />
       <View>
         <Text style={styles.title}>
           You pressed the button {count} times
