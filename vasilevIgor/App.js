@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import TabNavigation from "./components/navigations/tabNavigation"
+import TabNavigation from "./components/navigations/tabNavigation";
 
 const App = () => {
-  return (
-    <TabNavigation/>
-
-
-  )
+  return <TabNavigation />;
 };
 
 export default App;

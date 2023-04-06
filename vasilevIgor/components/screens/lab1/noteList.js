@@ -1,5 +1,5 @@
 import React from 'react';
-import NoteItem from './NoteItem';
+import NoteItem from './noteItem';
 import {StyleSheet, ScrollView, Dimensions} from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
