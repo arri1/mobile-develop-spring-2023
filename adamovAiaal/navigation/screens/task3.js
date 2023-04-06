@@ -29,6 +29,7 @@ const Task3 = (navigation) => {
   return (
     <SafeAreaView
       style={{
+        backgroundColor: "#DBDBDB",
         justifyContent: "center",
         flex: 1,
       }}
@@ -37,7 +38,9 @@ const Task3 = (navigation) => {
         <Text>{count}</Text>
       </View>
       <View style={{ alignItems: "center" }}>
-        <Text style={{ fontSize: 32, fontWeight: "800" }}>{result}</Text>
+        <Text style={{ fontSize: 32, fontWeight: "800", color: "#694D4B" }}>
+          {result}
+        </Text>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <TextInput
@@ -71,15 +74,20 @@ const styles = StyleSheet.create({
   inputs: {
     height: 40,
     margin: 12,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 5,
     padding: 10,
     minWidth: 170,
+    color: "#694D4B",
+    borderColor: "#694D4B",
+    backgroundColor: "#E1B1AD",
   },
   button: {
     borderRadius: 10,
     minWidth: "40%",
     minHeight: 45,
-    backgroundColor: "black",
+    backgroundColor: "#694D4B",
+    borderWidth: 3,
+    borderColor: "#E1B1AD",
   },
 });
