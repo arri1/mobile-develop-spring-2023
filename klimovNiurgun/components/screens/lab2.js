@@ -8,32 +8,43 @@ import {
 
 import Constants from "expo-constants";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { newText, newReversedText } from "../../redux/lab2Slice";
 
 const Lab2 = () => {
-    const [word, setWord] = useState("");
-    const [secondWord, setSecondWord] = useState("");
+    const text = useSelector((state) => state.lab2.text);
+
+    const state = useSelector(state => state);
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         let newWord = "";
-        for (let i = word.length - 1; i >= 0; i--) {
-            newWord += word[i];
+        for (let i = text.length - 1; i >= 0; i--) {
+            newWord += text[i];
         }
-        setSecondWord(newWord)
-    }, [word])
+        dispatch(newReversedText(newWord));
+    }, [text])
 
     return (
         <SafeAreaView style={styles.safeAreaContainer}>
             <View style={styles.mainContainer}>
-                <Text style={styles.greenText}>{secondWord}</Text>
-                <TextInput style={styles.blackText}
-                    multiline
-                    textAlign="center"
-                    editable
-                    value={word}
-                    onChangeText={(text) => {
-                        setWord(text);
-                    }}
-                />
+                <View style={styles.firstContainer}>
+                    <Text style={styles.greenText}>{state.lab2.reversedText}</Text>
+                </View>
+                <View style={styles.secondContainer}>
+                    <TextInput style={styles.blackText}
+                        multiline
+                        textAlign="center"
+                        editable
+                        value={text}
+                        onChangeText={(text) => {
+                            dispatch(newText(text));
+                        }}
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                    />
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -42,22 +53,30 @@ const Lab2 = () => {
 const styles = StyleSheet.create({
     safeAreaContainer: {
         flex: 1,
-        backgroundColor: "#787878",
+        backgroundColor: "white",
         paddingTop: Constants.statusBarHeight,
     },
     mainContainer: {
         flex: 1,
-        paddingBottom: 20,
         alignItems: "center",
+        justifyContent: "center"
+    },
+    firstContainer: {
+        marginLeft: 20,
+        marginRight: 20,
+    },
+    secondContainer: {
+        marginLeft: 20,
+        marginRight: 20,
     },
     greenText: {
-        color: "#4caf50",
-        fontSize: 30,
+        color: "black",
+        fontSize: 20,
         textAlign: "center",
     },
     blackText: {
-        color: "#000000",
-        fontSize: 30,
+        color: "black",
+        fontSize: 20,
         textAlign: "center",
         backgroundColor:"#ffffff"
     },

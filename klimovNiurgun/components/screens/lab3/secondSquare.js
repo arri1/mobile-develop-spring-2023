@@ -2,7 +2,7 @@ import { View, Text } from "react-native"
 import { useEffect, useState } from "react";
 
 const SecondSquare = () => {
-    const [position, setPosition] = useState({ x: 0, y: 100 });
+    const [position, setPosition] = useState({ x: 0, y: 150 });
     const [direction, setDirection] = useState(10);
     const [timesRun, setTimesRun] = useState(0);
     const [inter, setInter] = useState();
@@ -11,7 +11,7 @@ const SecondSquare = () => {
 
     const importantCalculation = () => {
         let t = 0;
-        for (let i = 0; i < 30_000_000; i++) { t = i; }
+        for (let i = 0; i < 1000_000_000; i++) { t = i; }
         return 42;
     }
 
@@ -26,7 +26,7 @@ const SecondSquare = () => {
                 }
                 return { x: position.x + direction, y: position.y }
             });
-        }, 100))
+        }, 50))
     }, []);
 
     if (timesRun === 5) {
@@ -39,7 +39,7 @@ const SecondSquare = () => {
             style={{
                 width: 50,
                 height: 50,
-                backgroundColor: "blue",
+                backgroundColor: "#C8CBDD",
                 position: "absolute",
                 left: position.x,
                 top: position.y,
@@ -49,7 +49,7 @@ const SecondSquare = () => {
             <Text
                 style={{
                     textAlign: "center",
-                    color: "white",
+                    color: "black",
                 }}
             >
                 {textValue}
