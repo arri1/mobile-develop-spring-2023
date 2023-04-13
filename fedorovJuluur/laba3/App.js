@@ -3,13 +3,13 @@ import { Button,Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView, View
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Cafe from './Cafe'
+import useState from 'component./useState'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function HomeScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Cafe/>
+      <useState/>
     </View>
   );
 }
