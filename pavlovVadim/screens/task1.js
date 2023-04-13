@@ -1,12 +1,15 @@
 import {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import styles from '../style.js';
+import wordSlice, {editWord} from '../store/wordSlice';
 import {setCustomText} from 'react-native-global-props';
 const signMassive = ['+', '-', '*', '/'];
 const task1 = () => {
   const [fisrstCount, setFisrstCount] = useState(0);
   const [secondCount, setSecondCount] = useState(0);
   const [sign, setSign] = useState(0);
+  const dispatch = useDispatch();
   const [result, setResult] = useState(0);
 
   return (
@@ -52,15 +55,19 @@ const task1 = () => {
           onPress={() => {
             if (signMassive[sign] === '+') {
               setResult(fisrstCount + secondCount);
+              dispatch(editWord(fisrstCount + secondCount));
             }
             if (signMassive[sign] === '*') {
               setResult(fisrstCount * secondCount);
+              dispatch(editWord(fisrstCount * secondCount));
             }
             if (signMassive[sign] === '-') {
               setResult(fisrstCount - secondCount);
+              dispatch(editWord(fisrstCount - secondCount));
             }
             if (signMassive[sign] === '/') {
               setResult(fisrstCount / secondCount);
+              dispatch(editWord(fisrstCount / secondCount));
             }
           }}
           style={styles.defaultButton}>
