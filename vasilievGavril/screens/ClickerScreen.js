@@ -11,18 +11,22 @@ import {
   Alert,
 } from "react-native";
 
+import { useSelector, useDispatch } from 'react-redux';
+
 const Separator = () => <View style={styles.separator} />;
 
 const ClickerScreen = (props) => {
-  const [count, setCount] = React.useState(0);
+  const count = useSelector((state) => state.count);
+  const dispatch = useDispatch();
 
-  const onClick = () => {
-    setCount(count + 1);
+  const handleIncrement = () => {
+    dispatch({ type: 'INCREMENT' });
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.welcome}>Вы кликнули {count} раз</Text>
-      <Button title="Кликать" onPress={onClick} />
+      <Button title="Increment" onPress={handleIncrement} />
     </SafeAreaView>
   );
 };

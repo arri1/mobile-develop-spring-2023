@@ -18,7 +18,7 @@ const complexCompure = (num) => {
   let i = 0;
   while (i < 100000000) i++;
   return num * 2;
-}
+};
 
 const HomeScreen = (props) => {
   const [number, setNumber] = useState(42);
@@ -38,7 +38,9 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('https://641589129a2dc94afe642419.mockapi.io/post/1');
+      const response = await fetch(
+        "https://641589129a2dc94afe642419.mockapi.io/post/1"
+      );
       const json = await response.json();
       setData(json);
     };
@@ -74,8 +76,7 @@ const HomeScreen = (props) => {
 
         <Button title="Изменить" onPress={() => setColored((prev) => !prev)} />
 
-        <Text>{data ? data.title : 'Loading...'}</Text>
-
+        <Text>{data ? data.title : "Loading..."}</Text>
       </View>
     </SafeAreaView>
   );
