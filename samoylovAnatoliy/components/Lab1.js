@@ -8,7 +8,7 @@ import plus from 'samoylovAnatoliy/assets/plus.png';
 
 const Lab1 = () => {
 
-    const [todos, setTodos] = useState([''])
+    const [todos, setTodos] = useState(['123'])
 
     const [countItem, setCountItem] = useState(todos.length)
 
