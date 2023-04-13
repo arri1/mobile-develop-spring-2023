@@ -1,0 +1,1 @@
+https://www.figma.com/file/ybMe1y4XPcqp0mfVfHZ9SB/react-native-app?node-id=0-1&t=ZPDCF0EMjDh1Dski-0
