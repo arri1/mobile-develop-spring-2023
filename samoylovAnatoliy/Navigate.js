@@ -20,11 +20,13 @@ const Navigate = () => {
 
             <Tab.Navigator initialRouteName="Feed" backBehavior='history' screenOptions={{
                 tabBarActiveTintColor: '#e91e63', 
-                tabBarActiveBackgroundColor: '#F8EDE5',
+                tabBarActiveBackgroundColor: '#C0CACA',
+                tabBarInactiveBackgroundColor: '#D6E1E1',
                 color: 'black', 
                 fontSize: 12,
                 tabBarLabelStyle: {fontSize: 12},
-                headerShown: false
+                headerShown: false,
+                tabBarShowLabel: false,
             }}>
 
                 <Tab.Screen

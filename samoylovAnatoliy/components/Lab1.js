@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { Node } from 'react';
-import {SafeAreaView, StyleSheet, Text, View, Button, Alert, FlatList, TouchableOpacity, TextInput, Modal} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View, Button, Alert, FlatList, TouchableOpacity, TextInput, Modal, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
+import plus from 'samoylovAnatoliy/assets/plus.png';
 
 const Lab1 = () => {
 
@@ -86,9 +88,11 @@ const Lab1 = () => {
             <View>
                 <View style={styles.list}>
                 
-                    <Text style={styles.title}>Кол-во дел: {countItem}</Text>
+                    <Text style={styles.title}>Count of items: {countItem}</Text>
 
-                    <AntDesign name='pluscircle' style={{color: 'green', fontSize: 50, marginTop: 15}} onPress={() => setModalWindow(true)}/>
+                    <TouchableOpacity onPress={() => setModalWindow(true)}>
+                        <Image source={plus} style={styles.image}/>
+                    </TouchableOpacity>
 
                     <FlatList data={todos} renderItem={({item}) => (
                         <TouchableOpacity onPress={() => deleteItem(item.key)}>
@@ -129,7 +133,7 @@ const Lab1 = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'silver',
+        backgroundColor: '#AFC9C5',
     },
     list: {
         alignItems: 'center',
@@ -140,24 +144,30 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     title: {
-        fontSize: 18,
+        fontSize: 28,
         textAlign: 'center',
         color: 'black',
-        marginTop: 5,
+        marginTop: 20,
+        fontFamily: 'AlumniSans-Regular',
     },
     text: {
         padding: 13,
         textAlign: 'center',
         color: 'black',
         borderRadius: 5,
-        backgroundColor: '#678CAD',
+        backgroundColor: '#7A8C89',
         borderWidth: 1,
         marginTop: 20,
+        fontFamily: 'AlumniSans-Regular',
+        fontSize: 22,
     },
     input: {
         fontSize: 16,
         borderBottomWidth: 2,
         borderColor: 'black',
+    },
+    image: {
+        marginTop: 15,
     },
 });
 

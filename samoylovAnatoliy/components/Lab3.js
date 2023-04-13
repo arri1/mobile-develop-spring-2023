@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect, useCallback} from 'react';
+import React, {useState, useMemo, useEffect, useCallback,} from 'react';
 import {Node} from 'react';
 import {
   SafeAreaView,
@@ -10,8 +10,12 @@ import {
   FlatList,
   TouchableHighlight,
   TextInput,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
+import plussquare from 'samoylovAnatoliy/assets/plussquare.png';
 
 const Lab3 = () => {
   const [value1, setValue1] = useState(0);
@@ -27,7 +31,7 @@ const Lab3 = () => {
   const memoFunc = useMemo(() => hardFunc(num), [num]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.mainWindow}>
       <View style={styles.container}>
         <View style={styles.buttonStyle}>
           <View style={{alignItems: 'center'}}>
@@ -35,18 +39,16 @@ const Lab3 = () => {
               <Text style={styles.text}>{value1}</Text>
               <AntDesign
                 name="reload1"
-                style={{color: 'red', fontSize: 30}}
+                style={{color: 'black', fontSize: 30, margin: 5}}
                 onPress={() => setValue1(0)}
               />
             </View>
           </View>
 
           <View style={{alignItems: 'center'}}>
-            <AntDesign
-              name="plussquare"
-              style={{color: 'green', fontSize: 70}}
-              onPress={() => setValue1(value1 + hardFunc())}
-            />
+            <TouchableOpacity onPress={() => setValue1(value1 + hardFunc())}>
+              <Image source={plussquare}/>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -56,18 +58,16 @@ const Lab3 = () => {
               <Text style={styles.text}>{value2}</Text>
               <AntDesign
                 name="reload1"
-                style={{color: 'red', fontSize: 30}}
+                style={{color: 'black', fontSize: 30, margin: 5}}
                 onPress={() => setValue2(0)}
               />
             </View>
           </View>
 
           <View style={{alignItems: 'center'}}>
-            <AntDesign
-              name="plussquare"
-              style={{color: 'green', fontSize: 70}}
-              onPress={() => setValue2(value2 + memoFunc)}
-            />
+            <TouchableOpacity onPress={() => setValue2(value2 + memoFunc)}>
+              <Image source={plussquare}/>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -76,25 +76,30 @@ const Lab3 = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: 'silver',
-    marginTop: '30%',
-  },
-  text: {
-    color: 'black',
-    fontSize: 30,
-  },
-  buttonStyle: {
-    margin: 15,
-    width: 115,
-  },
-  input: {
-    fontSize: 16,
-    borderBottomWidth: 2,
-    borderColor: 'black',
-    width: 150,
-  },
+    mainWindow: {
+        backgroundColor: '#AFC9C5',
+        flex: 1,
+    },
+    container: {
+        alignItems: 'center',
+        backgroundColor: '#88A19A',
+        marginTop: '30%',
+    },
+    text: {
+        color: '#494D4D',
+        fontSize: 48,
+        fontFamily: 'AlumniSans-Regular',
+    },
+    buttonStyle: {
+        margin: 15,
+        width: 115,
+    },
+    input: {
+        fontSize: 16,
+        borderBottomWidth: 2,
+        borderColor: 'black',
+        width: 150,
+    },
 });
 
 export default Lab3;

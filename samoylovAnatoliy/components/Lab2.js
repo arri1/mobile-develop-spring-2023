@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Node } from 'react';
 import {SafeAreaView, StyleSheet, Text, View, Button, Alert, FlatList, TouchableHighlight, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Lab2 = () => {
 
@@ -41,17 +42,21 @@ const Lab2 = () => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.mainWindow}>
 
             <View style={styles.container}>
                 <Text style={(color) ? styles.green : styles.red}>{text}</Text>
   
                 <View style={{alignItems: 'center'}}>
-                    <View style={{flexDirection: 'row', marginBottom: 10}}>
+                    <View style={{flexDirection: 'row', marginBottom: 20}}>
                         
                         <TextInput onChangeText={setText1} placeholder='Write here...' style={styles.input}/>
-                        <Button title='Ok' onPress={() => setText(text1)}/>
-
+                        <AntDesign
+                            name="checkcircleo"
+                            style={{color: 'black', fontSize: 40}}
+                            onPress={() => setText(text1)}
+                        />
+                        
                     </View>
                 </View>
             </View>
@@ -62,38 +67,48 @@ const Lab2 = () => {
 
 
 const styles = StyleSheet.create({
+    mainWindow: {
+        backgroundColor: '#AFC9C5',
+        flex: 1
+    },
     container: {
         alignItems: 'center',
-        backgroundColor: 'silver',
+        backgroundColor: '#88A19A',
         marginTop: '50%',
+        
     },
     green: {
         padding: 10,
         textAlign: 'center',
-        fontSize: 18,
+        fontSize: 22,
         color: 'black',
         borderRadius: 30,
-        backgroundColor: 'green',
+        backgroundColor: '#0BDA51',
         borderWidth: 1,
         margin: 20,
+        fontFamily: 'AlumniSans-Regular',
     },
     red: {
         padding: 10,
         textAlign: 'center',
-        fontSize: 18,
+        fontSize: 22,
         color: 'black',
         borderRadius: 30,
-        backgroundColor: 'red',
+        backgroundColor: '#E52B50',
         borderWidth: 1,
         margin: 20,
+        fontFamily: 'AlumniSans-Regular',
     },
     button: {
         margin: 10
     },
     input: {
-        fontSize: 16,
+        fontSize: 20,
         borderBottomWidth: 2,
         borderColor: 'black',
+        marginRight: 15,
+        fontFamily: 'AlumniSans-Regular',
+        textAlign: 'center'
     },
 });
 
