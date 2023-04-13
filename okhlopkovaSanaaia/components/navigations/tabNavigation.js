@@ -4,7 +4,6 @@ import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
 import Lab6 from "../screens/lab6";
-
 import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();

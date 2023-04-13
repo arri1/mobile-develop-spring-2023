@@ -43,10 +43,10 @@ const Lab6 = () => {
                 <Text style={styles.title}>{item.name}</Text>
                 <Text style={styles.text}>Birth year: {item.birthYear}</Text>
                 <Text style={styles.text}>Gender: {item.gender}</Text>
+                <Text style={styles.text}>Height: {item.height} cm</Text>
                 <Text style={styles.text}>
                   Home world: {item.homeworld.name}
                 </Text>
-                <Text style={styles.text}>Height: {item.height} cm</Text>
               </View>
             );
           })}
