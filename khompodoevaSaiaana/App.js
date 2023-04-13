@@ -2,6 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Image } from 'react-native';
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 import Lab1 from './screens/lab1'
 import Lab2 from './screens/lab2'
 import Lab3 from './screens/lab3'
@@ -46,9 +48,11 @@ const MyTabs = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <MyTabs/>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <MyTabs/>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
