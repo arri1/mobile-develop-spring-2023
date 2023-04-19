@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
      },
       main: {
         display: 'flex',
-        backgroundColor: '#A8E6CF',
+        backgroundColor: '#3EC1D3',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%'
@@ -66,18 +66,21 @@ export const styles = StyleSheet.create({
         with:"100%"
       },
      text:{
+        textShadowColor: 'black',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 1,
+        fontWeight:"bold",
         top:100,
-        left:45,
-        fontSize:28,
-        color:"black",
-        fontWeight:"normal"
+        left:55,
+        fontSize:30,
+        color:"orange",
      },
      Square:{
       right:50,
       top: 250,
     width: 90,
     height:90,
-    backgroundColor: '#2E8B57'
+    backgroundColor: 'green'
     },
     Circle:{
       right:50,
@@ -85,7 +88,7 @@ export const styles = StyleSheet.create({
       width:90,
       height:90,
       borderRadius: 180/2,
-      backgroundColor: '#536872'
+      backgroundColor: '#8C15D1'
     },
     Triangle:{
       right:50,
