@@ -1,65 +1,61 @@
-import { Text, View, TouchableOpacity, SafeAreaView, Image } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
-import { useState,useMemo } from 'react'
-import { styles } from '../compot/StylesLab3'
+import React, { useMemo, useState } from 'react'
+import { View, Text, TouchableOpacity,ImageBackground } from 'react-native'
+import { styles } from '../styles/StylesLab3'
+
+const Memo = () => {
+  const [count, setCount] = useState(0)
+
+  const ff = useMemo(() => {
+    let result = 0
+    for (let i = 0; i < 100000000; i++) {
+      result += i
+    }
+    return result
+  }, [])
+
+  return (
+    <View style={styles.main}>
+      <Text style={styles.text}>Count: {count}{'\n'} ff: {ff}</Text>
+      <TouchableOpacity style={styles.button} onPress={() => setCount(count + 1)}>
+        <Text style={styles.buttontext}>memo</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+const Nomemo = () => {
+  const [count, setCount] = useState(0)
+
+  const ff = () => {
+    let result = 0
+    for (let i = 0; i < 100000000; i++) {
+      result += i
+    }
+    return result
+  }
+
+  return (
+    <View style={styles.main2}>
+      <Text style={styles.text2}>Count: {count} {'\n'} ff: {ff()}</Text>
+      <TouchableOpacity style={styles.button2} onPress={() => setCount(count + 1)}>
+        <Text style={styles.buttontext}>nomemo</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
 
 const Lab3 = () => {
-
-    const [count, setCount] = useState(0)
-    const [count2, setCount2] = useState(0)
-
-    const result = useMemo(() => { return Sum(4 * count + count2);},[count]) 
-    //const result = Sum(4 * count + count2);
-
-    return(
-        <SafeAreaView >
-        <View style={styles.main}>
-        <View style={styles.header}>
-          <View style={{width:"50%"}}>
-            <Text style={styles.text}>Lab Two</Text>
-          </View>
-        </View>
-        <ScrollView horizontal>
-        <Image source={require('../assets/1.png')} style={{top:30,height:110,width:110}}/>
-        <Image source={require('../assets/2.png')} style={{top:30,height:110,width:110}}/>
-        <Image source={require('../assets/3.png')} style={{top:30,height:110,width:110}}/>
-        <Image source={require('../assets/4.png')} style={{top:30,height:110,width:110}}/>
-        <Image source={require('../assets/5.png')} style={{top:30,height:110,width:110}}/>
-        </ScrollView>
-
-        <Text style={[{top:-110},styles.buttonText]}>
-        Количество: {count}{"\n"} +100: {count2}
-        </Text>
-
-        <View style={styles.container}>
-        <TouchableOpacity style={styles.button}
-            onPress={() => {setCount(count-1)}}
-            >
-            <Text style={styles.buttonText}>-1</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.button}
-            onPress={() => {setCount(count+1)}}
-            >
-            <Text style={styles.buttonText}>+1</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button}
-            onPress={() => {setCount2(count2+100)}}
-          >
-            <Text style={styles.buttonText}>+100</Text>
-        </TouchableOpacity>
-        </View>
-        </View>
-        </SafeAreaView>
-  )}
-
-  function Sum(num) {
-    console.log("Sum(num);",num);
-    let i=0;
-    if(num<=0){return 0;} 
-    else {while(i < 20000000) i++;}
-    return num;
+  const image = require('../assets/10.jpg')
+  return (
+    <>
+      <ImageBackground style={{flex:1}} source={image}>
+        <View style={styles.header}/>
+        <Text style={styles.text3}>Lab Three</Text>
+        <Memo />
+        <Nomemo />
+      </ImageBackground>
+    </>
+  )
 }
 
 export default Lab3;
