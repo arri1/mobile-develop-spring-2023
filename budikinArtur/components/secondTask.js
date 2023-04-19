@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 const SecondScreen = () => {
   const [counter, setCounter] = useState(0);
@@ -8,28 +10,31 @@ const SecondScreen = () => {
   const number = 50;
   useEffect(() => {
     if (counter > number) {
-      setWord("число меньше");
-    } 
-    else if (counter < number) {
-      setWord("число больше");
-    } 
-    else setWord("Вы угадали");
+      setWord("Число меньше");
+    } else if (counter < number) {
+      setWord("Число больше");
+    } else setWord("Вы угадали");
   }, [check]);
-
+  const [fontLoaded] = useFonts({
+    "Monts": require("../assets/fonts/Montserrat-Medium.ttf"),
+  });
+useEffect(()=>{
+  async function prepare(){
+    await SplashScreen.preventAutoHideAsync();
+  }
+  prepare();
+},[]);
+  if (!fontLoaded) {
+    return undefined;
+  }else{
+    SplashScreen.hideAsync();
+  }
   return (
-    <View>
+    <View style={styles.main}>
       <Text style={styles.number}>{counter}</Text>
       <Text style={styles.text}>{word}</Text>
-      
+
       <View style={styles.buttonGroup}>
-      <TouchableOpacity
-          style={styles.commonButton}
-          onPress={() => {
-            setChek(check+1);
-          }}
-        >
-          <Text style={styles.commonText}>Проверить</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={styles.commonButton}
           onPress={() => {
@@ -58,7 +63,16 @@ const SecondScreen = () => {
         >
           <Text style={styles.commonText}>-10</Text>
         </TouchableOpacity>
+       
       </View>
+      <TouchableOpacity
+          style={styles.checkButton}
+          onPress={() => {
+            setChek(check+1);
+          }}
+        >
+          <Text style={styles.commonText}>Проверить</Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -67,42 +81,60 @@ const random = () => {
 };
 
 const styles = StyleSheet.create({
-  buttonGroup: {
-    width: "100%",
-    display: "flex",
+  main: {
+    backgroundColor: "#606C38",
     alignItems: "center",
+    flex: 1,
+  },
+  buttonGroup: {
+    marginTop:28,
+    flexDirection: "row",
+    gap:18,
+  },
+
+  checkButton: {
+    marginTop: 14,
+    width: 118,
+    height: 43,
+    backgroundColor: "#283618",
+    justifyContent: "center",
+    borderRadius: 4,
   },
 
   number: {
+    fontFamily:"Monts",
+    marginTop: 113,
     fontSize: 50,
-    textAlign: "center",
-    width: "100%",
-    padding:10,
-    marginBottom: 5,
+    fontweight: 500,
+    fontsize: 45,
+    lineHeight: 53,
+    color: "#FEFAE0",
   },
 
   text: {
+    fontFamily:"Monts",
+    marginTop:28,
+    fontStyle: "normal",
     fontSize: 25,
-    textAlign: "center",
-    width: "100%",
-    padding: 10,
-    marginBottom: 10,
+    lineheight: 29,
+    color: "#FEFAE0",
   },
 
   commonButton: {
-    alignItems: "center",
     justifyContent: "center",
-    marginVertical: 2,
     borderRadius: 4,
-    backgroundColor: "black",
-    width: 150,
-    height: 50,
+    width: 80,
+    height: 43,
+    backgroundColor: "#283618",
   },
   commonText: {
-    fontSize: 15,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
+    fontFamily:"Monts",
+    fontStyle: "normal",
+    fontweight: 500,
+    fontSize: 14,
+    lineheight: 16,
+    textAlign: "center",
+    color: "#FEFAE0",
   },
 });
 
