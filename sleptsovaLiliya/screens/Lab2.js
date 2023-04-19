@@ -1,43 +1,38 @@
-import { Text, View, SafeAreaView, Image, Button} from 'react-native'
-import {useState, useEffect, useRef} from 'react'
-import {styles} from '../compot/StylesLab2'
+import React, { useState, useEffect } from 'react'
+import { View, Image, TouchableOpacity, Text } from 'react-native'
+import {styles} from '../styles/StylesLab2'
 
 const Lab2 = () => {
-  const intervalRef = useRef()
-  const [count, setCount] = useState(0)
+  const [randomImage, setRandomImage] = useState('https://picsum.photos/300/300')
 
   useEffect(() => {
-    intervalRef.current = setInterval(
-      () => setCount((count) => count + 1),
-      1000
-    )
-
-    return () => {
-      clearInterval(intervalRef.current)
-    }
+    const fetchImage = async () => {
+      const response = await fetch('https://picsum.photos/300/300')
+      setRandomImage(response.url)
+    };
+    fetchImage()
   }, [])
-    
-    return(
-        <SafeAreaView >
-        <View style={styles.main}>
-        <View style={styles.header}>
-          <View style={{width:"50%"}}>
-            <Text style={styles.text}>Lab Two</Text>
-          </View>
-          <View style={{width:"50%",alignItems:"flex-end"}}>
-            <Image source={require('../assets/at.png')}
-            style={{left:-50,height:295,width:310}}/>
-          </View>
+
+  const getRandomImage = async () => {
+    const response = await fetch('https://picsum.photos/300/300')
+    setRandomImage(response.url)
+  }
+
+  return (
+    <View style={styles.main}>
+      <View style={styles.header}>
+        <View style={{width:"100%"}}>
+          <Text style={styles.text}>Lab Two</Text>
         </View>
-        <Text style={{ fontSize: 100 }}>{count}</Text>
-        <Button
-          title="Stop"
-          onPress={() => {
-            clearInterval(intervalRef.current)
-        }}/>
-        </View>
-        </SafeAreaView>
-    )
+      </View>
+
+      {randomImage && <Image source={{ uri: randomImage }} style={styles.image} />}
+      
+      <TouchableOpacity style={styles.button} onPress={getRandomImage}>
+        <Text style={styles.buttontext}>Generate Random Image</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }
 
 export default Lab2;
