@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { counterSlice } from "../../store";
@@ -6,7 +6,7 @@ import { counterSlice } from "../../store";
 const Lab1 = () => {
   const [counter, setCounter] = useState(0);
   const dispatch = useDispatch();
-  
+
   return (
     <View>
       <Text style={styles.number}>{counter}</Text>
