@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 
   title: {
     textAlign: "center",
-    color: "blue",
+    color: "#FF0000",
     fontSize: 20,
     marginTop: 50,
     paddingBottom: 50,

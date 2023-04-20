@@ -24,7 +24,7 @@ const Navigator = () => {
             } else if (route.name == "Lab2") {
               iconName = focused ? "logo-octocat" : "logo-octocat";
             } else if (route.name == "Lab3") {
-              iconName = focused ? "alert" : "alert-outline";
+              iconName = focused ? "bug" : "bug-outline";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
