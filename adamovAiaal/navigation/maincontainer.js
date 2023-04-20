@@ -1,5 +1,6 @@
 import * as React from "react";
 import { StatusBar } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -16,7 +17,7 @@ const MainContainer = () => {
     <NavigationContainer>
       <StatusBar backgroundColor="#694D4B" />
       <Tab.Navigator
-        screenOptions={{
+        screenOptions={({ route }) => ({
           tabBarInactiveTintColor: "#DBDBDB",
           tabBarActiveTintColor: "#E1B1AD",
           tabBarStyle: {
@@ -30,7 +31,29 @@ const MainContainer = () => {
           headerTitleStyle: {
             color: "#E1B1AD",
           },
-        }}
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            switch (route.name) {
+              case "Task1":
+                iconName = focused ? "flask" : "flask-outline";
+                break;
+              case "Task2":
+                iconName = focused
+                  ? "game-controller"
+                  : "game-controller-outline";
+                break;
+
+              case "Task3":
+                iconName = focused ? "eye" : "eye-outline";
+                break;
+              case "Task4":
+                iconName = focused ? "trending-up-outline" : "logo-usd";
+              default:
+                break;
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
       >
         <Tab.Screen name="Task1" component={Task1Screen} />
         <Tab.Screen name="Task2" component={Task2Screen} />
