@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Text, View} from 'react-native';
 
+
 const Cat = props => {
   const [isHungry, setIsHungry] = useState(true);
 
@@ -18,7 +19,7 @@ const Cat = props => {
   );
 };
 
-const useState = () => {
+const UseStates = () => {
   return (
     <>
       <Cat name="Andrew" />
@@ -26,4 +27,4 @@ const useState = () => {
   );
 };
 
-export default useState;
+export default UseStates;
