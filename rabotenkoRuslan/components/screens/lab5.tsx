@@ -1,7 +1,7 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/client';
 import { View, Text } from 'react-native';
+import { gql } from 'graphql-tag';
 
 const GET_BOOKS = gql`
   query GetBooks {
