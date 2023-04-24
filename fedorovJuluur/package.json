@@ -1,0 +1,23 @@
+{
+  "name": "fedorovjuluur",
+  "version": "1.0.0",
+  "description": "first",
+  "main": "app.js",
+  "dependencies": {
+    "expo": "^47.0.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PKSanother1/mobile-develop-spring-2023.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PKSanother1/mobile-develop-spring-2023/issues"
+  },
+  "homepage": "https://github.com/PKSanother1/mobile-develop-spring-2023#readme"
+}
