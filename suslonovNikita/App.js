@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import UseState from './UseState';
+import UseEffect from './UseEffect';
 
 export default function App() {
   return (
@@ -8,6 +9,7 @@ export default function App() {
       <Text>Suslonov</Text>
       <StatusBar style="auto" />
       <UseState/>
+      <UseEffect/>
     </View>
   );
 }
