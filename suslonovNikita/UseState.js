@@ -3,7 +3,7 @@ import { View, Text } from "react-native"
 const UseState = () => {
     const a = useState("using useState")
     return(
-        <View>
+        <View style={{flex:1}}>
             <Text>{a}</Text>
         </View>
     )
