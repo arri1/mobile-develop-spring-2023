@@ -4,8 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import UseState from './UseState';
 import UseEffect from './UseEffect';
+import UseMemo from './UseMemo';
 import Bus from './assets/svg/bus';
 import Basketball from './assets/svg/basketball';
+import Credit from './assets/svg/credit';
 
 const Tab = createBottomTabNavigator();
 export default function App() {
@@ -22,6 +24,8 @@ export default function App() {
                             <Basketball/>
                             : (route.name == 'UseEffect') ?
                             <Bus/>
+                            : (route.name == 'UseMemo') ?
+                            <Credit/>
                             : null
                           }
                         </View>
@@ -34,6 +38,9 @@ export default function App() {
                 />
                 <Tab.Screen name='UseEffect'
                     children={() => <UseEffect/>}
+                />
+                <Tab.Screen name='UseMemo'
+                    children={() => <UseMemo/>}
                 />
             </Tab.Navigator> 
         </NavigationContainer>
