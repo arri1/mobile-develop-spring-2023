@@ -1,15 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import { Node } from 'react';
-import {SafeAreaView, StyleSheet, Text, View, Button, Alert, FlatList, TouchableOpacity, TextInput, Modal, Image} from 'react-native';
+import {
+    SafeAreaView, 
+    StyleSheet, 
+    Text, 
+    View, 
+    FlatList, 
+    TouchableOpacity, 
+    TextInput, 
+    Modal, 
+    Image,
+    Button,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import plus from 'samoylovAnatoliy/assets/plus.png';
 
+import {useSelector, useDispatch} from 'react-redux';
+import {addFavorite, removeFavorite} from '../redux/actions';
+
 const Lab1 = () => {
 
     const [todos, setTodos] = useState(['123'])
-
     const [countItem, setCountItem] = useState(todos.length)
 
     useEffect(() => {
@@ -20,24 +33,24 @@ const Lab1 = () => {
         setData([todos])
         setCountItem(todos.length)
     }, [todos]);
-    
+
     const setData = async ([value]) => {
         try {
-          const jsonValue = JSON.stringify(value)
-          await AsyncStorage.setItem('todos', jsonValue)
+            const todosValue = JSON.stringify(value)
+            await AsyncStorage.setItem('todos', todosValue)            
         } catch (e) {
-          console.log(e)
+            console.log(e)
         }
-      }
+    }
 
     const getData = async () => {
         try {
-          const value = await AsyncStorage.getItem('todos')
-          setTodos(JSON.parse(value))
+            const value = await AsyncStorage.getItem('todos')
+            setTodos(JSON.parse(value))
         } catch(e) {
-          console.log(e)
+            console.log(e)
         }
-      }
+    }
 
     const addItem = (text) => {
 
@@ -48,82 +61,170 @@ const Lab1 = () => {
                     ...list
                 ]
             });
-            alert('Задача добавлена')
         } else {
             alert('Вы ничего не ввели')
         }
-
-        console.log(todos.length)
-        
     };
 
-    const deleteItem = (key) => {
+    const deleteItem = (key, item) => {
         setTodos((list) => {
             return list.filter(todos => todos.key != key)
         });
-        alert('Удалено')
+        handleRemoveFavorite(item)
     };
 
     const AddBar = ({addHandler}) => {
-        
         const [text, setText] = useState('');
-
         const addText = (text) => {
             setText(text);
         };
 
         return (
             <View style={styles.box}>
-                <TextInput onChangeText={addText} placeholder='Впишите задачу...' style={styles.input}/>
-                <Button title='Ок' onPress={() => addHandler(text)}/>
+                <TextInput onChangeText={addText} placeholder='Write here...' style={styles.input} maxLength={30}/>
+                <AntDesign
+                    name="checkcircleo"
+                    style={{color: 'black', fontSize: 40}}
+                    onPress={() => addHandler(text)}
+                />
             </View>
         );
     };
 
+    const [favWindow, setFavWindow] = useState(false)
     const [modalWindow, setModalWindow] = useState(false)
 
+    /* --------------------------Redux---------------------------- */
+    const {favorites} = useSelector(state => state.favReducer);
+    const dispatch = useDispatch();
+
+    const addToFavorites = task => dispatch(addFavorite(task));
+    const removeFromFavorites = task => dispatch(removeFavorite(task));
+
+    const handleAddFavorite = task => {
+        addToFavorites(task);
+    };
+
+    const handleRemoveFavorite = task => {
+        removeFromFavorites(task);
+    };
+
+    const checkFav = (task) => {
+        if (favorites.filter(item => item.key === task.key).length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+    /* -------------------------------------------------------- */
+
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, {paddingBottom: 165}]}>
+            
+            <Text style={styles.title}>Count of items: {countItem}</Text>
 
-            <View>
-                <View style={styles.list}>
-                
-                    <Text style={styles.title}>Count of items: {countItem}</Text>
-
-                    <TouchableOpacity onPress={() => setModalWindow(true)}>
-                        <Image source={plus} style={styles.image}/>
-                    </TouchableOpacity>
-
-                    <FlatList data={todos} renderItem={({item}) => (
-                        <TouchableOpacity onPress={() => deleteItem(item.key)}>
+            <View style={{alignItems: 'center', marginTop: 10, marginBottom: 15}}>
+                <TouchableOpacity onPress={() => setModalWindow(true)}>
+                    <Image source={plus}/>
+                </TouchableOpacity>
+            </View>
+           
+            <View style={styles.list}>
+            
+                <FlatList data={todos} renderItem={({item}) => (
+                    <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1, marginBottom: 10}}>
+                        
+                        <AntDesign 
+                            name={checkFav(item) ? 'star' : 'staro'} 
+                            style={{color: '#FA6616', fontSize: 30}} 
+                            onPress={() =>
+                                checkFav(item) ? handleRemoveFavorite(item) : handleAddFavorite(item)
+                            }
+                        />
+                        
+                        <TouchableOpacity activeOpacity={0.8}>
                             <Text style={styles.text}>{item.text}</Text>
                         </TouchableOpacity>
-                    )}/>
+        
+                        <AntDesign 
+                            name='delete' 
+                            style={{color: '#E52B50', fontSize: 30, marginTop: 20, marginLeft: 10}} 
+                            onPress={() => deleteItem(item.key, item)}
+                        />
+    
+                    </View>
+                )} showsVerticalScrollIndicator={false}/>
 
-
-
-                    <Modal visible={modalWindow} animationType='slide' transparent={true} >
-                        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <View style={{width: 300, height: 250, backgroundColor:'white'}}>
-
-                                <View style={{flexDirection:'row-reverse', marginTop: 5, marginLeft: 5}}>
-                                    <AntDesign name='close' style={{color: 'red', fontSize: 40}} onPress={() => setModalWindow(false)}/>
-                                </View>
-                        
-                                <Text style={styles.title}>Добавление</Text>
-
-                                <View style={{alignItems:'center'}}>
-                                    <AddBar addHandler={addItem}/>
-                                </View>
-
-                            </View>
-                        </View>
-                    </Modal>
-                    
-                </View> 
             </View>
 
+            <View style={{alignItems: 'center'}}>
+                <TouchableOpacity onPress={() => setFavWindow(true)}>
+                    <Text style={styles.titleChild}>Favorites tasks</Text>
+                </TouchableOpacity>
+                
+            </View>
             
+            {/* -------------list of favorites tasks------------------ */}
+            <Modal visible={favWindow} animationType='fade'>
+                <View style={styles.container}>
+                    {favorites.length === 0 ? (
+                        <Text style={styles.title}>
+                            Add a task to the list.
+                        </Text>
+                    ) : (
+                        <FlatList data={favorites} renderItem={({item}) => (
+                            <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1, marginBottom: 10}}>
+                                
+                                <AntDesign 
+                                    name='star'
+                                    style={{color: '#FA6616', fontSize: 30}} 
+                                    onPress={() => handleRemoveFavorite(item)}
+                                />
+                                
+                                <TouchableOpacity activeOpacity={0.8}>
+                                    <Text style={styles.text}>{item.text}</Text>
+                                </TouchableOpacity>
+                
+                                <AntDesign 
+                                    name='delete' 
+                                    style={{color: '#E52B50', fontSize: 30, marginTop: 20, marginLeft: 10}} 
+                                    onPress={() => deleteItem(item.key, item)}
+                                />
+            
+                            </View>
+                        )} showsVerticalScrollIndicator={false}/>
+                    )}
+
+                    <View style={{alignItems: 'center', marginBottom: 15, marginTop: 10}}>
+                        <TouchableOpacity onPress={() => setFavWindow(false)}>
+                            <AntDesign 
+                                name='back' 
+                                style={{color: '#000000', fontSize: 45}} 
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View> 
+            </Modal>
+            
+            {/* -------------add task modal window------------------ */}
+            <Modal visible={modalWindow} animationType='slide' transparent={true} >
+                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{width: 300, height: 250, backgroundColor:'#788583', borderRadius: 10}}>
+
+                        <View style={{flexDirection:'row-reverse', marginTop: 5, marginLeft: 5}}>
+                            <AntDesign name='close' style={{color: '#E52B50', fontSize: 40}} onPress={() => setModalWindow(false)}/>
+                        </View>
+                
+                        <Text style={styles.title}>Adding</Text>
+
+                        <View style={{alignItems:'center'}}>
+                            <AddBar addHandler={addItem}/>
+                        </View>
+
+                    </View>
+                </View>
+            </Modal>
+                
         </SafeAreaView>
     );
 
@@ -137,17 +238,25 @@ const styles = StyleSheet.create({
     },
     list: {
         alignItems: 'center',
+        backgroundColor: '#8CA09D',
+        height: 370
     },
     box: {
         alignItems: 'center',
-        flexDirection: 'row',
+        gap: 20,
         marginTop: 10,
     },
     title: {
         fontSize: 28,
         textAlign: 'center',
-        color: 'black',
-        marginTop: 20,
+        color: '#000000',
+        marginTop: 10,
+        fontFamily: 'AlumniSans-Regular',
+    },
+    titleChild: {
+        fontSize: 24,
+        color: '#484848',
+        marginTop: 5,
         fontFamily: 'AlumniSans-Regular',
     },
     text: {
@@ -157,17 +266,15 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#7A8C89',
         borderWidth: 1,
-        marginTop: 20,
+        marginTop: 10,
         fontFamily: 'AlumniSans-Regular',
         fontSize: 22,
     },
     input: {
-        fontSize: 16,
+        fontSize: 20,
         borderBottomWidth: 2,
         borderColor: 'black',
-    },
-    image: {
-        marginTop: 15,
+        textAlign: 'center'
     },
 });
 
