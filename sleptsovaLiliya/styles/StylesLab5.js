@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   header:{
-    top:-250,
+    top:-210,
     elevation:16,
     backgroundColor:"white",
     height:"40%",
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 button: {
-    top:-150,
+    top:-190,
     elevation:6,
     height: 80,
     width: '70%',
@@ -30,7 +30,18 @@ button: {
     justifyContent: 'center'
   },
   button2: {
-    top:-40,
+    top:-90,
+    elevation:6,
+    height: 80,
+    width: '70%',
+    backgroundColor: 'white',
+    borderRadius: 25,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  button3: {
+    top:-60,
     elevation:6,
     height: 80,
     width: '70%',
@@ -45,6 +56,7 @@ button: {
     fontSize: 20,
   },
   buttontext2: {
+    top:-40,
     color: 'orange',
     fontWeight: 'bold',
     textShadowColor: 'black',
