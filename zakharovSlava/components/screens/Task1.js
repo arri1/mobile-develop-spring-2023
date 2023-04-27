@@ -1,17 +1,27 @@
 import { useState, useEffect } from "react";
-import { SafeAreaView, Text, TouchableOpacity, View, StyleSheet, Button, Switch } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import {
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Button,
+  Switch,
+} from "react-native";
 
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "../redux/counter";
 
 const colors = ["white", "black"];
 const colorstext = ["black", "white"];
 
 const Task1 = () => {
+  const count3 = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
   const [count, setCount] = useState(0);
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
-
 
   const plusClick = () => {
     setCount(count + 1);
@@ -23,12 +33,11 @@ const Task1 = () => {
 
   const themes = () => {
     if (!isEnabled) {
-      setBackgroundColorIndex(((backgroundColorIndex + 1) % colors.length))
+      setBackgroundColorIndex((backgroundColorIndex + 1) % colors.length);
+    } else {
+      setBackgroundColorIndex(0);
     }
-    else {
-      setBackgroundColorIndex(0)
-    }
-  }
+  };
 
   return (
     <SafeAreaView
@@ -40,54 +49,62 @@ const Task1 = () => {
     >
       <View style={{ margin: 20 }}>
         <View style={{ alignItems: "center" }}>
-          <Text style={{ color: colorstext[backgroundColorIndex], fontSize: 20, fontWeight: "800" }}>
+          <Text
+            style={{
+              color: colorstext[backgroundColorIndex],
+              fontSize: 20,
+              fontWeight: "800",
+            }}
+          >
             {count}
           </Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={plusClick} >
+        <TouchableOpacity style={styles.button} onPress={plusClick}>
           <Text style={{ color: colors[backgroundColorIndex] }}>+</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={minusClick} >
+        <TouchableOpacity style={styles.button} onPress={minusClick}>
           <Text style={{ color: colors[backgroundColorIndex] }}>-</Text>
         </TouchableOpacity>
         <View style={styles.container}>
-
           <Switch
-            trackColor={{ false: '#767577', true: '#45ff83' }}
-            thumbColor={isEnabled ? '#f4f3f4' : 'white'}
+            trackColor={{ false: "#767577", true: "#45ff83" }}
+            thumbColor={isEnabled ? "#f4f3f4" : "white"}
             ios_backgroundColor="#f2f2f7"
-
             onValueChange={toggleSwitch}
             onChange={themes}
             value={isEnabled}
           />
-
-
-
+        </View>
+        <View style={{ alignItems: "center",marginVertical: 10}}>
+          <Text
+            style={{
+              color: colorstext[backgroundColorIndex],
+              fontSize: 20,
+              fontWeight: "800",
+            }}
+          >
+            {count3}
+          </Text>
         </View>
       </View>
-
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    alignItems: 'center',
-    margin: 10
+    alignItems: "center",
+    margin: 10,
   },
 
   button: {
-    alignItems: 'center',
-    backgroundColor: "gray",
+    alignItems: "center",
+    backgroundColor: "#696D70",
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 5,
     margin: 5,
-
-
   },
 });
 export default Task1;
