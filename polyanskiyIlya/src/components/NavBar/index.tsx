@@ -8,6 +8,7 @@ import Lab3 from '../../views/lab3';
 import scalePixels from '../../helper/pixel-scale.helper';
 import {Text} from 'react-native';
 import Lab5 from '../../views/lab5';
+import Lab6 from '../../views/lab6';
 
 const Tab = createBottomTabNavigator();
 
@@ -85,6 +86,19 @@ const NavBar = () => {
         <Tab.Screen
           name="Fifth lab"
           component={Lab5}
+          options={{
+            tabBarIcon: ({focused, size}) => (
+              <Icon
+                name="profile"
+                color={focused ? navBarItemColorActive : navBarItemColorDefault}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Sixth lab"
+          component={Lab6}
           options={{
             tabBarIcon: ({focused, size}) => (
               <Icon
