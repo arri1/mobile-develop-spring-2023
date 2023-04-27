@@ -16,24 +16,23 @@ const SecondScreen = () => {
     } else setWord("Вы угадали");
   }, [check]);
   const [fontLoaded] = useFonts({
-    "Monts": require("../assets/fonts/Montserrat-Medium.ttf"),
+    Monts: require("../assets/fonts/Montserrat-Medium.ttf"),
   });
-useEffect(()=>{
-  async function prepare(){
-    await SplashScreen.preventAutoHideAsync();
-  }
-  prepare();
-},[]);
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
   if (!fontLoaded) {
     return undefined;
-  }else{
+  } else {
     SplashScreen.hideAsync();
   }
   return (
     <View style={styles.main}>
       <Text style={styles.number}>{counter}</Text>
       <Text style={styles.text}>{word}</Text>
-
       <View style={styles.buttonGroup}>
         <TouchableOpacity
           style={styles.commonButton}
@@ -63,16 +62,15 @@ useEffect(()=>{
         >
           <Text style={styles.commonText}>-10</Text>
         </TouchableOpacity>
-       
       </View>
       <TouchableOpacity
-          style={styles.checkButton}
-          onPress={() => {
-            setChek(check+1);
-          }}
-        >
-          <Text style={styles.commonText}>Проверить</Text>
-        </TouchableOpacity>
+        style={styles.checkButton}
+        onPress={() => {
+          setChek(check + 1);
+        }}
+      >
+        <Text style={styles.commonText}>Проверить</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -87,9 +85,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonGroup: {
-    marginTop:28,
+    marginTop: 28,
     flexDirection: "row",
-    gap:18,
+    gap: 18,
   },
 
   checkButton: {
@@ -102,7 +100,7 @@ const styles = StyleSheet.create({
   },
 
   number: {
-    fontFamily:"Monts",
+    fontFamily: "Monts",
     marginTop: 113,
     fontSize: 50,
     fontweight: 500,
@@ -112,8 +110,8 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontFamily:"Monts",
-    marginTop:28,
+    fontFamily: "Monts",
+    marginTop: 28,
     fontStyle: "normal",
     fontSize: 25,
     lineheight: 29,
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#283618",
   },
   commonText: {
-    fontFamily:"Monts",
+    fontFamily: "Monts",
     fontStyle: "normal",
     fontweight: 500,
     fontSize: 14,
