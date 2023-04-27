@@ -1,9 +1,8 @@
 import TabNavigation from "./components/tabNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./store/index";
 import * as React from "react";
-
 
 
 const App = () => {
