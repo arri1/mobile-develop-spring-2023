@@ -7,10 +7,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Lab1 from './components/Lab1';
 import Lab2 from './components/Lab2';
 import Lab3 from './components/Lab3';
+import apollo from './apollo'
 
 import spisok from './assets/spisok.png'
 import effect from './assets/effect.png'
 import cache from './assets/cache.png'
+import earth from './assets/earth.png'
 
 const Tab = createBottomTabNavigator();
 
@@ -59,6 +61,18 @@ const Navigate = () => {
                         tabBarLabel: 'Lab3',
                         tabBarIcon: ({ color, size }) => (
                             <Image style={styles.tinyLogo} source={cache}/>
+                            
+                        ) 
+                    }}
+                />
+
+                <Tab.Screen
+                    name="Apollo"
+                    component={apollo}
+                    options={{
+                        tabBarLabel: 'apollo',
+                        tabBarIcon: ({ color, size }) => (
+                            <Image style={styles.tinyLogo} source={earth}/>
                             
                         ) 
                     }}
