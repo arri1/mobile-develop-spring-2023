@@ -10,6 +10,7 @@ import first from "../assets/first.png";
 import second from "../assets/second.png";
 import third from "../assets/third.png";
 import fourth from "../assets/fourth.png";
+import graphQl from "../components/GraphQL"
 
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +49,13 @@ const TabNavigator = () => {
         <Tab.Screen
           name="FourthTask"
           component={FourthTask}
+          options={{
+            tabBarIcon: ({ color, size }) => <Image source={fourth} />,
+          }}
+        />
+         <Tab.Screen
+          name="GraphQl"
+          component={graphQl}
           options={{
             tabBarIcon: ({ color, size }) => <Image source={fourth} />,
           }}
