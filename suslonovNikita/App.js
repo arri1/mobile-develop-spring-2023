@@ -5,12 +5,12 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { Provider } from 'react-redux';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
-import store from './Redux'
-import UseState from './UseState';
-import UseEffect from './UseEffect';
-import UseMemo from './UseMemo';
-import ScreenRedux from './ScreenRedux';
-import GraphQL from './GraphQL';
+import store from './Components/Redux'
+import UseState from './Components/UseState';
+import UseEffect from './Components/UseEffect';
+import UseMemo from './Components/UseMemo';
+import ScreenRedux from './Components/ScreenRedux';
+import GraphQL from './Components/GraphQL';
 
 import Bus from './assets/svg/bus';
 import Basketball from './assets/svg/basketball';
