@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Lab1 from "./components/Lab1";
 import Lab2 from "./components/Lab2";
+import Lab3 from "./components/Lab3";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const App = () => {
@@ -41,6 +42,17 @@ const App = () => {
             tabBarLabel: "Lab2",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="ios-moon" color={color} size={size} />
+            ),
+            tabBarBadge: 1,
+          }}
+        />
+        <Tab.Screen
+          name="Lab3"
+          component={Lab3}
+          options={{
+            tabBarLabel: "Lab3",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="ios-book" color={color} size={size} />
             ),
             tabBarBadge: 1,
           }}
