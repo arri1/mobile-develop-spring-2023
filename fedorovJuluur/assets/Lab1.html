@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style id="react-native-stylesheet"></style>
+    <meta charset="utf-8">
+    <meta httpequiv="X-UA-Compatible" content="IE=edge">
+    <!-- 
+      This viewport works for phones with notches.
+      It's optimized for gestures by disabling global zoom.
+     -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1.00001, viewport-fit=cover">
+    <title>Lab1</title>
+    <style>
+      /**
+       * Extend the react-native-web reset:
+       * https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/StyleSheet/initialRules.js
+       */
+      html,
+      body,
+      #root {
+        width: 100%;
+        /* To smooth any scrolling behavior */
+        -webkit-overflow-scrolling: touch;
+        margin: 0px;
+        padding: 0px;
+        /* Allows content to fill the viewport and go beyond the bottom */
+        min-height: 100%;
+      }
+      #root {
+        flex-shrink: 0;
+        flex-basis: auto;
+        flex-grow: 1;
+        display: flex;
+        flex: 1;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        /* Prevent text size change on orientation change https://gist.github.com/tfausak/2222823#file-ios-8-web-app-html-L138 */
+        -webkit-text-size-adjust: 100%;
+        height: calc(100% + env(safe-area-inset-top));
+      }
+
+      body {
+        display: flex;
+        /* Allows you to scroll below the viewport; default value is visible */
+        overflow-y: auto;
+        overscroll-behavior-y: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -ms-overflow-style: scrollbar;
+      }
+      /* Enable for apps that support dark-theme */
+      /*@media (prefers-color-scheme: dark) {
+        body {
+          background-color: black;
+        }
+      }*/
+    </style>
+  <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:19010/favicon-16.png"><link rel="icon" type="image/png" sizes="32x32" href="http://localhost:19010/favicon-32.png"><link rel="shortcut icon" href="http://localhost:19010/favicon.ico"><script defer="defer" src="Lab1_files/bundle.js"></script><style id="expo-generated-fonts" type="text/css">@font-face {
+    font-family: ionicons;
+    src: url(/static/media/Ionicons.3517aeaa34b2f8cd8eef.ttf);
+    font-display: auto;
+  }</style></head>
+
+  <body>
+    <!-- 
+      A generic no script element with a reload button and a message.
+      Feel free to customize this however you'd like.
+    -->
+    <noscript>
+      <form
+        action=""
+        style="
+          background-color: #fff;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 9999;
+        "
+      >
+        <div
+          style="
+            font-size: 18px;
+            font-family: Helvetica, sans-serif;
+            line-height: 24px;
+            margin: 10%;
+            width: 80%;
+          "
+        >
+          <p>Oh no! It looks like JavaScript is not enabled in your browser.</p>
+          <p style="margin: 20px 0;">
+            <button
+              type="submit"
+              style="
+                background-color: #4630eb;
+                border-radius: 100px;
+                border: none;
+                box-shadow: none;
+                color: #fff;
+                cursor: pointer;
+                font-weight: bold;
+                line-height: 20px;
+                padding: 6px 16px;
+              "
+            >
+              Reload
+            </button>
+          </p>
+        </div>
+      </form>
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"><div class="css-view-175oi2r r-flex-13awgt0"><div class="css-view-175oi2r r-flex-13awgt0 r-overflow-1udh08x"><div class="css-view-175oi2r" style="position: absolute; inset: 0px; z-index: 0; display: flex;"><div class="css-view-175oi2r r-flex-13awgt0 r-flexDirection-1d5kdc7" style="background-color: rgb(242, 242, 242);"><div class="css-view-175oi2r r-flex-13awgt0"><div class="css-view-175oi2r" style="padding: 20px; margin-top: 0px; background-color: rgb(255, 255, 247);"><div dir="auto" class="css-text-1rynq56 r-color-cqee49 r-fontSize-adyw6z r-fontWeight-vw2c0b r-letterSpacing-1r1s7mt">I am Andrew, and I am hungry!</div><div role="button" tabindex="0" class="css-view-175oi2r r-transitionProperty-1i6wzkk r-userSelect-lrvibr r-cursor-1loqt21 r-touchAction-1otgn73 r-backgroundColor-14sbq61 r-borderRadius-1jkafct" style="transition-duration: 0s;"><div dir="auto" class="css-text-1rynq56 r-color-jwli3a r-fontWeight-majxgm r-padding-edyy15 r-textAlign-q4m81j r-textTransform-tsynxw">Give me some food!</div></div></div></div><div class="css-view-175oi2r"><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="position: absolute; inset: 0px; z-index: 0;"><div class="css-view-175oi2r" style="flex: 1 1 0%; border-bottom-width: 1px; background-color: rgb(255, 255, 255); border-bottom-color: rgb(216, 216, 216); box-shadow: rgb(216, 216, 216) 0px 0px 0px;"></div></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="height: 64px;"><div class="css-view-175oi2r r-pointerEvents-633pao" style="height: 0px;"></div><div class="css-view-175oi2r r-alignItems-1oszu61 r-flex-13awgt0 r-flexDirection-18u37iz r-pointerEvents-12vffkv"><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="justify-content: center; align-items: flex-start; margin-left: 0px;"></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="margin-right: 16px; margin-left: 16px; justify-content: center; max-width: 891px;"><h1 dir="auto" role="heading" class="css-text-1rynq56 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a" style="font-size: 18px; font-weight: 500; color: rgb(28, 28, 30);">Lab1</h1></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="justify-content: center; align-items: flex-end; flex-grow: 1; flex-basis: 0px; margin-right: 0px;"></div></div></div></div></div></div><div class="css-view-175oi2r" style="position: absolute; inset: 0px; z-index: -1; display: none;"><div class="css-view-175oi2r r-flex-13awgt0 r-flexDirection-1d5kdc7" style="background-color: rgb(242, 242, 242);"><div class="css-view-175oi2r r-flex-13awgt0"><div class="css-view-175oi2r" style="width: 100%; display: flex; align-items: center; background-color: rgb(255, 255, 255);"><div tabindex="0" class="css-view-175oi2r r-transitionProperty-1i6wzkk r-userSelect-lrvibr r-cursor-1loqt21 r-touchAction-1otgn73 r-alignItems-1awozwy r-backgroundColor-57dg7b r-borderRadius-qwd59z r-height-1ph75f1 r-justifyContent-1777fci r-marginVertical-jw8lkh r-width-b8lwoo" style="transition-duration: 0s;"><div dir="auto" class="css-text-1rynq56 r-color-jwli3a r-fontSize-adyw6z r-fontWeight-vw2c0b r-letterSpacing-1r1s7mt">White</div></div><div tabindex="0" class="css-view-175oi2r r-transitionProperty-1i6wzkk r-userSelect-lrvibr r-cursor-1loqt21 r-touchAction-1otgn73 r-alignItems-1awozwy r-backgroundColor-57dg7b r-borderRadius-qwd59z r-height-1ph75f1 r-justifyContent-1777fci r-marginVertical-jw8lkh r-width-b8lwoo" style="transition-duration: 0s;"><div dir="auto" class="css-text-1rynq56 r-color-jwli3a r-fontSize-adyw6z r-fontWeight-vw2c0b r-letterSpacing-1r1s7mt">Pink</div></div><div tabindex="0" class="css-view-175oi2r r-transitionProperty-1i6wzkk r-userSelect-lrvibr r-cursor-1loqt21 r-touchAction-1otgn73 r-alignItems-1awozwy r-backgroundColor-57dg7b r-borderRadius-qwd59z r-height-1ph75f1 r-justifyContent-1777fci r-marginVertical-jw8lkh r-width-b8lwoo" style="transition-duration: 0s;"><div dir="auto" class="css-text-1rynq56 r-color-jwli3a r-fontSize-adyw6z r-fontWeight-vw2c0b r-letterSpacing-1r1s7mt">Yellow</div></div><div tabindex="0" class="css-view-175oi2r r-transitionProperty-1i6wzkk r-userSelect-lrvibr r-cursor-1loqt21 r-touchAction-1otgn73 r-alignItems-1awozwy r-backgroundColor-57dg7b r-borderRadius-qwd59z r-height-1ph75f1 r-justifyContent-1777fci r-marginVertical-jw8lkh r-width-b8lwoo" style="transition-duration: 0s;"><div dir="auto" class="css-text-1rynq56 r-color-jwli3a r-fontSize-adyw6z r-fontWeight-vw2c0b r-letterSpacing-1r1s7mt">Red</div></div></div></div><div class="css-view-175oi2r"><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="position: absolute; inset: 0px; z-index: 0;"><div class="css-view-175oi2r" style="flex: 1 1 0%; border-bottom-width: 1px; background-color: rgb(255, 255, 255); border-bottom-color: rgb(216, 216, 216); box-shadow: rgb(216, 216, 216) 0px 0px 0px;"></div></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="height: 64px;"><div class="css-view-175oi2r r-pointerEvents-633pao" style="height: 0px;"></div><div class="css-view-175oi2r r-alignItems-1oszu61 r-flex-13awgt0 r-flexDirection-18u37iz r-pointerEvents-12vffkv"><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="justify-content: center; align-items: flex-start; margin-left: 0px;"></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="margin-right: 16px; margin-left: 16px; justify-content: center; max-width: 891px;"><h1 dir="auto" role="heading" class="css-text-1rynq56 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a" style="font-size: 18px; font-weight: 500; color: rgb(28, 28, 30);">Lab2</h1></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="justify-content: center; align-items: flex-end; flex-grow: 1; flex-basis: 0px; margin-right: 0px;"></div></div></div></div></div></div><div class="css-view-175oi2r" style="position: absolute; inset: 0px; z-index: -1; display: none;"><div class="css-view-175oi2r r-flex-13awgt0 r-flexDirection-1d5kdc7" style="background-color: rgb(242, 242, 242);"><div class="css-view-175oi2r r-flex-13awgt0"><div class="css-view-175oi2r" style="flex: 1 1 0%; justify-content: center; align-items: center;"><div dir="auto" class="css-text-1rynq56" style="font-size: 50px;">0</div><div tabindex="0" class="css-view-175oi2r r-transitionProperty-1i6wzkk r-userSelect-lrvibr r-cursor-1loqt21 r-touchAction-1otgn73" style="background-color: rgb(0, 0, 0); padding: 10px; border-radius: 10px; margin-top: 20px; transition-duration: 0s;"><div dir="auto" class="css-text-1rynq56" style="color: rgb(255, 255, 255); font-size: 20px; font-weight: bold;">Increment</div></div><div tabindex="0" class="css-view-175oi2r r-transitionProperty-1i6wzkk r-userSelect-lrvibr r-cursor-1loqt21 r-touchAction-1otgn73" style="background-color: rgb(0, 0, 0); padding: 10px; border-radius: 10px; margin-top: 20px; transition-duration: 0s;"><div dir="auto" class="css-text-1rynq56" style="color: rgb(255, 255, 255); font-size: 20px; font-weight: bold;">Decrement</div></div></div></div><div class="css-view-175oi2r"><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="position: absolute; inset: 0px; z-index: 0;"><div class="css-view-175oi2r" style="flex: 1 1 0%; border-bottom-width: 1px; background-color: rgb(255, 255, 255); border-bottom-color: rgb(216, 216, 216); box-shadow: rgb(216, 216, 216) 0px 0px 0px;"></div></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="height: 64px;"><div class="css-view-175oi2r r-pointerEvents-633pao" style="height: 0px;"></div><div class="css-view-175oi2r r-alignItems-1oszu61 r-flex-13awgt0 r-flexDirection-18u37iz r-pointerEvents-12vffkv"><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="justify-content: center; align-items: flex-start; margin-left: 0px;"></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="margin-right: 16px; margin-left: 16px; justify-content: center; max-width: 891px;"><h1 dir="auto" role="heading" class="css-text-1rynq56 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a" style="font-size: 18px; font-weight: 500; color: rgb(28, 28, 30);">Lab3</h1></div><div class="css-view-175oi2r r-pointerEvents-12vffkv" style="justify-content: center; align-items: flex-end; flex-grow: 1; flex-basis: 0px; margin-right: 0px;"></div></div></div></div></div></div></div><div class="css-view-175oi2r r-pointerEvents-105ug2t" style="left: 0px; right: 0px; bottom: 0px; border-top-width: 1px; background-color: rgb(255, 255, 255); border-top-color: rgb(216, 216, 216); transform: translateY(0px); height: 49px; padding-bottom: 0px; padding-right: 0px; padding-left: 0px;"><div class="css-view-175oi2r r-bottom-1p0dtai r-left-1d2f490 r-position-u8s1d r-right-zchlnj r-top-ipm5af r-pointerEvents-633pao"></div><div role="tablist" class="css-view-175oi2r r-flex-13awgt0 r-flexDirection-18u37iz"><a href="http://localhost:19010/Lab1" dir="auto" role="link" class="css-text-1rynq56 r-display-6koalj r-alignItems-1awozwy r-flex-13awgt0 r-flexDirection-18u37iz r-justifyContent-1777fci r-cursor-1loqt21" style="background-color: rgba(0, 0, 0, 0);"><div class="css-view-175oi2r r-display-xoduu5 r-height-1pi2tsx r-marginTop-19qrga8"><div class="css-view-175oi2r r-display-xoduu5 r-alignItems-1awozwy r-alignSelf-1kihuf0 r-height-1pi2tsx r-justifyContent-1777fci r-minWidth-1uxf3jb r-position-u8s1d r-width-13qz1uu" style="opacity: 1;"><span class="css-textHasAncestor-1qaijid r-userSelect-lrvibr" style="font-size: 25px; color: rgb(0, 122, 255); font-family: ionicons; font-weight: normal; font-style: normal;"></span></div><div class="css-view-175oi2r r-display-xoduu5 r-alignItems-1awozwy r-alignSelf-1kihuf0 r-height-1pi2tsx r-justifyContent-1777fci r-minWidth-1uxf3jb r-position-u8s1d r-width-13qz1uu" style="opacity: 0;"><span class="css-textHasAncestor-1qaijid r-userSelect-lrvibr" style="font-size: 25px; color: rgb(142, 142, 143); font-family: ionicons; font-weight: normal; font-style: normal;"></span></div></div><span class="css-textHasAncestor-1qaijid r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-backgroundColor-1niwhzg r-textAlign-q4m81j r-fontSize-n6v787 r-marginLeft-1joea0r r-marginTop-19qrga8" style="color: rgb(0, 122, 255);">Lab1</span></a><a href="http://localhost:19010/Lab2" dir="auto" role="link" class="css-text-1rynq56 r-display-6koalj r-alignItems-1awozwy r-flex-13awgt0 r-flexDirection-18u37iz r-justifyContent-1777fci r-cursor-1loqt21" style="background-color: rgba(0, 0, 0, 0);"><div class="css-view-175oi2r r-display-xoduu5 r-height-1pi2tsx r-marginTop-19qrga8"><div class="css-view-175oi2r r-display-xoduu5 r-alignItems-1awozwy r-alignSelf-1kihuf0 r-height-1pi2tsx r-justifyContent-1777fci r-minWidth-1uxf3jb r-position-u8s1d r-width-13qz1uu" style="opacity: 0;"><span class="css-textHasAncestor-1qaijid r-userSelect-lrvibr" style="font-size: 25px; color: rgb(0, 122, 255); font-family: ionicons; font-weight: normal; font-style: normal;"></span></div><div class="css-view-175oi2r r-display-xoduu5 r-alignItems-1awozwy r-alignSelf-1kihuf0 r-height-1pi2tsx r-justifyContent-1777fci r-minWidth-1uxf3jb r-position-u8s1d r-width-13qz1uu" style="opacity: 1;"><span class="css-textHasAncestor-1qaijid r-userSelect-lrvibr" style="font-size: 25px; color: rgb(142, 142, 143); font-family: ionicons; font-weight: normal; font-style: normal;"></span></div></div><span class="css-textHasAncestor-1qaijid r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-backgroundColor-1niwhzg r-textAlign-q4m81j r-fontSize-n6v787 r-marginLeft-1joea0r r-marginTop-19qrga8" style="color: rgb(142, 142, 143);">Lab2</span></a><a href="http://localhost:19010/Lab3" dir="auto" role="link" class="css-text-1rynq56 r-display-6koalj r-alignItems-1awozwy r-flex-13awgt0 r-flexDirection-18u37iz r-justifyContent-1777fci r-cursor-1loqt21" style="background-color: rgba(0, 0, 0, 0);"><div class="css-view-175oi2r r-display-xoduu5 r-height-1pi2tsx r-marginTop-19qrga8"><div class="css-view-175oi2r r-display-xoduu5 r-alignItems-1awozwy r-alignSelf-1kihuf0 r-height-1pi2tsx r-justifyContent-1777fci r-minWidth-1uxf3jb r-position-u8s1d r-width-13qz1uu" style="opacity: 0;"><span class="css-textHasAncestor-1qaijid r-userSelect-lrvibr" style="font-size: 25px; color: rgb(0, 122, 255); font-family: ionicons; font-weight: normal; font-style: normal;"></span></div><div class="css-view-175oi2r r-display-xoduu5 r-alignItems-1awozwy r-alignSelf-1kihuf0 r-height-1pi2tsx r-justifyContent-1777fci r-minWidth-1uxf3jb r-position-u8s1d r-width-13qz1uu" style="opacity: 1;"><span class="css-textHasAncestor-1qaijid r-userSelect-lrvibr" style="font-size: 25px; color: rgb(142, 142, 143); font-family: ionicons; font-weight: normal; font-style: normal;"></span></div></div><span class="css-textHasAncestor-1qaijid r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-backgroundColor-1niwhzg r-textAlign-q4m81j r-fontSize-n6v787 r-marginLeft-1joea0r r-marginTop-19qrga8" style="color: rgb(142, 142, 143);">Lab3</span></a></div></div></div></div>
+  
+
+<div style="position: fixed; left: 0px; top: 0px; width: 0px; height: 0px; z-index: -1; overflow: hidden; visibility: hidden; transition-duration: 0.05s; transition-property: padding; transition-delay: 0s; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);"></div></body></html>

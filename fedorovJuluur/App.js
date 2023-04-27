@@ -1,41 +1,21 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import TabNavigation from "./components/tab_navigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import store from "./store";
+import * as React from "react";
 
-export default function App() {
-  const [liked, setLiked] = useState(true);
 
-  function handleChange(e) {
-    setLiked(e.target.checked);
-  }
-  const [world, setUser] = useState("World");
-  const clickHandler = () => {
-    setUser("universe");
-  };
 
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Hello-{world}!</Text>
-      <StatusBar style="auto" />
-      <View style={styles.buttonstyle}></View>
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  buttonstyle: {
-    marginTop: 10,
-  },
-  container: {
-    flex: 10,
-    backgroundColor: "#FFFF",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
-module.exports = function (api) {
-  api.cache(true);
-  return {
-    presets: ["babel-preset-expo"],
-  };
+    <Provider store={store}>
+      <NavigationContainer>
+        <TabNavigation />
+      </NavigationContainer>
+    </Provider>
+
+  );
 };
+
+export default App;
