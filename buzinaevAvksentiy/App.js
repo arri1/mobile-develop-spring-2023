@@ -3,12 +3,20 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView } fro
 import Navigate from "./Navigate";
 import { Provider } from 'react-redux';
 import { store } from './bll/store';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'https://countries.trevorblades.com/graphql',
+  cache: new InMemoryCache()
+});
 
 const App = () => {
   return (
-  <Provider store={store}>
-    <Navigate/>
-  </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <Navigate/>
+      </Provider>
+    </ApolloProvider>
   )
 }; 
 
