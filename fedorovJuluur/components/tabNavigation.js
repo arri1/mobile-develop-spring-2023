@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Lab2 from "./lab2";
 import lab1 from "./lab1";
+import lab3 from "./lab3";
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   const counter = useSelector((state) => state.counter.value);
@@ -22,6 +23,10 @@ const TabNavigation = () => {
             iconName = focused
               ? "ios-information-circle"
               : "ios-information-circle-outline";
+          } else if (route.name === "lab3") {
+            iconName = focused
+              ? "ios-information-circle"
+              : "ios-information-circle-outline";
           } 
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -34,6 +39,7 @@ const TabNavigation = () => {
         options={{ tabBarBadge: counter > 0 ? counter : null }}
       />
       <Tab.Screen name="Lab2" component={Lab2} />
+      <Tab.Screen name="lab3" component={lab3} />
     </Tab.Navigator>
   );
 };
