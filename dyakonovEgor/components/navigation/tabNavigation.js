@@ -3,6 +3,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
 import Lab4 from "../screens/lab4";
+import Lab5 from "../screens/bookList";
 
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
@@ -42,11 +43,17 @@ const TabNavigator = () => {
         options={{
           tabBarLabel: "LAB 4",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="abacus"
-              color={color}
-              size={26}
-            />
+            <MaterialCommunityIcons name="abacus" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Lab5"
+        component={Lab5}
+        options={{
+          tabBarLabel: "LAB 5",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="abacus" color={color} size={26} />
           ),
         }}
       />
