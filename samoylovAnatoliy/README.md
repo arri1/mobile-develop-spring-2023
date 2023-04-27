@@ -1,3 +1,3 @@
 #Дизайн Figma
 
-https://www.figma.com/file/tNVJYwTrsC3MbbALFqzhNt/MobDev?node-id=25%3A99&t=v8zO6IVyhEPJNZzf-1
+https://www.figma.com/file/tNVJYwTrsC3MbbALFqzhNt/MobDev?node-id=0%3A1&t=N8lsfUVubvQdLeWz-1
