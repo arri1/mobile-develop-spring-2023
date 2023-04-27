@@ -4,8 +4,6 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 const CounterNumber = () => {
-  
-
   const [counter, setCounter] = useState(0);
   const [fontLoaded] = useFonts({
     "Monts": require("../assets/fonts/Montserrat-Medium.ttf"),

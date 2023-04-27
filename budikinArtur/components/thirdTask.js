@@ -8,17 +8,17 @@ const ThirdTask = () => {
   const [number2, setnumber2] = useState(0);
   useMemo(() => expensiveSum(number2), [number2]);
   const [fontLoaded] = useFonts({
-    "Monts": require("../assets/fonts/Montserrat-Medium.ttf"),
+    Monts: require("../assets/fonts/Montserrat-Medium.ttf"),
   });
-useEffect(()=>{
-  async function prepare(){
-    await SplashScreen.preventAutoHideAsync();
-  }
-  prepare();
-},[]);
+  useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
   if (!fontLoaded) {
     return undefined;
-  }else{
+  } else {
     SplashScreen.hideAsync();
   }
   return (
@@ -51,25 +51,25 @@ useEffect(()=>{
 const styles = StyleSheet.create({
   main: {
     backgroundColor: "#606C38",
-    alignItems:"center",
-    flex:1,
+    alignItems: "center",
+    flex: 1,
   },
 
   buttonGroup: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    gap:82,
+    gap: 82,
   },
 
-  numberGroup:{
-    flexDirection:"row",
-    gap:131,
-    marginTop:111,
+  numberGroup: {
+    flexDirection: "row",
+    gap: 131,
+    marginTop: 111,
   },
 
   number: {
-    fontFamily:"Monts",
+    fontFamily: "Monts",
     fontSize: 50,
     textAlign: "center",
     fontweight: 500,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontFamily:"Monts",
+    fontFamily: "Monts",
     fontSize: 25,
     textAlign: "center",
     width: "100%",
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
 
   commonButton: {
-    marginTop:97,
+    marginTop: 97,
     justifyContent: "center",
     borderRadius: 4,
     backgroundColor: "black",
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#283618",
   },
   commonText: {
-    fontFamily:"Monts",
+    fontFamily: "Monts",
     fontStyle: "normal",
     fontweight: 500,
     fontsize: 14,
