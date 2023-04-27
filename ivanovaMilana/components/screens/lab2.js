@@ -1,45 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
 
 export default function Lab2() {
-  const [task, setTask] = useState('');
-  const [taskList, setTaskList] = useState([]);
-  const handleAddTask = () => {
-    if (task.trim()) {
-      setTaskList([...taskList, { id: Date.now().toString(), task }]);
-      setTask('');
+  const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  
+  const toggle = () => {
+    setIsActive(!isActive);
+  }
+
+  const reset = () => {
+    setSeconds(0);
+    setIsActive(false);
+  }
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds + 1);
+      }, 1000);
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval);
     }
-  };
-
-  const handleDeleteTask = (taskId) => {
-    setTaskList(taskList.filter((task) => task.id !== taskId));
-  };
-
-  const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleDeleteTask(item.id)}>
-      <View style={styles.task}>
-        <Text style={styles.taskText}>{item.task}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        value={task}
-        onChangeText={(text) => setTask(text)}
-        placeholder="Add task"
-      />
-      <TouchableOpacity style={styles.button} onPress={handleAddTask}>
-        <Text style={styles.buttonText}>Add</Text>
+      <Text style={styles.taskText}>{seconds}s</Text>
+      <TouchableOpacity style={styles.button} onPress={toggle}>
+        <Text style={styles.buttonText}>{isActive ? 'Pause' : 'Start'}</Text>
       </TouchableOpacity>
-      <FlatList
-        data={taskList}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        style={styles.list}
-      />
+      <TouchableOpacity style={styles.button} onPress={reset}>
+        <Text style={styles.buttonText}>Reset</Text>
+      </TouchableOpacity>
     </View>
   );
 }
