@@ -9,6 +9,7 @@ import Task1Screen from "./screens/task1";
 import Task2Screen from "./screens/task2";
 import Task3Screen from "./screens/task3";
 import Task4Screen from "./screens/task4";
+import Task5Screen from "./screens/task5";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,20 +35,22 @@ const MainContainer = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             switch (route.name) {
-              case "Task1":
+              case "Test":
                 iconName = focused ? "flask" : "flask-outline";
                 break;
-              case "Task2":
+              case "Effect":
                 iconName = focused
                   ? "game-controller"
                   : "game-controller-outline";
                 break;
-
-              case "Task3":
+              case "Memo":
                 iconName = focused ? "eye" : "eye-outline";
                 break;
-              case "Task4":
+              case "Redux":
                 iconName = focused ? "trending-up-outline" : "logo-usd";
+                break;
+              case "Earth":
+                iconName = focused ? "earth" : "earth-outline";
               default:
                 break;
             }
@@ -55,10 +58,11 @@ const MainContainer = () => {
           },
         })}
       >
-        <Tab.Screen name="Task1" component={Task1Screen} />
-        <Tab.Screen name="Task2" component={Task2Screen} />
-        <Tab.Screen name="Task3" component={Task3Screen} />
-        <Tab.Screen name="Task4" component={Task4Screen} />
+        <Tab.Screen name="Test" component={Task1Screen} />
+        <Tab.Screen name="Effect" component={Task2Screen} />
+        <Tab.Screen name="Memo" component={Task3Screen} />
+        <Tab.Screen name="Redux" component={Task4Screen} />
+        <Tab.Screen name="Earth" component={Task5Screen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

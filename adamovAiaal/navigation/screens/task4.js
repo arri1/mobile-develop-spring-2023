@@ -11,6 +11,7 @@ import {
   increment,
   selectCount,
   incrementByAmount,
+  decrementByAmount,
 } from "../../redux/reducers";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
@@ -18,7 +19,7 @@ import { useState } from "react";
 const Task4 = (navigation) => {
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
-  const [incrementAmount, setIncrementAmount] = useState("5");
+  const [amount, setAmount] = useState("5");
   return (
     <SafeAreaView
       style={{
@@ -36,8 +37,8 @@ const Task4 = (navigation) => {
         <TextInput
           style={styles.inputs}
           keyboardType="numeric"
-          value={incrementAmount}
-          onChangeText={setIncrementAmount}
+          value={amount}
+          onChangeText={setAmount}
         />
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -56,12 +57,16 @@ const Task4 = (navigation) => {
       </View>
       <View style={{ alignItems: "center" }}>
         <TouchableOpacity
-          onPress={() =>
-            dispatch(incrementByAmount(Number(incrementAmount) || 0))
-          }
+          onPress={() => dispatch(incrementByAmount(Number(amount) || 0))}
           style={styles.button}
         >
-          <Text style={styles.button_text}>SUM</Text>
+          <Text style={styles.button_text}>+Amount</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => dispatch(decrementByAmount(Number(amount) || 0))}
+          style={styles.button}
+        >
+          <Text style={styles.button_text}>-Amount</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
