@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
+import { counterSlice } from "../../store";
 
 const Lab1 = () => {
   const [counter, setCounter] = useState(0);
+  const dispatch = useDispatch();
 
   return (
     <View>
@@ -12,6 +15,7 @@ const Lab1 = () => {
           style={styles.commonButton}
           onPress={() => {
             setCounter(counter + 1);
+            dispatch(counterSlice.actions.increment());
           }}
         >
           <Text style={styles.commonText}>+1</Text>
@@ -20,6 +24,7 @@ const Lab1 = () => {
           style={styles.commonButton}
           onPress={() => {
             setCounter(0);
+            dispatch(counterSlice.actions.reset());
           }}
         >
           <Text style={styles.commonText}>Clear</Text>
@@ -28,6 +33,7 @@ const Lab1 = () => {
           style={styles.commonButton}
           onPress={() => {
             setCounter(counter - 1);
+            dispatch(counterSlice.actions.decrement());
           }}
         >
           <Text style={styles.commonText}>-1</Text>
