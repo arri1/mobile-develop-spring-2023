@@ -1,37 +1,36 @@
 import * as React from "react";
-import { Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 
 const Tab = createBottomTabNavigator();
 
-const tabNavigation = () => {
+const TabNavigation = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-            if (route.name === "Home") {
-              iconName = focused
-                ? "ios-information-circle"
-                : "ios-information-circle-outline";
-            } else if (route.name === "Settings") {
-              iconName = focused ? "ios-list" : "ios-list-outline";
-            }
+          if (route.name === "Lab1") {
+            iconName = focused
+              ? "ios-information-circle"
+              : "ios-information-circle-outline";
+          } else if (route.name === "Lab2") {
+            iconName = focused
+              ? "ios-information-circle"
+              : "ios-information-circle-outline";
+          }
 
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: "gray",
-        })}
-      >
-        <Tab.Screen name="lab1" component={Lab1} />
-        <Tab.Screen name="lab2" component={Lab2} />
-      </Tab.Navigator>
-    </NavigationContainer>
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen name="Lab1" component={Lab1} />
+      <Tab.Screen name="Lab2" component={Lab2} />
+    </Tab.Navigator>
   );
 };
+
+export default TabNavigation;
