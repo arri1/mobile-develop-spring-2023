@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Lab1 from "../screens/lab1";
 import Lab3 from "../screens/lab3";
-import Lab4 from "../screens/lab4";
+import Lab5 from "../screens/lab5";
 
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
@@ -16,11 +16,9 @@ const TabNavigator = () => {
             iconName = focused ? "home" : "home";
           } else if (route.name === "Lab3") {
             iconName = focused ? "home" : "home";
-          } else if (route.name === "Lab4") {
+          } else if (route.name === "Lab5") {
             iconName = focused ? "home" : "home";
           }
-
-          // You can return any component that you like here!
           return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: "tomato",
@@ -29,7 +27,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Lab1" component={Lab1} />
       <Tab.Screen name="Lab3" component={Lab3} />
-      <Tab.Screen name="Lab4" component={Lab4} />
+      <Tab.Screen name="Lab5" component={Lab5} />
     </Tab.Navigator>
   );
 };
