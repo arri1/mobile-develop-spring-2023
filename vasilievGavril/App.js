@@ -16,14 +16,14 @@ import Ionic from "react-native-vector-icons/Ionicons";
 import HomeScreen from "./screens/HomeScreen";
 import GiftScreen from "./screens/GiftScreen";
 import ClickerScreen from "./screens/ClickerScreen";
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import apollo from './apollo'
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import apollo from "./apollo";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
 const client = new ApolloClient({
-  uri: 'https://countries.trevorblades.com/graphql',
-  cache: new InMemoryCache()
+  uri: "https://countries.trevorblades.com/graphql",
+  cache: new InMemoryCache(),
 });
 
 const App = () => {
@@ -47,7 +47,11 @@ const App = () => {
                     ? "ios-paper-plane-sharp"
                     : "ios-paper-plane-outline";
                   size = focused ? size + 8 : size + 5;
+                } else if (route.name === "Apollo") {
+                  iconName = focused ? "airplane-sharp" : "airplane-outline";
+                  size = focused ? size + 8 : size + 5;
                 }
+
                 return <Ionic name={iconName} size={size} colour={colour} />;
               },
             })}

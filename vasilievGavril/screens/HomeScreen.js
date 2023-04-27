@@ -25,6 +25,23 @@ const HomeScreen = (props) => {
   const [colored, setColored] = useState(false);
   const [data, setData] = useState(null);
 
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log('Компонент был отмонтирован!');
+    return () => {
+      console.log('Компонент будет отмонтирован!');
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('Значение счётчика изменилось!');
+  }, [count]);
+
+  const increment = () => {
+    setCount(count + 2);
+  };
+
   const styles2 = useMemo(
     () => ({
       color: colored ? "darkred" : "black",
@@ -36,25 +53,11 @@ const HomeScreen = (props) => {
     return complexCompure(number);
   }, [number]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "https://641589129a2dc94afe642419.mockapi.io/post/1"
-      );
-      const json = await response.json();
-      setData(json);
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.welcome}>Это кошка?</Text>
       <Image style={styles.image_cat} source={require("../assets/cat.png")} />
-
       <Separator />
-
       <View style={styles.fixToText}>
         <Button
           title="да"
@@ -69,14 +72,14 @@ const HomeScreen = (props) => {
       <View>
         <Text style={styles2}>Вычисляемое свойство: {computed}</Text>
         <Button
-          title="Добавить"
+          title="use.memo"
           onPress={() => setNumber((prev) => prev + 1)}
         />
-        <Button title="Убрать" onPress={() => setNumber((prev) => prev - 1)} />
-
+        <Separator />
+        <Text> Count: {count}</Text>
+        <Button title="use.effect" onPress={increment} />
+        <Separator />
         <Button title="Изменить" onPress={() => setColored((prev) => !prev)} />
-
-        <Text>{data ? data.title : "Loading..."}</Text>
       </View>
     </SafeAreaView>
   );
