@@ -8,31 +8,21 @@ import {
   StyleSheet,
 } from "react-native";
 
-const FadeInView = (props) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 10000,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnim]);
-
-  return (
-    <Animated.View
-      style={{
-        ...props.style,
-        opacity: fadeAnim,
-      }}
-    >
-      {props.children}
-    </Animated.View>
-  );
-};
-
 const Task2 = (navigation) => {
   const [count, setCount] = useState(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [isActivated, setIsActivated] = useState(false);
+  useEffect(() => {
+    if (isActivated) {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 5000,
+        useNativeDriver: true,
+      }).start(() => {
+        setIsActivated(false);
+      });
+    }
+  }, [isActivated]);
 
   return (
     <SafeAreaView
@@ -42,7 +32,7 @@ const Task2 = (navigation) => {
         flex: 1,
       }}
     >
-      <FadeInView>
+      <Animated.View style={[{ opacity: fadeAnim }]}>
         <View style={{ alignItems: "center" }}>
           <Text style={styles.count}>{count}</Text>
         </View>
@@ -64,7 +54,16 @@ const Task2 = (navigation) => {
             <Text style={styles.button_text}>+</Text>
           </TouchableOpacity>
         </View>
-      </FadeInView>
+      </Animated.View>
+
+      <View style={{ alignItems: "center" }}>
+        <TouchableOpacity
+          onPress={() => setIsActivated(true)}
+          style={styles.buttons}
+        >
+          <Text style={styles.button_text}>Activate FadeIn</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
