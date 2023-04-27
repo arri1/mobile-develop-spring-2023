@@ -1,43 +1,37 @@
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-
-TouchableOpacity.defaultProps = { activeOpacity: 0.6 };
-
-const AppButton = ({ onPress, title }) => (
-  <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
-    <Text style={styles.appButtonText}>{title}</Text>
-  </TouchableOpacity>
-);
+import { StyleSheet, Text, Image, View } from 'react-native';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import AppButton from '../components/appButton';
 
 const Lab1 = () => {
-    const [pokemon, setPokemon] = useState(1000);
-    const nextPokemon = () => {
-        pokemon < 1008 ? setPokemon(pokemon+1) : setPokemon(1)
-    }
-    const backPokemon = () => {
-        pokemon > 1 ? setPokemon(pokemon-1) : setPokemon(1008)
-    }
-    return (
-      <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon}.png`,
+  const dispatch = useDispatch();
+  const pokemonNumber = useSelector((state) => state.pokemon.pokemonNumber);
+
+  const nextPokemon = () => {
+    dispatch({ type: 'NEXT_POKEMON' });
+  };
+
+  const backPokemon = () => {
+    dispatch({ type: 'BACK_POKEMON' });
+  };
+
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.image}
+        source={{
+          uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNumber}.png`,
         }}
-        />
-        <Text style={{
-            fontSize: 28,
-            fontWeight: 'bold'
-            }}>Pokemon {pokemon}</Text>
-        <AppButton
-          onPress={() => backPokemon()}
-          title='Back'/>
-        <AppButton
-          onPress={() => nextPokemon()}
-          title='Next'/>
-      </View>
-    );
-  }
+      />
+      <Text style={{ fontSize: 28, fontWeight: 'bold' }}>
+        Pokemon {pokemonNumber}
+      </Text>
+      <AppButton onPress={() => backPokemon()} title="Back" />
+      <AppButton onPress={() => nextPokemon()} title="Next" />
+    </View>
+  );
+};
+
   const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -49,19 +43,6 @@ const Lab1 = () => {
         width: 350,
         height: 350,
         resizeMode: 'contain',
-    },
-    appButtonContainer: {
-        backgroundColor: '#A3E4D7',
-        borderRadius: 20,
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        margin: 5,
-    },
-    appButtonText: {
-        fontSize: 20,
-        color: '#21618C',
-        fontWeight: 'bold',
-        alignSelf: 'center',
     },
 });
 
