@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { useDispatch, useSelector } from 'react-redux';
+import { increment } from '../store/Slice';
 
 const colors = ["red", "green", "blue"];
 const moreColors = ["pink", "cyan", "purple"];
 
 const Lab1 = () => {
-  const [count, setCount] = useState(0);
   const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
   const [moreColorsIndex, setmoreColorsIndex] = useState(0);
+  const count = useSelector((state) => state.Lab1.value);
+  const dispatch = useDispatch();
 
   return (
     <SafeAreaView
@@ -25,7 +28,7 @@ const Lab1 = () => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            setCount(count + 1);
+            dispatch(increment());
           }}
           style={{
             marginTop: 10,
