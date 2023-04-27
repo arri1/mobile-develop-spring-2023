@@ -1,13 +1,15 @@
 import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Lab1 from "../screens/lab1";
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
 
 const Tab = createBottomTabNavigator();
-
 const TabNavigation = () => {
+  const counter = useSelector((state) => state.counter.value);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -32,7 +34,11 @@ const TabNavigation = () => {
         },
       })}
     >
-      <Tab.Screen name="Lab1" component={Lab1} />
+      <Tab.Screen
+        name="Lab1"
+        component={Lab1}
+        options={{ tabBarBadge: counter > 0 ? counter : null }}
+      />
       <Tab.Screen name="Lab2" component={Lab2} />
       <Tab.Screen name="Lab3" component={Lab3} />
     </Tab.Navigator>
