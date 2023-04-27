@@ -1,16 +1,22 @@
 import React, { useState, useMemo } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
+import { counterSlice } from "../store";
 
 export default function lab4() {
   const [counterOne, setCounterOne] = useState(0);
   const [counterTwo, setCounterTwo] = useState(0);
+  
+  const dispatch = useDispatch();
 
   const incrementOne = () => {
     setCounterOne(counterOne + 1);
+    dispatch(counterSlice.actions.increment());
   };
 
   const incrementTwo = () => {
-    setCounterTwo(counterTwo + 1);
+    setCounterTwo(counterTwo - 1);
+    dispatch(counterSlice.actions.decrement());
   };
 
   const reset = () => {
