@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import styles from '../style.js';
 import axios from 'axios';
-import {interpolate, set} from 'react-native-reanimated';
+
 import style from '../style.js';
 
 const sum = n => {
@@ -88,5 +88,3 @@ const task3 = () => {
   );
 };
 export default task3;
-
-

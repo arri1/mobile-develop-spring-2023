@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import {
   SafeAreaView,
   Text,
@@ -11,11 +12,12 @@ import {
 import {TextInput} from 'react-native-gesture-handler';
 import styles from '../style.js';
 const colors = ['red', '#2C98F0'];
-const task2 = () => {
-  const [word, setWord] = useState('Напишите слово');
-  const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
-  const guess = 'QWERTY';
 
+const task2 = () => {
+  const [word, setWord] = useState('Напишите число');
+  const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
+  //const asd = useSelector(state => state.first.first);
+  const guess = useSelector(state => state.word.word);
   useEffect(() => {
     if (word == guess) {
       setBackgroundColorIndex((count = 1));
@@ -39,13 +41,12 @@ const task2 = () => {
           paddingBottom: 20,
           marginTop: 40,
           alignItems: 'center',
-          
         }}>
         <Text style={[styles.defaultText, styles.headerText2]}>{guess}</Text>
         <TextInput
           style={{
             color: 'black',
-            marginTop:20,
+            marginTop: 20,
             fontSize: 20,
             width: 200,
             textAlign: 'center',
