@@ -1,68 +1,61 @@
-import { Text, View, TouchableOpacity, SafeAreaView, Image } from 'react-native'
-import {useState,useMemo, useEffect} from 'react'
-import {styles} from '../compot/Styles'
+import React, { useMemo, useState } from 'react'
+import { View, Text, TouchableOpacity,ImageBackground } from 'react-native'
+import { styles } from '../styles/StylesLab3'
 
-const Lab2 = () => {
+const Memo = () => {
+  const [count, setCount] = useState(0)
 
-    const [count, setCount] = useState(0)
-    const [count2, setCount2] = useState(0)
-
-    //const result = useMemo(() => { return Sum(4 * count + count2);},[count]) 
-    //const result = Sum(4 * count + count2);
-
-    return(
-        <SafeAreaView >
-        <View style={styles.main2}>
-            <View style={{
-                top:250,
-                fontSize: 30
-            }}>
-        <Text style={{
-                top:200,
-                fontSize: 30
-            }}>Количество: {count}</Text>
-        <Text style={{
-                top:200,
-                fontSize: 30
-            }}>+100: {count2}</Text>
-             <View style={styles.container}>
-        <TouchableOpacity style={styles.button2}
-            onPress={() => {
-              setCount(count-1)
-            }}
-          >
-            <Text style={styles.buttonText}>-1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button2}
-            onPress={() => {
-              setCount(count+1)
-            }}
-          >
-            <Text style={styles.buttonText}>+1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button2}
-            onPress={() => {
-              setCount2(count2+100)
-            }}
-          >
-            <Text style={styles.buttonText}>+100</Text>
-          </TouchableOpacity>
-          </View>
-          </View>
-        </View>
-        </SafeAreaView>
-    )
-}
-
-function Sum(num) {
-    console.log("Sum(num);",num);
-    let i=0;
-    if(num<=0){
-        return 0;
-    } else {
-        while(i < 20000000) i++;
+  const ff = useMemo(() => {
+    let result = 0
+    for (let i = 0; i < 100000000; i++) {
+      result += i
     }
-    return num;
+    return result
+  }, [])
+
+  return (
+    <View style={styles.main}>
+      <Text style={styles.text}>Count: {count}{'\n'} ff: {ff}</Text>
+      <TouchableOpacity style={styles.button} onPress={() => setCount(count + 1)}>
+        <Text style={styles.buttontext}>memo</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }
 
-export default Lab2;
+const Nomemo = () => {
+  const [count, setCount] = useState(0)
+
+  const ff = () => {
+    let result = 0
+    for (let i = 0; i < 100000000; i++) {
+      result += i
+    }
+    return result
+  }
+
+  return (
+    <View style={styles.main2}>
+      <Text style={styles.text2}>Count: {count} {'\n'} ff: {ff()}</Text>
+      <TouchableOpacity style={styles.button2} onPress={() => setCount(count + 1)}>
+        <Text style={styles.buttontext}>nomemo</Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+const Lab3 = () => {
+  const image = require('../assets/10.jpg')
+  return (
+    <>
+      <ImageBackground style={{flex:1}} source={image}>
+        <View style={styles.header}/>
+        <Text style={styles.text3}>Lab Three</Text>
+        <Memo />
+        <Nomemo />
+      </ImageBackground>
+    </>
+  )
+}
+
+export default Lab3;

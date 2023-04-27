@@ -1,46 +1,38 @@
-import { Text, View, TouchableOpacity, SafeAreaView, Image } from 'react-native'
-import {useState,useEffect} from 'react'
-import {styles} from '../compot/Styles'
-import { ScrollView } from 'react-native-web'
+import React, { useState, useEffect } from 'react'
+import { View, Image, TouchableOpacity, Text } from 'react-native'
+import {styles} from '../styles/StylesLab2'
 
 const Lab2 = () => {
-    
-    return(
-        <SafeAreaView >
-        <View style={styles.main2}>
-        <View style={{
-        elevation:16,
-        backgroundColor:"orange",
-        height:"60%",
-        borderBottomLeftRadius:0,
-        borderBottomRightRadius:300,
-        paddingHorizontal:20
-      }}>
-        <View style={{
-          flexDirection:"row",
-          alignItems:"center",
-          marginTop:65,
-          with:"100%"
-        }}>
-          <View style={{width:"50%"}}>
-            <Text style={{
-              top:200,
-              fontSize:28,
-              color:"white",
-              fontWeight:"bold"
-            }}>Lab Two</Text>
-          </View>
-          <View style={{width:"50%",alignItems:"flex-end"}}>
-            <Image
-            source={require('../assets/at.png')}
-            style={{left:-50,height:295,width:310}}
-             />
-          </View>
-       </View>
-     </View>
+  const [randomImage, setRandomImage] = useState('https://picsum.photos/300/300')
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const response = await fetch('https://picsum.photos/300/300')
+      setRandomImage(response.url)
+    };
+    fetchImage()
+  }, [])
+
+  const getRandomImage = async () => {
+    const response = await fetch('https://picsum.photos/300/300')
+    setRandomImage(response.url)
+  }
+
+  return (
+    <View style={styles.main}>
+      <View style={styles.header}>
+        <View style={{width:"100%"}}>
+          <Text style={styles.text}>Lab Two</Text>
         </View>
-        </SafeAreaView>
-    )
+      </View>
+
+      {randomImage && <Image source={{ uri: randomImage }} style={styles.image} />}
+      
+      <TouchableOpacity style={styles.button} onPress={getRandomImage}>
+        <Text style={styles.buttontext}>Generate Random Image</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }
 
 export default Lab2;
