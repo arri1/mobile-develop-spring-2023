@@ -37,7 +37,7 @@ const Task2 = (navigation) => {
   return (
     <SafeAreaView
       style={{
-        backgroundColor: "white",
+        backgroundColor: "#DBDBDB",
         justifyContent: "center",
         flex: 1,
       }}
@@ -76,13 +76,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 178,
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#694D4B",
+    borderWidth: 3,
+    borderColor: "#E1B1AD",
   },
   button_text: {
-    color: "white",
+    color: "#E1B1AD",
     fontSize: 20,
   },
   count: {
+    color: "#694D4B",
     fontSize: 30,
     fontWeight: "800",
   },
