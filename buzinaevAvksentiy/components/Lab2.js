@@ -19,13 +19,13 @@ const Lab2 = () => {
     <SafeAreaView style={styles.wrapper}>
       <View>
         <TextInput
-          placeholder="Число"
+          placeholder="Number"
           onChangeText={number => setNumber(parseInt(~~number))}
           keyboardType="numeric"
           style={styles.input}
         />
         <Text style={styles.commonNumber}>
-          Результат: {Math.round(number * 100) / 100}
+          Result: {Math.round(number * 100) / 100}
         </Text>
         <View style={styles.buttonGroup}>
           <TouchableOpacity
@@ -33,7 +33,7 @@ const Lab2 = () => {
             onPress={() => {
               setNumber(Math.sqrt(number));
             }}>
-            <Text style={styles.commonText}> корень </Text>
+            <Text style={styles.commonText}> Root </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -43,7 +43,7 @@ const Lab2 = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#c7fff8',
+    backgroundColor: '#FF9200',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   number: {
+    fontFamily: 'font1',
     fontSize: 60,
     textAlign: 'center',
     width: '100%',
@@ -65,16 +66,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: -50,
     marginLeft: 140,
-    borderRadius: 4,
-    backgroundColor: '#216bff',
+    borderRadius: 50,
+    backgroundColor: '#FFC373',
     width: 120,
     height: 60,
   },
   commonText: {
-    fontSize: 25,
-    fontWeight: 'bold',
+    fontFamily: 'font1',
+    fontSize: 18,
     letterSpacing: 0.25,
-    color: 'white',
+    color: 'black',
   },
   container: {
     flex: 1,
@@ -83,26 +84,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
+    fontFamily: 'font1',
     fontSize: 40,
     color: '#fff',
     marginBottom: 0,
     fontWeight: 'bold',
   },
   input: {
+    fontFamily: 'font1',
     fontSize: 40,
     display: 'flex',
     flexDirection: 'row',
     marginTop: 15,
-    color: '#000',
+    color: 'black',
     alignItems: 'center',
     justifyContent: 'center',
   },
   commonNumber: {
     display: 'flex',
     fontSize: 40,
-    fontWeight: 'bold',
+    fontFamily: 'font1',
     letterSpacing: 0.25,
-    color: '#000',
+    color: 'black',
     marginBottom: 50,
     flexDirection: 'row',
     alignItems: 'center',

@@ -6,16 +6,22 @@ import squareMath from "./assets/squareMath.png";
 import sqrtMath from "./assets/sqrtMath.png";
 import cube from "./assets/cube.png";
 
-import Lab1 from './components/Lab1';
+import Lab1 from './components/lab1';
 import Lab2 from './components/Lab2';
 import Lab3 from './components/Lab3';
+import { Lab6 } from './components/Lab6';
 import { Header } from "react-native/Libraries/NewAppScreen";
 
 const Tab = createBottomTabNavigator();
 
 const Navigate = () => {
     return <NavigationContainer>
-        <Tab.Navigator screenOptions={{headerShown: false}}>
+        <Tab.Navigator screenOptions={{
+            headerShown: false,
+            tabBarShowLabel: false,
+            tabBarActiveBackgroundColor: '#FFAD40',
+            tabBarInactiveBackgroundColor: '#FFC373'
+            }}>
             <Tab.Screen
                 name = "lab1"
                 component={Lab1}
@@ -41,6 +47,16 @@ const Navigate = () => {
                 component={Lab3}
                 options={{
                     tabBarLabel: 'lab3',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image style = {styles.logo} source={cube}/>
+                    )
+                }}
+                />
+            <Tab.Screen
+                name = "lab6"
+                component={Lab6}
+                options={{
+                    tabBarLabel: 'lab6',
                     tabBarIcon: ({ color, size }) => (
                         <Image style = {styles.logo} source={cube}/>
                     )
