@@ -5,9 +5,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import firstTask from "./firstTask";
 import secondTask from "./secondTask";
 import thirdTask from "./thirdTask";
+import FourthTask from "./fourthTask";
 import first from "../assets/first.png";
 import second from "../assets/second.png";
 import third from "../assets/third.png";
+import fourth from "../assets/fourth.png";
 
 const Tab = createBottomTabNavigator();
 
@@ -41,6 +43,13 @@ const TabNavigator = () => {
           component={thirdTask}
           options={{
             tabBarIcon: ({ color, size }) => <Image source={third} />,
+          }}
+        />
+        <Tab.Screen
+          name="FourthTask"
+          component={FourthTask}
+          options={{
+            tabBarIcon: ({ color, size }) => <Image source={fourth} />,
           }}
         />
       </Tab.Navigator>
