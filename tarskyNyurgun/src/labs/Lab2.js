@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Button, FlatList, StyleSheet } from "react-native";
+import { Text, View, Image, Button, FlatList, StyleSheet } from "react-native";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -25,7 +25,13 @@ const Lab2 = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
+      <Image
+        source={{
+          uri: "https://images.vexels.com/media/users/3/182772/isolated/preview/233413fffff56ec1891220f8e964d401-silhouette-cat-cat.png",
+        }}
+        style={styles.image}
+      />
       <Text style={{ fontSize: 36, fontWeight: "bold", textAlign: "center" }}>
         Random stuff
       </Text>
@@ -40,6 +46,12 @@ const Lab2 = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   list: {
     marginTop: 40,
     padding: 10,
@@ -48,6 +60,11 @@ const styles = StyleSheet.create({
   text: {
     marginBottom: 20,
     fontSize: 20,
+  },
+  image: {
+    width: 250,
+    height: 250,
+    alignContent: "center",
   },
 });
 

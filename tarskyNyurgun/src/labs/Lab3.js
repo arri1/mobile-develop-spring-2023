@@ -25,11 +25,12 @@ const Car = (props: CarProps) => {
 };
 
 const Lab3 = ({ navigation }) => {
-  const [facts, setFacts] = useState(0);
+  const [facts, setFacts] = useState([]);
   const randomFacts = useCallback(async () => {
+    for (let i = 0; i < 10000000; i++) {}
     axios
       .get(
-        "https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=200"
+        "https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=10"
       )
       .then((responce) => {
         console.log(responce.data);
@@ -40,11 +41,11 @@ const Lab3 = ({ navigation }) => {
       });
   });
 
-  const randomFacts2 = async () => {
+  const randomFacts2 = () => {
     for (let i = 0; i < 10000000; i++) {}
     axios
       .get(
-        "https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=200"
+        "https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=400"
       )
       .then((responce) => {
         console.log(responce.data);
@@ -56,7 +57,7 @@ const Lab3 = ({ navigation }) => {
   };
 
   useEffect(() => {
-    randomFacts();
+    randomFacts2();
   }, []);
 
   return (
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
 
   title: {
     textAlign: "center",
-    color: "blue",
+    color: "#FF0000",
     fontSize: 20,
     marginTop: 10,
     paddingBottom: 10,
