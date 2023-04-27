@@ -61,7 +61,7 @@ const Lab1 = () => {
   return (
     <SafeAreaView>
       <View style={styles.head}>
-        <Text style={styles.text}>Список товаров</Text>
+        <Text style={styles.text}>Магазин</Text>
       </View>
       <View>
         <View style={{ flexDirection: "row" }}>
