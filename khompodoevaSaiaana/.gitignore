@@ -9,6 +9,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+youtubeAPI.js
+lab63.js
 
 # macOS
 .DS_Store
