@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Image, Text } from 'react-native';
 import youtubeApi from '../youtubeAPI';
+import AppButton from '../components/appButton';
 
-const client = youtubeApi.client;
 
 const Lab6 = () => {
   const [query, setQuery] = useState('');
@@ -18,10 +18,10 @@ const Lab6 = () => {
         <TextInput
           value={query}
           onChangeText={setQuery}
-          placeholder="Search for videos..."
-          style={{ marginBottom: 10 }}
+          placeholder="Search YouTube..."
+          style={{ marginBottom: 10, fontSize: 24 }}
         />
-        <Button title="Search" onPress={handleSearch} />
+        <AppButton title="Search" onPress={handleSearch} />
         <View>
           {videos.map((video) => (
             <View key={video.id.videoId} style={{ marginBottom: 20 }}>
