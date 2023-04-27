@@ -58,7 +58,7 @@ const Lab3 = () => {
         style={{
           backgroundColor: "black",
           padding: 10,
-          borderRadius: 10,
+          borderRadius: 5,
           marginTop: 20,
         }}
       >
