@@ -1,20 +1,19 @@
-import * as React from "react";
+import TabNavigation from "./components/navigations/tabNavigation";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import Lab1 from "./components/screens/lab1.js";
-import Lab2 from "./components/screens/lab2.js";
-
-const Tab = createBottomTabNavigator();
+import { Provider } from "react-redux";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./apollo";
+import store from "./store";
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="LAB 1" component={Lab1} />
-        <Tab.Screen name="LAB 2" component={Lab2} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <TabNavigation />
+        </NavigationContainer>
+      </Provider>
+    </ApolloProvider>
   );
 };
 

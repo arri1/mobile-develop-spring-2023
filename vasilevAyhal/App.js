@@ -1,45 +1,37 @@
-import React, {useState} from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useEffect } from 'react';
+import 'react-native-gesture-handler';
+import { SafeAreaView, StatusBar } from 'react-native';
 
-import Home from './components/Home';
-import Details from './components/Details';
-import { View, SafeAreaView } from 'react-native';
+import MainTab from './components/MainTab'
+import NavigationTheme from './components/style/navigation'
 
-import Like from './assets/like';
+import { Provider } from 'react-redux';
+import store from './components/Redux'
 
-const Tab = createBottomTabNavigator();
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+// Initialize Apollo Client
+const client = new ApolloClient({
+  uri: 'https://countries.trevorblades.com/graphql',
+  cache: new InMemoryCache()
+});
+
 
 const App = () => {
-    const [count, setCount] = useState(0)
-
-    const addBarBadge = () => {
-        setCount(count+1)
-    }
-    const removeBarBadge = () => {
-        if(count != 0) setCount(count-1)
-    }
-
-
+    
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <NavigationContainer>
-                <Tab.Navigator
-                    screenOptions={{
-                        tabBarStyle: { height: '8%' },
-                        tabBarItemStyle: { flexDirection: 'column', justifyContent: 'center' },
-                        tabBarIcon: Like,
-                        tabBarIconStyle: { maxHeight: '50%'},
-                        tabBarBadgeStyle: { maxWidth: 40, height: 'auto', alignItems: 'center', minWidth: 'auto', top: 0 },
-                        tabBarLabelStyle: { margin: 0, fontSize: 20, width: '50%' },
-                    }}
-                >
-                    <Tab.Screen name="Home" children={() => <Home addBarBadge={addBarBadge}/>} options={count != 0 ? { tabBarBadge: count } : ''}/>
-                    <Tab.Screen name="Settings" children={() => <Details removeBarBadge={removeBarBadge}/>} />
-                </Tab.Navigator>
-            </NavigationContainer>
-        </SafeAreaView>
+        <ApolloProvider client={client}>
+            <Provider store={store}>
+                <SafeAreaView style={{ flex: 1, backgroundColor: NavigationTheme.colors.card }}>
+                    <StatusBar
+                        backgroundColor={NavigationTheme.colors.card}
+                        barStyle={NavigationTheme.dark ? 'light-content' : 'dark-content'}
+                        />
+                    <MainTab/>
+                </SafeAreaView>
+            </Provider>
+        </ApolloProvider>
     );
 };
 
-export default App
+export default App;

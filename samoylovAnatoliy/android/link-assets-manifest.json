@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/AlumniSans-Regular.ttf",
+      "sha1": "b9d632205fdf1975e19bc335b5ae65ed94f86e37"
+    },
+    {
+      "path": "assets/fonts/AlumniSans-Thin.ttf",
+      "sha1": "6e435a9ef0bfbaf6da5395d7bae2f1df28425d09"
+    }
+  ]
+}

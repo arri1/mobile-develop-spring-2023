@@ -1,41 +1,54 @@
 import { useState } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { increment } from '../../redux/lab1Slice';
 
-const justify = ['center', 'flex-end', 'flex-start']
+const colors = ["#DDD0C8", "#C8DDDB", "#C8CBDD"];
 
 const Lab1 = () => {
-    const [count, setCount] = useState(0);
-    const [justifyContent, setJustifyContent] = useState(0);
+    const value = useSelector((state) => state.lab1.value);
+
+    const dispatch = useDispatch();
 
     return (
         <SafeAreaView
             id="safe"
             style={{
                 flex: 1,
-                justifyContent: justify[justifyContent]
+                backgroundColor: "white",
+                justifyContent: "center",
             }}>
-            <View style={{ margin: 15 }}>
+            <View style={{ backgroundColor: "white" }}>
                 <View style={{ alignItems: "center" }}>
                     <Text style={{
-                        color: "green",
+                        color: "black",
                         fontSize: 20,
-                        fontWeight: "800"
                     }}>
-                        {count}
+                        {value}
                     </Text>
                 </View>
                 <TouchableOpacity
                     onPress={() => {
-                        setCount(count + 1)
-                        setJustifyContent((justifyContent + 1) % justify.length);
+                        dispatch(increment());
                     }}
                     style={{
                         marginTop: 10,
-                        borderRadius: 10,
-                        height: 40,
-                        backgroundColor: "blue"
+                        borderRadius: 40,
+                        height: 44,
+                        marginLeft: 20,
+                        marginRight: 20,
+                        backgroundColor: colors[value % 3],
+                        alignItems: "center",
+                        justifyContent: "center",
                     }}
-                />
+                >
+                    <Text style={{ 
+                        fontSize: 16,
+                        color: "black"
+                    }}>
+                        Lorem ipsum dolor sit amet
+                    </Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );

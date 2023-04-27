@@ -7,6 +7,8 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { counterSlice } from "../../store";
 
 const getCats = () => {
   const cats = [];
@@ -26,6 +28,8 @@ const Lab1 = () => {
   const cats = getCats();
   const [catIndex, setCatIndex] = useState(0);
 
+  const dispatch = useDispatch();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
@@ -44,6 +48,24 @@ const Lab1 = () => {
       >
         <Text style={styles.text}>See another one!</Text>
       </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonBadge}
+          onPress={() => {
+            dispatch(counterSlice.actions.increment());
+          }}
+        >
+          <Text style={styles.text}>+1</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonBadge}
+          onPress={() => {
+            dispatch(counterSlice.actions.decrement());
+          }}
+        >
+          <Text style={styles.text}>-1</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -68,10 +90,25 @@ const styles = StyleSheet.create({
     height: 375,
   },
   button: {
-    marginTop: 20,
+    width: 230,
+    height: 50,
     padding: 10,
-    backgroundColor: "green",
+    backgroundColor: "#1785e5",
     borderRadius: 10,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginVertical: 30,
+  },
+  buttonBadge: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+    height: 50,
+    backgroundColor: "#1785e5",
+    borderRadius: 50,
+    marginHorizontal: 20,
   },
 });
 
