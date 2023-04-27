@@ -1,7 +1,9 @@
-export const increment = () => ({
-  type: "INCREMENT",
+export const addTask = (task) => ({
+  type: "ADD_TASK",
+  task,
 });
 
-export const decrement = () => ({
-  type: "DECREMENT",
+export const removeTask = (id) => ({
+  type: "REMOVE_TASK",
+  id,
 });

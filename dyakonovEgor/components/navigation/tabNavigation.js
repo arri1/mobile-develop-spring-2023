@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
-import Lab4 from "../screens/lab4"
+import Lab4 from "../screens/lab4";
 
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
@@ -26,7 +26,7 @@ const TabNavigator = () => {
         name="Lab3"
         component={Lab3}
         options={{
-          tabBarLabel: "LAB 3",
+          tabBarLabel: "LAB 2",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="image-multiple"
@@ -43,7 +43,7 @@ const TabNavigator = () => {
           tabBarLabel: "LAB 4",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
-              name="image-multiple"
+              name="abacus"
               color={color}
               size={26}
             />
