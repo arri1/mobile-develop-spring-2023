@@ -10,7 +10,7 @@ const Cat = props => {
   const [isHungry, setIsHungry] = useState(true);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View >
       <Text >
         I {props.name}, and I {isHungry ? 'died' : 'full'}!
       </Text>
