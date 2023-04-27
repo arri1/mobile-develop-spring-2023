@@ -1,31 +1,6 @@
 import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
 import { gql, useQuery } from "@apollo/client";
-
-var styles = StyleSheet.create({
-  header: {
-    color: "white",
-    fontWeight: "bold",
-    display: "flex",
-    alignItems: "center",
-    textAlign: "center",
-    maxWidth: 350,
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  text: {
-    marginTop: 5,
-    fontWeight: "bold",
-    fontStyle: "italic",
-    color: "white",
-    display: "flex",
-    alignItems: "center",
-    textAlign: "center",
-    maxWidth: 250,
-    fontSize: 14,
-  },
-});
-
-const ApolloExample = () => {
+const Lab5 = () => {
   const QUERY = gql`
     query {
       characters(page: 1, filter: { name: "Rick" }) {
@@ -38,7 +13,6 @@ const ApolloExample = () => {
   `;
 
   const { data, loading } = useQuery(QUERY);
-  console.log(data);
   if (loading)
     return (
       <View>
@@ -54,7 +28,7 @@ const ApolloExample = () => {
         backgroundColor: "#1e2140",
       }}
     >
-      <Text style={styles.header}>Список версий Рика из "Рик и Морти":</Text>
+      <Text style={styles.header}>Версии из Rick$Morty":</Text>
       {data.characters.results.map((item) => (
         <Text key={item.id} style={styles.text}>
           {item.name}
@@ -64,4 +38,34 @@ const ApolloExample = () => {
   );
 };
 
-export default ApolloExample;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  item: {
+    backgroundColor: "#fff",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderWidth: 1,
+    borderColor: "#0066CC",
+    borderRadius: 5,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#0066CC",
+  },
+  loadingText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#0066CC",
+    marginBottom: 10,
+  },
+});
+export default Lab5;

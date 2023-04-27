@@ -3,7 +3,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Lab2 from "../screens/lab2";
 import Lab3 from "../screens/lab3";
 import Lab4 from "../screens/lab4";
-import Lab5 from "../screens/bookList";
+import Lab5 from "../screens/lab5";
 
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
