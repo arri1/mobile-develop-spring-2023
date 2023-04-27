@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import TabNavigation from "./components/navigations/tabNavigation";
 
 const App = () => {
-  return <TabNavigation />;
+  return (
+        <NavigationContainer>
+          <TabNavigation />
+        </NavigationContainer>
+  );
 };
+
 
 export default App;
