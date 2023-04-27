@@ -10,8 +10,7 @@ import Lab2 from './screens/lab2'
 import Lab3 from './screens/lab3'
 import Lab5 from './screens/lab5';
 import Lab6 from './screens/lab6';
-import client from './youtubeAPI';
-
+import client from './client';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,7 +49,7 @@ const MyTabs = () => {
         tabBarIcon: () => {
           return (<Image
             style={{ width: 25, height: 25 }}
-            source={{ uri: `https://cdn-icons-png.flaticon.com/512/1383/1383260.png` }}/>);}
+            source={{ uri: `https://cdn-icons-png.flaticon.com/512/2632/2632839.png` }}/>);}
       }}
       />
     </Tab.Navigator>
@@ -63,8 +62,8 @@ const App = () => {
       <Provider store={store}>
         <NavigationContainer>
           <MyTabs/>
-          </NavigationContainer>
-          </Provider>
+        </NavigationContainer>
+      </Provider>
     </ApolloProvider>
   );
 }

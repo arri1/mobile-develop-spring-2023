@@ -1,42 +1,65 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Image, Text } from 'react-native';
-import youtubeApi from '../youtubeAPI';
-import AppButton from '../components/appButton';
+import { ActivityIndicator, Text, View, Image, ScrollView } from "react-native";
+import {
+  useQuery,
+  gql,
+} from "@apollo/client";
 
 
 const Lab6 = () => {
-  const [query, setQuery] = useState('');
-  const [videos, setVideos] = useState([]);
+  const query = gql`
+    query {
+      characters(page: 1, filter: { name: "s" }) {
+        results {
+          id
+          name
+          species
+          gender
+          image
+          status
+          origin {
+            name
+          }
+        }
+      }
+    }
+  `;
 
-  const handleSearch = async () => {
-    const items = await youtubeApi.searchVideos(query);
-    setVideos(items);
-  };
-
-  return (
-      <View style={{ padding: 20 }}>
-        <TextInput
-          value={query}
-          onChangeText={setQuery}
-          placeholder="Search YouTube..."
-          style={{ marginBottom: 10, fontSize: 24 }}
-        />
-        <AppButton title="Search" onPress={handleSearch} />
-        <View>
-          {videos.map((video) => (
-            <View key={video.id.videoId} style={{ marginBottom: 20 }}>
-              <Image
-                source={{ uri: video.snippet.thumbnails.medium.url }}
-                style={{ width: '100%', height: 200 }}
-              />
-              <Text style={{ marginTop: 10, fontWeight: 'bold' }}>
-                {video.snippet.title}
-              </Text>
-            </View>
-          ))}
-        </View>
+  const { data, loading } = useQuery(query);
+  console.log(data);
+  if (loading)
+    return (
+      <View>
+        <ActivityIndicator />
       </View>
-  );
+    );
+
+    return (
+      <ScrollView style={{
+        alignContent: "center",
+        paddingLeft: 20
+      }}>
+        {data.characters.results.map((item) => (
+          <View key={item.id} style={{ marginBottom: 20 }}>
+            <Text style={{ fontSize: 20, padding: 10, marginTop: 20, fontWeight: 'bold' }}>
+              {item.name}
+            </Text>
+            <Text style={{ fontSize: 16, padding: 10 }}>
+              Info: {item.species}, {item.gender}, {item.status}, {item.origin.name}
+            </Text>
+            <Image
+              style={{
+                width: 350,
+                height: 350,
+                resizeMode: 'contain',
+              }}
+              source={{
+                uri: item.image
+              }}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    );
 };
 
 export default Lab6;
