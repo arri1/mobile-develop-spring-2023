@@ -8,6 +8,7 @@ import { Lab1 } from "../labs/Lab1";
 import { Lab2 } from "../labs/Lab2";
 import { Lab3 } from "../labs/Lab3";
 import { Lab4 } from "../labs/Lab4";
+import { Lab5 } from "../labs/Lab5";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +31,8 @@ const Navigator = () => {
               iconName = focused
                 ? "logo-google-playstore"
                 : "logo-google-playstore";
+            } else if (route.name == "Lab5") {
+              iconName = focused ? "hardware-chip" : "hardware-chip-outline";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -44,6 +47,7 @@ const Navigator = () => {
         <Tab.Screen name="Lab2" component={Lab2} />
         <Tab.Screen name="Lab3" component={Lab3} />
         <Tab.Screen name="Lab4" component={Lab4} />
+        <Tab.Screen name="Lab5" component={Lab5} />
       </Tab.Navigator>
     </NavigationContainer>
   );
