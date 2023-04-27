@@ -13,6 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import lab1 from "./components/lab1";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Lab2 from "./components/lab2";
+import Lab3 from "./components/lab3";
 
 function HomeScreen() {
   return (
@@ -20,6 +21,13 @@ function HomeScreen() {
       <Lab2 />
     </View>
   );
+}
+function useMemo(){
+  return (
+    <View>
+      <Lab3 />
+    </View>
+  )
 }
 
 function textmodal() {
@@ -82,6 +90,8 @@ export default function App() {
                 : "ios-information-circle-outline";
             } else if (route.name === "textmodal") {
               iconName = focused ? "ios-list" : "ios-list-outline";
+            } else if (route.name === "useMemo") {
+              iconName = focused ? "ios-list" : "ios-list-outline";
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -91,6 +101,7 @@ export default function App() {
       >
         <Tab.Screen name="home" component={HomeScreen} />
         <Tab.Screen name="textmodal" component={textmodal} />
+        <Tab.Screen name="useMemo" component={Lab3} />
       </Tab.Navigator>
     </NavigationContainer>
   );
