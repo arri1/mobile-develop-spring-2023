@@ -1,7 +1,6 @@
-import ApolloClient from "apollo-boost"
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 
-const client = new ApolloClient({
-  uri: "https://www.googleapis.com/books/v1/volumes",
+export const client = new ApolloClient({
+  uri: "https://rickandmortyapi.com/graphql",
+  cache: new InMemoryCache(),
 });
-
-export default client;
