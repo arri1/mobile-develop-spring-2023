@@ -32,31 +32,32 @@ const Lab5 = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#C3B7B7',
+        justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'column',
-        padding: 50,
-    },
-    title_text: {
-        fontSize: 40,
-        fontWeight: '900',
-        marginBottom: 55,
-    },
-    counter_text: {
-        fontSize: 35,
-        fontWeight: '900',
-        margin: 15,
-    },
-    btn: {
-        backgroundColor: '#086972',
-        padding: 10,
-        margin: 10,
-        borderRadius: 10,
-    },
-    btn_text: {
-        fontSize: 23,
+        backgroundColor: '#fff',
+      },
+      title_text: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
+      },
+      counter_text: {
+        fontSize: 36,
+        marginBottom: 20,
+      },
+      btn: {
+        backgroundColor: '#3f51b5',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+      },
+      btn_text: {
         color: '#fff',
-    },
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+    
 });
 
 export default Lab5;
