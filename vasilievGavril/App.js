@@ -17,41 +17,45 @@ import HomeScreen from "./screens/HomeScreen";
 import GiftScreen from "./screens/GiftScreen";
 import ClickerScreen from "./screens/ClickerScreen";
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 const App = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, size, colour }) => {
-            let iconName;
-            if (route.name === "Home") {
-              iconName = focused ? "ios-home" : "ios-home-outline";
-              size = focused ? size + 8 : size + 5;
-            } else if (route.name === "Gifts") {
-              iconName = focused ? "aperture-sharp" : "aperture-outline";
-              size = focused ? size + 8 : size + 5;
-            } else if (route.name === "Clicker") {
-              iconName = focused
-                ? "ios-paper-plane-sharp"
-                : "ios-paper-plane-outline";
-              size = focused ? size + 8 : size + 5;
-            }
-            return <Ionic name={iconName} size={size} colour={colour} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: "black",
-          inactiveTintColor: "black",
-          showLabel: true,
-
-        }}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Gifts" component={GiftScreen} />
-        <Tab.Screen name="Clicker" component={ClickerScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, size, colour }) => {
+              let iconName;
+              if (route.name === "Home") {
+                iconName = focused ? "ios-home" : "ios-home-outline";
+                size = focused ? size + 8 : size + 5;
+              } else if (route.name === "Gifts") {
+                iconName = focused ? "aperture-sharp" : "aperture-outline";
+                size = focused ? size + 8 : size + 5;
+              } else if (route.name === "Clicker") {
+                iconName = focused
+                  ? "ios-paper-plane-sharp"
+                  : "ios-paper-plane-outline";
+                size = focused ? size + 8 : size + 5;
+              }
+              return <Ionic name={iconName} size={size} colour={colour} />;
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: "black",
+            inactiveTintColor: "black",
+            showLabel: true,
+          }}
+        >
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Gifts" component={GiftScreen} />
+          <Tab.Screen name="Clicker" component={ClickerScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
