@@ -11,7 +11,7 @@ import {
   Alert,
 } from "react-native";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -20,7 +20,7 @@ const ClickerScreen = (props) => {
   const dispatch = useDispatch();
 
   const handleIncrement = () => {
-    dispatch({ type: 'INCREMENT' });
+    dispatch({ type: "INCREMENT" });
   };
 
   return (
