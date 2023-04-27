@@ -1,92 +1,42 @@
-import { gql } from '@apollo/client';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Image, FlatList } from 'react-native';
-import { useQuery } from '@apollo/client';
-import Config from 'react-native-config';
+import { View, TextInput, Button, Image, Text } from 'react-native';
+import youtubeApi from '../youtubeAPI';
 
-const GET_VIDEOS = gql`
-  query GetVideos($query: String!) {
-    search(q: $query, type: video, maxResults: 10, part: snippet) {
-      items {
-        id {
-          videoId
-        }
-        snippet {
-          title
-          thumbnails {
-            medium {
-              url
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+const client = youtubeApi.client;
 
 const Lab6 = () => {
   const [query, setQuery] = useState('');
-  const apiKey = Config.API_KEY;
-  const { loading, error, data } = useQuery(GET_VIDEOS, {
-    variables: { query, apiKey },
-  });
+  const [videos, setVideos] = useState([]);
 
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
-
-  if (error) {
-    return <Text>Error: {error.message}</Text>;
-  }
+  const handleSearch = async () => {
+    const items = await youtubeApi.searchVideos(query);
+    setVideos(items);
+  };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Search videos..."
-        onChangeText={setQuery}
-        value={query}
-      />
-      <FlatList
-        data={data.search.items}
-        keyExtractor={(item) => item.id.videoId}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Image style={styles.thumbnail} source={{ uri: item.snippet.thumbnails.medium.url }} />
-            <Text style={styles.title}>{item.snippet.title}</Text>
-          </View>
-        )}
-      />
-    </View>
+      <View style={{ padding: 20 }}>
+        <TextInput
+          value={query}
+          onChangeText={setQuery}
+          placeholder="Search for videos..."
+          style={{ marginBottom: 10 }}
+        />
+        <Button title="Search" onPress={handleSearch} />
+        <View>
+          {videos.map((video) => (
+            <View key={video.id.videoId} style={{ marginBottom: 20 }}>
+              <Image
+                source={{ uri: video.snippet.thumbnails.medium.url }}
+                style={{ width: '100%', height: 200 }}
+              />
+              <Text style={{ marginTop: 10, fontWeight: 'bold' }}>
+                {video.snippet.title}
+              </Text>
+            </View>
+          ))}
+        </View>
+      </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  thumbnail: {
-    width: 120,
-    height: 90,
-    marginRight: 10,
-  },
-  title: {
-    flex: 1,
-  },
-});
+};
 
 export default Lab6;
