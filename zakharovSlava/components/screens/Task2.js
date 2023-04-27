@@ -4,7 +4,6 @@ import { SafeAreaView, Text, TouchableOpacity, View, StyleSheet, Button } from "
 const Task2 = () => {
 
     const [count, setCount] = useState(0);
-
     useEffect(() => {
         setTimeout(() => {
             setCount((count) => count + 1);
@@ -25,9 +24,7 @@ const Task2 = () => {
                     </Text>
                 </View>
             </View>
-
         </SafeAreaView>
     )
 }
-
 export default Task2
