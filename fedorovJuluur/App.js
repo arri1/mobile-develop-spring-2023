@@ -1,4 +1,4 @@
-import TabNavigation from "./components/tab_navigation";
+import TabNavigation from "./components/tabNavigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "./store";
