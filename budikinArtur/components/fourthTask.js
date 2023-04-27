@@ -7,7 +7,7 @@ import { decrement, increment } from "./redux/reducer";
 
 const FourthTask = () => {
   const dispatch = useDispatch();
-  const counter= useSelector((counter)=>counter.counter.counter)
+  const counter = useSelector((counter) => counter.counter.counter);
   const [fontLoaded] = useFonts({
     Monts: require("../assets/fonts/Montserrat-Medium.ttf"),
   });
@@ -27,10 +27,16 @@ const FourthTask = () => {
     <View style={styles.main}>
       <Text style={styles.number}>{counter}</Text>
       <View style={styles.buttonGroup}>
-        <TouchableOpacity style={styles.commonButton} onPress={()=>dispatch(increment())}>
+        <TouchableOpacity
+          style={styles.commonButton}
+          onPress={() => dispatch(increment())}
+        >
           <Text style={styles.commonText}>+10</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.commonButton} onPress={()=>dispatch(decrement())}>
+        <TouchableOpacity
+          style={styles.commonButton}
+          onPress={() => dispatch(decrement())}
+        >
           <Text style={styles.commonText}>-10</Text>
         </TouchableOpacity>
       </View>
