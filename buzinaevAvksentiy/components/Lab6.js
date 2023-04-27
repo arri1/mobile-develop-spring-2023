@@ -14,8 +14,6 @@ import { setCurrentNumber } from '../bll/reducer';
 export const Lab6 = () => {
   const currentNumber = useSelector((state) => state.app.currentNumber)
   const dispatch = useDispatch()
-  console.log(data)
-  console.log(currentNumber)
   const onPressNumberButton = (number) => {
     dispatch(setCurrentNumber(number))
   }

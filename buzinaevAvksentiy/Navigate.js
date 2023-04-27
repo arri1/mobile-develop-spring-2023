@@ -11,6 +11,9 @@ import Lab2 from './components/Lab2';
 import Lab3 from './components/Lab3';
 import { Lab6 } from './components/Lab6';
 import { Header } from "react-native/Libraries/NewAppScreen";
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import Apollo from './apollo';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -59,6 +62,16 @@ const Navigate = () => {
                     tabBarLabel: 'lab6',
                     tabBarIcon: ({ color, size }) => (
                         <Image style = {styles.logo} source={cube}/>
+                    )
+                }}
+                />
+            <Tab.Screen
+                name = "lab7"
+                component={Apollo}
+                options={{
+                    tabBarLabel: 'Lab7',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image style = {styles.logo} source={sqrtMath}/>
                     )
                 }}
                 />
