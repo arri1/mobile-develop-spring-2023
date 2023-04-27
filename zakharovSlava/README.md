@@ -1,0 +1,1 @@
+ - [Figma design](https://www.figma.com/file/s0GwvtfkQMFcCVWxQ3XY1T/ZakharovSlavaFigma?node-id=0-1&t=7x3f9ve7vEZltrmH-0)
