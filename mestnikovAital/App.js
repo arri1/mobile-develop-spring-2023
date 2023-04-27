@@ -1,20 +1,24 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Lab1 from "./components/Lab1";
-import Lab2 from "./components/Lab2";
-import Lab3 from "./components/Lab3";
-import Lab5 from "./components/Lab5";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Lab6 from "./components/Lab6";
 import { Provider } from "react-redux";
-import { store } from './components/redux/store';
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import store from "./store";
 
+const client = new ApolloClient({
+    uri: "https://rickandmortyapi.com/graphql/",
+    cache: new InMemoryCache(),
+});
 const App = () => {
-    const Tab = createBottomTabNavigator();
-  return (
-          <Provider store={store}>
-              <Lab5 />
-          </Provider>
-  );
-}
+    return (
+            <ApolloProvider client={client}>
+                <Provider store={store}>
+                    <NavigationContainer>
+                        <Lab6 />
+                    </NavigationContainer>
+                </Provider>
+            </ApolloProvider>
+    );
+};
 
 export default App;
