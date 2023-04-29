@@ -3,8 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import lab4 from "./lab4";
-import Lab2 from "./lab2";
+import lab2 from "./lab2";
 import lab1 from "./lab1";
+import apollo from "./apollo";
 
 
 const Tab = createBottomTabNavigator();
@@ -21,23 +22,19 @@ const TabNavigation = () => {
             iconName = focused
               ? "ios-information-circle"
               : "ios-information-circle-outline";
-          } else if (route.name === "Lab2") {
-            iconName = focused
-              ? "ios-information-circle"
-              : "ios-information-circle-outline";
-          } else if (route.name === "Lab3") {
+          } else if (route.name === "lab2") {
             iconName = focused
               ? "ios-information-circle"
               : "ios-information-circle-outline";
           } else if (route.name === "lab4") {
             iconName = focused
-              ? "ios-information-circle"
-              : "ios-information-circle-outline";
-          } else if (route.name === "lab5") {
+              ? "ios-pluscircleo"
+              : "ios-pluscircle";
+          } else if (route.name === "apollo") {
             iconName = focused
               ? "ios-information-circle"
               : "ios-information-circle-outline";
-          }
+          } 
 
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -49,9 +46,9 @@ const TabNavigation = () => {
         component={lab1}
         options={{ tabBarBadge: counter > 0 ? counter : null }}
       />
-      <Tab.Screen name="Lab2" component={Lab2} />
+      <Tab.Screen name="lab2" component={lab2} />
       <Tab.Screen name="lab4" component={lab4} />
-
+      <Tab.Screen name="apollo" component={apollo} />
     </Tab.Navigator>
   );
 };

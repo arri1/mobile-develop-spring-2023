@@ -7,12 +7,12 @@ import {
   StyleSheet,
 } from "react-native";
 
-const Lab2 = () => {
+const lab2 = () => {
   const [backgroundColor, setBackgroundColor] = useState("white");
 
   useEffect(() => {
     StatusBar.setBackgroundColor(backgroundColor);
-  }, [backgroundColor]);
+  }, [styles.backgroundColor]);
 
   const handleColorChange = (color) => {
     setBackgroundColor(color);
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginVertical: 5,
     borderRadius: 1,
-    backgroundColor: "blue",
+    backgroundColor: "#87cefa",
     width: 100,
     height: 80,
   },
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Lab2;
+export default lab2;

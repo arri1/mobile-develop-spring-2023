@@ -36,14 +36,14 @@ const lab4 = () => {
       <Text style={styles.taskText}>{counterOne}</Text>
 
       <TouchableOpacity style={styles.button} onPress={incrementOne}>
-        <Text style={styles.buttonText}>UseMemo</Text>
+        <Text style={styles.buttonText}>Plus</Text>
       </TouchableOpacity>
       <Text style={styles.taskText}>{counterTwo}</Text>
       <TouchableOpacity style={styles.button} onPress={incrementTwo}>
-        <Text style={styles.buttonText}>No UseMemo</Text>
+        <Text style={styles.buttonText}>Minus</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={reset}>
-        <Text style={styles.buttonText}>Clear</Text>
+        <Text style={styles.buttonText}>Reset</Text>
       </TouchableOpacity>
     </View>
   );
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    padding: 30,
   },
   input: {
     borderWidth: 1,
@@ -67,10 +67,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   button: {
-    backgroundColor: "black",
-    padding: 10,
-    borderRadius: 10,
-    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 5,
+    borderRadius: 1,
+    backgroundColor: "#87cefa",
+    width: 100,
+    height: 80,
   },
   buttonText: {
     color: "white",
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   task: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#87cefa",
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
