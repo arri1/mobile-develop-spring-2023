@@ -1,28 +1,27 @@
-import { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment } from '../store/slice/stateSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { add100, remove100 } from '../store/slice/stateSlice'
 
-const Task1 = () => {
+const Task3 = () => {
     const state = useSelector((state) => state.state)
     const dispatch = useDispatch()
 
     const incrementHandle = () => {
-        dispatch(increment())
+        dispatch(add100())
     }
 
     const decrementHandle = () => {
-        dispatch(decrement())
+        dispatch(remove100())
     }
 
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{state}</Text>
             <TouchableOpacity style={styles.button} onPress={incrementHandle}>
-                <Text>Добавить</Text>
+                <Text>+100</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={decrementHandle}>
-                <Text>Отнять</Text>
+                <Text>-100</Text>
             </TouchableOpacity>
         </View>
     )
@@ -48,4 +47,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Task1
+export default Task3
