@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { usersFilter } from '../utils/usersFilter'
 
-const Task2 = () => {
+const Task3 = () => {
     const [users, setUser] = useState([])
+    const visibleUsers = useMemo(() => usersFilter(users), [users])
 
     const getUsers = async () => {
         const res = await fetch(
@@ -18,7 +20,7 @@ const Task2 = () => {
 
     return (
         <View style={styles.container}>
-            {users.map((user) => {
+            {visibleUsers.map((user) => {
                 return (
                     <View style={styles.block} key={user.id}>
                         <Text style={styles.text}>{user.name}</Text>
@@ -45,4 +47,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Task2
+export default Task3

@@ -5,6 +5,7 @@ import Task1 from './pages/Task1'
 import Icon1 from 'react-native-vector-icons/AntDesign'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Task2 from './pages/Task2'
+import Task3 from './pages/Task3'
 
 const Tab = createBottomTabNavigator()
 
@@ -40,6 +41,14 @@ const App = () => {
                                     color={color}
                                 />
                             )
+                        } else if (route.name === 'Task3') {
+                            icon = (
+                                <Icon1
+                                    name="filetext1"
+                                    size={30}
+                                    color={color}
+                                />
+                            )
                         }
                         return icon
                     },
@@ -63,6 +72,11 @@ const App = () => {
                 <Tab.Screen
                     name="Task2"
                     component={Task2}
+                    options={{ headerShown: false }}
+                />
+                <Tab.Screen
+                    name="Task3"
+                    component={Task3}
                     options={{ headerShown: false }}
                 />
             </Tab.Navigator>
